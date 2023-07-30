@@ -7,6 +7,7 @@ import { TextField } from '../../ui/textField'
 type FormValues = {
   email: string
   password: string
+  rememberMe: boolean
 }
 
 export const LoginForm = () => {
@@ -28,7 +29,7 @@ export const LoginForm = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <TextField {...register('email')} label={'email'} />
       <TextField {...register('password')} label={'password'} />
-      <Checkbox checked={value} onValueChange={} />
+      <Checkbox checked={value} onValueChange={onChange} />
       <Button type="submit">Submit</Button>
     </form>
   )
