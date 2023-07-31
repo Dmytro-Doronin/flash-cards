@@ -1,35 +1,44 @@
-import { useController, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
 
 import { Button } from '../../ui/button'
-import { Checkbox } from '../../ui/checkbox'
+import ControlledCheckbox from '../../ui/controlled/Controlled-checkbox.tsx'
 import { TextField } from '../../ui/textField'
 
-type FormValues = {
-  email: string
-  password: string
-  rememberMe: boolean
-}
+import { FormValues } from './login-form-types.ts'
+import { loginSchema } from './login-form-validation.ts'
 
 export const LoginForm = () => {
-  const { register, control, handleSubmit } = useForm<FormValues>()
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: zodResolver(loginSchema),
+  })
 
   const onSubmit = (data: FormValues) => {
     console.log(data)
   }
 
-  const {
-    field: { value, onChange },
-  } = useController({
-    name: 'rememberMe',
-    control,
-    defaultValue: false,
-  })
+  // const {
+  //   field: { value, onChange },
+  // } = useController({
+  //   name: 'rememberMe',
+  //   control,
+  //   defaultValue: false,
+  // })
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <TextField {...register('email')} label={'email'} />
-      <TextField {...register('password')} label={'password'} />
-      <Checkbox checked={value} onValueChange={onChange} />
+      <TextField {...register('email')} label={'email'} errorMessage={errors.email?.message} />
+      <TextField
+        {...register('password')}
+        label={'password'}
+        errorMessage={errors.password?.message}
+      />
+      <ControlledCheckbox name={'rememberMe'} control={control} label={'Remember me'} />
       <Button type="submit">Submit</Button>
     </form>
   )
