@@ -1,11 +1,17 @@
 import './App.css'
 
-import { LoginForm } from './components/auth/login-form/Login-form.tsx'
+import { TabSwitcher } from './components/ui/tabs/TabSwitcher.tsx'
 
 export function App() {
+  const TabSwitchers = [
+    { value: 'tab1', text: 'switcher1', disabled: false },
+    { value: 'tab2', text: 'switcher2', disabled: false },
+    { value: 'tab3', text: 'switcher3', disabled: false },
+  ]
+
   return (
     <div>
-      <LoginForm />
+      <TabSwitcher label={'tab switcher'} tabs={TabSwitchers} />
     </div>
   )
 }
