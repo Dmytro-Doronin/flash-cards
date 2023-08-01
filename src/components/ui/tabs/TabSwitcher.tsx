@@ -16,6 +16,7 @@ type TabSwitcherPropsType = {
   label: string
   tabs: TabsType[]
 }
+//tab
 
 export const TabSwitcher: FC<TabSwitcherPropsType> = ({ tabs, label }) => {
   return (
