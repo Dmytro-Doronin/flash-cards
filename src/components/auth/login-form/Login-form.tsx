@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
 import { Button } from '../../ui/button'
-import ControlledCheckbox from '../../ui/controlled/Controlled-checkbox.tsx'
+import { ControlledCheckbox } from '../../ui/controlled/Controlled-checkbox.tsx'
 import { TextField } from '../../ui/textField'
 
 import { FormValues } from './login-form-types.ts'
