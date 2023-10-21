@@ -2,6 +2,9 @@ import { ComponentProps, ComponentPropsWithoutRef, forwardRef, useState } from '
 
 import { clsx } from 'clsx'
 
+import ClosedEye from '../../../assets/icons/ClosedEye.tsx'
+import Eye from '../../../assets/icons/Eye.tsx'
+
 // import { VisibilityOff, Eye } from '../../../assets/icons'
 import { Typography } from '../typography'
 
@@ -73,7 +76,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               onClick={() => setShowPassword(prev => !prev)}
             >
               {/*{showPassword ? <VisibilityOff /> : <Eye />}*/}
-              {showPassword ? <div>voff</div> : <div>eye</div>}
+              {showPassword ? <ClosedEye /> : <Eye />}
             </button>
           )}
         </div>
