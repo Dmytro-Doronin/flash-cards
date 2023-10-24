@@ -5,7 +5,21 @@ import { RadioGroup, RadioGroupProps } from '../radioGroup/RadioGroupComponent.t
 export type ControlledRadioGroupProps<T extends FieldValues> = UseControllerProps<T> &
   Omit<RadioGroupProps, 'value' | 'onChange'>
 
+export const ControlledRadioGroup = <T extends FieldValues>(
+  props: ControlledRadioGroupProps<T>
+) => {
+  const {
+    field: { onChange, ...field },
+    fieldState: { error },
+  } = useController({ control: props.control, name: props.name })
 
-export const ControlledRadioGroup = <T extends FieldValues> ({}: ControlledRadioGroupProps<T>) = {
-    
+  return (
+    <RadioGroup
+      {...field}
+      {...props}
+      errorMessage={error?.message}
+      id={props.name}
+      onValueChange={onChange}
+    />
+  )
 }
