@@ -37,7 +37,7 @@ export const LoginForm = () => {
       {/*  label={'password'}*/}
       {/*  errorMessage={errors.password?.message}*/}
       {/*/>*/}
-      <ControlledTextField name={'email'} control={control} label={'Email'} />
+      <ControlledTextField name={'email'} type={'text'} control={control} label={'Email'} />
       <ControlledTextField
         name={'password'}
         control={control}

@@ -1,19 +1,21 @@
 import './App.css'
-import { LoginForm } from './components/auth/login-form/Login-form.tsx'
+// import { LoginForm } from './components/auth/login-form/Login-form.tsx'
+import { RadioGroup } from './components/ui/radioGroup/RadioGroupComponent.tsx'
 
 // import { TabSwitcher } from './components/ui/tabs/TabSwitcher.tsx'
 
 export function App() {
-  // const TabSwitchers = [
-  //   { value: 'tab1', text: 'switcher1', disabled: false },
-  //   { value: 'tab2', text: 'switcher2', disabled: false },
-  //   { value: 'tab3', text: 'switcher3', disabled: false },
-  // ]
+  const Options = [
+    { value: 'tab1', label: 'switcher1' },
+    { value: 'tab2', label: 'switcher2' },
+    { value: 'tab3', label: 'switcher3' },
+  ]
 
   return (
     <div>
       {/*<TabSwitcher label={'tab switcher'} tabs={TabSwitchers} />*/}
-      <LoginForm />
+      {/*<LoginForm />*/}
+      <RadioGroup options={Options} />
     </div>
   )
 }
