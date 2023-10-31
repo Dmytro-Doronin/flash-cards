@@ -1,21 +1,27 @@
 import './App.css'
-import { LoginForm } from './components/auth/login-form/Login-form.tsx'
-// import { RadioGroup } from './components/ui/radioGroup/RadioGroupComponent.tsx'
-
-// import { TabSwitcher } from './components/ui/tabs/TabSwitcher.tsx'
+import { useEffect, useState } from 'react'
 
 export function App() {
-  // const Options = [
-  //   { value: 'tab1', label: 'switcher1' },
-  //   { value: 'tab2', label: 'switcher2' },
-  //   { value: 'tab3', label: 'switcher3' },
-  // ]
+  const [users, setUsers] = useState<any>([])
+  const [currentPage, setCurrentPage] = useState<any>()
+  const [perPage, usePerPage] = useState<any>(10)
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then(res => res.json())
+      .then(res => setUsers(res))
+  }, [])
 
   return (
     <div>
-      {/*<TabSwitcher label={'tab switcher'} tabs={TabSwitchers} />*/}
-      <LoginForm />
-      {/*<RadioGroup options={Options} />*/}
+      {users.map((user): any => (
+        <div
+          style={{ padding: '10px', textAlign: 'left', border: '1px solid white' }}
+          key={user.id}
+        >
+          {user.title}
+        </div>
+      ))}
     </div>
   )
 }
