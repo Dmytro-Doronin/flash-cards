@@ -1,27 +1,40 @@
 import './App.css'
 import { useEffect, useState } from 'react'
 
+import axios from 'axios'
+
+import { Pagination } from './components/ui/pagination/Pagination.tsx'
+import { Users } from './components/Users.tsx'
 export function App() {
-  const [users, setUsers] = useState<any>([])
-  const [currentPage, setCurrentPage] = useState<any>()
-  const [perPage, usePerPage] = useState<any>(10)
+  const [posts, setPosts] = useState<any>([])
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [totalCount, setTotalCount] = useState(0)
+  const [perPage] = useState(12)
 
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(res => res.json())
-      .then(res => setUsers(res))
+    axios
+      .get(`https://jsonplaceholder.typicode.com/posts`, {
+        params: {
+          _limit: perPage,
+          _page: currentPage,
+        },
+      })
+      .then(res => {
+        setPosts(res.data)
+        setTotalCount(res.headers['x-total-count'])
+      })
+  }, [currentPage])
+
+  useEffect(() => {
+    document.addEventListener('scroll', scrollHandler)
   }, [])
+
+  const pages = Math.ceil(totalCount / perPage)
 
   return (
     <div>
-      {users.map((user): any => (
-        <div
-          style={{ padding: '10px', textAlign: 'left', border: '1px solid white' }}
-          key={user.id}
-        >
-          {user.title}
-        </div>
-      ))}
+      <Users currentUsers={posts} />
+      <Pagination pages={pages} callback={setCurrentPage} />
     </div>
   )
 }
