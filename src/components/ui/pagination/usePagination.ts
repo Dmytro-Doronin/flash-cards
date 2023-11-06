@@ -19,7 +19,6 @@ type PaginationRange = (number | '...')[]
 
 export const usePagination = ({ count, siblings = 1, page, onChange }: UsePaginationParamType) => {
   const paginationRange = useMemo(() => {
-
     const totalPageNumbers = siblings + 5
 
     if (totalPageNumbers >= count) {
@@ -29,13 +28,11 @@ export const usePagination = ({ count, siblings = 1, page, onChange }: UsePagina
     const leftSiblingIndex = Math.max(page - siblings, 1)
     const rightSiblingIndex = Math.min(page + siblings, count)
 
-
     const shouldShowLeftDots = leftSiblingIndex > 2
     const shouldShowRightDots = rightSiblingIndex < count - 2
 
     const firstPageIndex = 1
     const lastPageIndex = count
-
 
     if (!shouldShowLeftDots && shouldShowRightDots) {
       let leftItemCount = 3 + 2 * siblings
@@ -44,14 +41,12 @@ export const usePagination = ({ count, siblings = 1, page, onChange }: UsePagina
       return [...leftRange, DOTS, count]
     }
 
-
     if (shouldShowLeftDots && !shouldShowRightDots) {
       let rightItemCount = 3 + 2 * siblings
       let rightRange = range(count - rightItemCount + 1, count)
 
       return [firstPageIndex, DOTS, ...rightRange]
     }
-
 
     if (shouldShowLeftDots && shouldShowRightDots) {
       let middleRange = range(leftSiblingIndex, rightSiblingIndex)

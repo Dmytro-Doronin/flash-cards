@@ -2,10 +2,12 @@ import { FC } from 'react'
 
 import { clsx } from 'clsx'
 
-import KeyboardArrowLeft from '../../../assets/icons/KeyboardArrowLeft.tsx'
-import KeyboardArrowRight from '../../../assets/icons/KeyboardArrowRight.tsx'
+import { PerPageSelect } from '../PerPageSelect/PerPageSelect.tsx'
 
+import { MainPaginationButtons } from './MainPaginationButton.tsx'
+import { NextButton } from './NextButton.tsx'
 import s from './pagination.module.scss'
+import { PrevButton } from './PrevButton.tsx'
 import { usePagination } from './usePagination'
 
 type PaginationConditionals =
@@ -30,7 +32,7 @@ export type PaginationProps = {
   siblings?: number
 } & PaginationConditionals
 
-const classNames = {
+export const classNames = {
   container: s.container,
   dots: s.dots,
   icon: s.icon,
@@ -41,6 +43,11 @@ const classNames = {
   root: s.root,
   select: s.select,
   selectBox: s.selectBox,
+}
+
+export type NavigationButtonProps = {
+  disabled?: boolean
+  onClick: () => void
 }
 
 export const Pagination: FC<PaginationProps> = ({
@@ -91,105 +98,6 @@ export const Pagination: FC<PaginationProps> = ({
           }}
         />
       )}
-    </div>
-  )
-}
-
-type NavigationButtonProps = {
-  disabled?: boolean
-  onClick: () => void
-}
-
-type PageButtonProps = NavigationButtonProps & {
-  page: number
-  selected: boolean
-}
-
-const Dots: FC = () => {
-  return <span className={classNames.dots}>&#8230;</span>
-}
-const PageButton: FC<PageButtonProps> = ({ disabled, onClick, page, selected }) => {
-  return (
-    <button
-      className={classNames.pageButton(selected)}
-      disabled={selected || disabled}
-      onClick={onClick}
-    >
-      {page}
-    </button>
-  )
-}
-const PrevButton: FC<NavigationButtonProps> = ({ disabled, onClick }) => {
-  return (
-    <button className={classNames.item} disabled={disabled} onClick={onClick}>
-      <KeyboardArrowLeft className={classNames.icon} />
-    </button>
-  )
-}
-
-const NextButton: FC<NavigationButtonProps> = ({ disabled, onClick }) => {
-  return (
-    <button className={classNames.item} disabled={disabled} onClick={onClick}>
-      <KeyboardArrowRight className={classNames.icon} />
-    </button>
-  )
-}
-
-type MainPaginationButtonsProps = {
-  currentPage: number
-  onClick: (pageNumber: number) => () => void
-  paginationRange: (number | string)[]
-}
-
-const MainPaginationButtons: FC<MainPaginationButtonsProps> = ({
-                                                                 currentPage,
-                                                                 onClick,
-                                                                 paginationRange,
-                                                               }) => {
-  return (
-    <>
-      {paginationRange.map((page: number | string, index) => {
-        const isSelected = page === currentPage
-
-        if (typeof page !== 'number') {
-          return <Dots key={index} />
-        }
-
-        return <PageButton key={index} onClick={onClick(page)} page={page} selected={isSelected} />
-      })}
-    </>
-  )
-}
-
-export type PerPageSelectProps = {
-  onPerPageChange: (itemPerPage: number) => void
-  perPage: number
-  perPageOptions: number[]
-}
-
-export const PerPageSelect: FC<PerPageSelectProps> = (
-  {
-    // perPage,
-    // perPageOptions,
-    // onPerPageChange,
-  }
-) => {
-  // const selectOptions = perPageOptions.map(value => ({
-  //   label: value,
-  //   value,
-  // }))
-
-  return (
-    <div className={classNames.selectBox}>
-      Показать
-      {/*<Select*/}
-      {/*  className={classNames.select}*/}
-      {/*  value={perPage}*/}
-      {/*  options={selectOptions}*/}
-      {/*  onChange={onPerPageChange}*/}
-      {/*  variant="pagination"*/}
-      {/*/>*/}
-      на странице
     </div>
   )
 }
