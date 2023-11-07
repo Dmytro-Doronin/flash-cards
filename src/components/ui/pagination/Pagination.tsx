@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { clsx } from 'clsx'
 
-import { PerPageSelect } from '../PerPageSelect/PerPageSelect.tsx'
+import { PerPageSelect } from '../perPageSelect/PerPageSelect.tsx'
 
 import { MainPaginationButtons } from './MainPaginationButton.tsx'
 import { NextButton } from './NextButton.tsx'
