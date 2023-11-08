@@ -2,7 +2,6 @@ import { FC } from 'react'
 
 import { clsx } from 'clsx'
 
-import { PerPageSelect } from '../perPageSelect/PerPageSelect.tsx'
 
 import { MainPaginationButtons } from './MainPaginationButton.tsx'
 import { NextButton } from './NextButton.tsx'
@@ -10,11 +9,11 @@ import s from './pagination.module.scss'
 import { PrevButton } from './PrevButton.tsx'
 import { usePagination } from './usePagination'
 
-type PaginationConditionals =
+export type PaginationConditionals =
   | {
-      onPerPageChange: (itemPerPage: number) => void
-      perPage: number
-      perPageOptions: number[]
+      onPerPageChange: (itemPerPage: string) => void
+      perPage: string
+      perPageOptions: { label: string; value: string }[]
     }
   | {
       onPerPageChange?: never
@@ -25,10 +24,7 @@ type PaginationConditionals =
 export type PaginationProps = {
   count: number
   onChange: (page: number) => void
-  onPerPageChange?: (itemPerPage: number) => void
   page: number
-  perPage?: number
-  perPageOptions?: number[]
   siblings?: number
 } & PaginationConditionals
 
@@ -53,10 +49,7 @@ export type NavigationButtonProps = {
 export const Pagination: FC<PaginationProps> = ({
   count,
   onChange,
-  onPerPageChange,
   page,
-  perPage = null,
-  perPageOptions,
   siblings,
 }) => {
   const {
@@ -73,8 +66,6 @@ export const Pagination: FC<PaginationProps> = ({
     siblings,
   })
 
-  const showPerPageSelect = !!perPage && !!perPageOptions && !!onPerPageChange
-
   return (
     <div className={classNames.root}>
       <div className={classNames.container}>
@@ -89,15 +80,6 @@ export const Pagination: FC<PaginationProps> = ({
         <NextButton disabled={isLastPage} onClick={handleNextPageClicked} />
       </div>
 
-      {showPerPageSelect && (
-        <PerPageSelect
-          {...{
-            onPerPageChange,
-            perPage,
-            perPageOptions,
-          }}
-        />
-      )}
     </div>
   )
 }
