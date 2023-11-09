@@ -1,9 +1,10 @@
-
-import  * as React from 'react'
+import * as React from 'react'
 
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons'
 import * as Select from '@radix-ui/react-select'
 import { clsx } from 'clsx'
+
+import { Typography } from '../typography'
 
 import s from './select.module.scss'
 
@@ -21,6 +22,8 @@ const SelectItem = React.forwardRef<
   )
 })
 
+export type variantType = 'pagination' | 'simple'
+
 export type Options = {
   label: string
   value: string
@@ -34,14 +37,16 @@ export type SelectComponentType = Omit<
   perPageForSelect: string
   perPageOptions: Options[]
   errorMessage?: string
+  variant: variantType
 }
 
 export const SelectComponent: React.FC<SelectComponentType> = props => {
-  const { errorMessage, perPageOptions, perPageForSelect, ...restProps } = props
+  const { errorMessage, perPageOptions, perPageForSelect, variant, ...restProps } = props
+  const triggerClasses = clsx(s.SelectTrigger, s[variant])
 
   return (
     <Select.Root {...restProps}>
-      <Select.Trigger className={s.SelectTrigger}>
+      <Select.Trigger className={triggerClasses}>
         <Select.Value defaultValue={perPageForSelect} placeholder={perPageForSelect} />
         <Select.Icon className={s.SelectIcon}>
           <ChevronDownIcon />
@@ -57,7 +62,7 @@ export const SelectComponent: React.FC<SelectComponentType> = props => {
               {perPageOptions.map(item => {
                 return (
                   <SelectItem key={item.label} value={item.value}>
-                    {item.label}
+                    <Typography variant={'body1'}>{item.label}</Typography>
                   </SelectItem>
                 )
               })}

@@ -20,6 +20,7 @@ export function App() {
         onPerPageChange={setPerPage}
         perPage={perPage}
         perPageOptions={perPageOptions}
+        variant={'pagination'}
       />
     </div>
   )
