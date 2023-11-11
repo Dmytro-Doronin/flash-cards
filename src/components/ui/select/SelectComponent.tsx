@@ -33,21 +33,26 @@ export type SelectComponentType = Omit<
   React.ComponentPropsWithoutRef<typeof Select.Root>,
   'children'
 > & {
-  onPerPageChange: (itemPerPage: string) => void
-  perPageForSelect: string
-  perPageOptions: Options[]
-  errorMessage?: string
+  // onPerPageChange: (itemPerPage: string) => void
+  // perPageForSelect: string
+  // perPageOptions: Options[]
+  // errorMessage?: string
+  // variant: variantType
+  onChange: (item: string) => void
+  defaultValue: string
+  options: Options[]
   variant: variantType
+  errorMessage?: string
 }
 
 export const SelectComponent: React.FC<SelectComponentType> = props => {
-  const { errorMessage, perPageOptions, perPageForSelect, variant, ...restProps } = props
+  const { errorMessage, options, defaultValue, onChange, variant, ...restProps } = props
   const triggerClasses = clsx(s.SelectTrigger, s[variant])
 
   return (
-    <Select.Root {...restProps}>
+    <Select.Root onValueChange={onChange} {...restProps}>
       <Select.Trigger className={triggerClasses}>
-        <Select.Value defaultValue={perPageForSelect} placeholder={perPageForSelect} />
+        <Select.Value defaultValue={defaultValue} placeholder={defaultValue} />
         <Select.Icon className={s.SelectIcon}>
           <ChevronDownIcon />
         </Select.Icon>
@@ -58,11 +63,13 @@ export const SelectComponent: React.FC<SelectComponentType> = props => {
             <ChevronUpIcon />
           </Select.ScrollUpButton>
           <Select.Viewport className={s.SelectViewport}>
-            <Select.Group>
-              {perPageOptions.map(item => {
+            <Select.Group className={s.SelectGroup}>
+              {options.map(item => {
                 return (
                   <SelectItem key={item.label} value={item.value}>
-                    <Typography variant={'body1'}>{item.label}</Typography>
+                    <Typography className={s.selectTypography} variant={'body1'}>
+                      {item.label}
+                    </Typography>
                   </SelectItem>
                 )
               })}

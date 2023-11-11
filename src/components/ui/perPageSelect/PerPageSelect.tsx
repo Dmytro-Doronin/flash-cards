@@ -20,9 +20,9 @@ export const PerPageSelect: FC<PerPageSelectProps> = ({
     <div className={classNames.selectBox}>
       Показать
       <SelectComponent
-        perPageForSelect={perPage}
-        perPageOptions={perPageOptions}
-        onPerPageChange={onPerPageChange}
+        defaultValue={perPage}
+        options={perPageOptions}
+        onChange={onPerPageChange}
         variant={variant}
         // onChange={onPerPageChange}
       />
