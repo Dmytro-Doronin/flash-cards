@@ -1,0 +1,22 @@
+.profileMenu {
+  position: relative;
+  width: 217px;
+  height: 147px;
+  border-radius: 4px;
+  border: 1px solid var(--color-dark-300);
+  background-color: var(--color-dark-500);
+  margin-top: 19px;
+}
+
+.triangleMenu {
+  position: absolute;
+  right: 10px;
+  top: -8px;
+
+  width: 0;
+  height: 0;
+  border: 0 solid transparent;
+  border-right-width: 8px;
+  border-left-width: 8px;
+  border-bottom: 8px solid var(--color-dark-500);
+}
