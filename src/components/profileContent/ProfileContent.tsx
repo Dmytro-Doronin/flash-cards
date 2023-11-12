@@ -1,21 +1,24 @@
-import { useState } from 'react'
+import { useRef, useState } from "react";
 
 import avatar from '../../assets/images/IMG_0390.jpg'
 import { ProfileAvatar } from '../profileAvatar/ProfileAvatar.tsx'
-import { ProfileMenu } from '../profileMenu/ProfileMenu.tsx'
+import { ProfileTooltip } from '../profileTooltip/ProfileTooltip.tsx'
 
 import c from './profileContent.module.scss'
 
 export const ProfileContent = () => {
+  const tooltipRef = useRef(null)
   const [isVisible, setIsVisible] = useState<boolean>(false)
-  const sayHi = () => {
-    setIsVisible(isVisible => !isVisible)
+
+  const changeTooltipVisible = () => {
+    setIsVisible(false)
   }
 
+  
   return (
-    <div className={c.profileContent}>
-      <ProfileAvatar image={avatar} callback={sayHi} />
-      <ProfileMenu isVisible={isVisible} />
+    <div ref={tooltipRef} className={c.profileContent}>
+      <ProfileAvatar image={avatar} callback={setIsVisible} />
+      <ProfileTooltip refka={tooltipRef} isVisible={isVisible} isInformation={true} callback={changeTooltipVisible} />
     </div>
   )
 }
