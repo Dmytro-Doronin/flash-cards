@@ -1,11 +1,20 @@
 .profileMenu {
-  position: relative;
+  position: absolute;
+  top: 150%;
   width: 217px;
   height: 147px;
+  padding: 11px;
+  overflow: hidden;
   border-radius: 4px;
   border: 1px solid var(--color-dark-300);
   background-color: var(--color-dark-500);
-  margin-top: 19px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}
+
+.visible {
+  overflow: visible;
+  opacity: 1;
 }
 
 .triangleMenu {
@@ -19,4 +28,17 @@
   border-right-width: 8px;
   border-left-width: 8px;
   border-bottom: 8px solid var(--color-dark-500);
+}
+
+.infoBlock {
+  display: flex;
+  align-items: center;
+}
+
+.textBlock {
+  margin-left: 10px;
+}
+
+.email {
+  color: var(--color-dark-100);
 }
