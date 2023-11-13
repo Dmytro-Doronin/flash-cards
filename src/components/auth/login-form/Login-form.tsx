@@ -8,6 +8,7 @@ import { ControlledCheckbox, ControlledTextField } from '../../ui/controlled'
 import { FormValues } from './login-form-types.ts'
 import { loginSchema } from './login-form-validation.ts'
 import c from './loginForm.module.scss'
+import { Typography } from "../../ui/typography";
 
 export const LoginForm = () => {
   const {
@@ -31,23 +32,29 @@ export const LoginForm = () => {
   // })
 
   return (
-    <form className={c.loginForm} onSubmit={handleSubmit(onSubmit)}>
-      {/*<TextField {...register('email')} label={'email'} errorMessage={errors.email?.message} />*/}
-      {/*<TextField*/}
-      {/*  {...register('password')}*/}
-      {/*  label={'password'}*/}
-      {/*  errorMessage={errors.password?.message}*/}
-      {/*/>*/}
-      <ControlledTextField name={'email'} type={'text'} control={control} label={'Email'} />
-      <ControlledTextField
-        name={'password'}
-        control={control}
-        type={'password'}
-        label={'Password'}
-      />
-      <ControlledCheckbox name={'rememberMe'} control={control} label={'Remember me'} />
-
-      <Button type="submit">Submit</Button>
-    </form>
+    <div className={c.formWrapper}>
+      <form className={c.loginForm} onSubmit={handleSubmit(onSubmit)}>
+        {/*<TextField {...register('email')} label={'email'} errorMessage={errors.email?.message} />*/}
+        {/*<TextField*/}
+        {/*  {...register('password')}*/}
+        {/*  label={'password'}*/}
+        {/*  errorMessage={errors.password?.message}*/}
+        {/*/>*/}
+        <div className={c.inputGroup}>
+          <Typography variant={'h1'}>Sign In</Typography>
+          <ControlledTextField name={'email'} type={'text'} control={control} label={'Email'} />
+          <ControlledTextField
+            name={'password'}
+            control={control}
+            type={'password'}
+            label={'Password'}
+          />
+        </div>
+        <ControlledCheckbox name={'rememberMe'} control={control} label={'Remember me'} />
+        <Button fullWidth type="submit">
+          Submit
+        </Button>
+      </form>
+    </div>
   )
 }

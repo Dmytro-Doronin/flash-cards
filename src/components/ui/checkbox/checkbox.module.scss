@@ -1,6 +1,7 @@
 .container {
   display: flex;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 .label {
@@ -63,9 +64,9 @@
 
   &:hover:not(.disabled),
   &:hover .root:not([data-state='checked']) {
-    background-color: var(--color-light-900);
+    background-color: var(--color-dark-500);
   }
-
+  
   &:active:not(.disabled) {
     background-color: var(white);
   }

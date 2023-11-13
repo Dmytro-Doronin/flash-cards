@@ -1,5 +1,7 @@
+// import { ProfileContent } from '../profileContent/ProfileContent.tsx'
+
 import c from '../../App.module.scss'
-import { ProfileContent } from '../profileContent/ProfileContent.tsx'
+import { Button } from '../ui/button'
 
 import s from './header.module.scss'
 
@@ -8,7 +10,10 @@ export const Header = () => {
     <header className={s.header}>
       <div className={c.container}>
         <div className={s.headerInner}>
-          <ProfileContent />
+          {/*<ProfileContent />*/}
+          <Button>
+            <a href="#">Sign Out</a>
+          </Button>
         </div>
       </div>
     </header>

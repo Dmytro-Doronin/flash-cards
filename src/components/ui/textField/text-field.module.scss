@@ -5,6 +5,7 @@
 .fieldContainer {
   position: relative;
   width: 100%;
+  margin-bottom: 20px;
 }
 
 .field {
@@ -45,6 +46,7 @@
 .label {
   margin-bottom: 1px;
   color: var(--color-dark-100);
+
 }
 
 .showPassword {
