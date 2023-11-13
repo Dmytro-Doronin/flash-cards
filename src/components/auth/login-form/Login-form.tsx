@@ -7,6 +7,7 @@ import { ControlledCheckbox, ControlledTextField } from '../../ui/controlled'
 
 import { FormValues } from './login-form-types.ts'
 import { loginSchema } from './login-form-validation.ts'
+import c from './loginForm.module.scss'
 
 export const LoginForm = () => {
   const {
@@ -30,7 +31,7 @@ export const LoginForm = () => {
   // })
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className={c.loginForm} onSubmit={handleSubmit(onSubmit)}>
       {/*<TextField {...register('email')} label={'email'} errorMessage={errors.email?.message} />*/}
       {/*<TextField*/}
       {/*  {...register('password')}*/}
