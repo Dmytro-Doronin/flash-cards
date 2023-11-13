@@ -4,7 +4,7 @@ import c from './profileAvatar.module.scss'
 
 export type ProfileAvatarType = {
   image: string
-  callback?: (v: any) => void
+  callback?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const ProfileAvatar: FC<ProfileAvatarType> = ({ image, callback }) => {
@@ -13,7 +13,7 @@ export const ProfileAvatar: FC<ProfileAvatarType> = ({ image, callback }) => {
       className={c.profileAvatarWrapper}
       onClick={() => {
         if (callback) {
-          callback((v: any) => !v)
+          callback(v => !v)
         }
       }}
     >

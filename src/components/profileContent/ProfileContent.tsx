@@ -1,8 +1,8 @@
-import { useRef, useState } from "react";
+import { useRef, useState } from 'react'
 
 import avatar from '../../assets/images/IMG_0390.jpg'
 import { ProfileAvatar } from '../profileAvatar/ProfileAvatar.tsx'
-import { ProfileTooltip } from '../profileTooltip/ProfileTooltip.tsx'
+import { Tooltip } from '../tooltip/Tooltip.tsx'
 
 import c from './profileContent.module.scss'
 
@@ -14,11 +14,15 @@ export const ProfileContent = () => {
     setIsVisible(false)
   }
 
-  
   return (
     <div ref={tooltipRef} className={c.profileContent}>
       <ProfileAvatar image={avatar} callback={setIsVisible} />
-      <ProfileTooltip refka={tooltipRef} isVisible={isVisible} isInformation={true} callback={changeTooltipVisible} />
+      <Tooltip
+        tooltipRef={tooltipRef}
+        isVisible={isVisible}
+        isInformation={true}
+        callback={changeTooltipVisible}
+      />
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import { FC, useRef } from 'react'
+import { FC } from 'react'
 
 import { clsx } from 'clsx'
 
@@ -8,25 +8,27 @@ import { useOutsideClick } from '../../hooks/useOutsideClick.tsx'
 import { ProfileInfo } from '../profileInfo/ProfileInfo.tsx'
 import { Typography } from '../ui/typography'
 
-import c from './profileMenu.module.scss'
+import c from './toolltip.module.scss'
 
 type ProfileMenuType = {
   isVisible: boolean
   isInformation: boolean
   callback: () => void
-  refka: any
+  tooltipRef: React.MutableRefObject<null>
 }
 
-export const ProfileTooltip: FC<ProfileMenuType> = ({ isVisible, isInformation, callback, refka }) => {
-
-
-  // const tooltipRef = useRef(null)
+export const Tooltip: FC<ProfileMenuType> = ({
+  isVisible,
+  isInformation,
+  callback,
+  tooltipRef,
+}) => {
   const styles = {
     wrapper: isVisible ? clsx(c.profileMenu, c.visible) : c.profileMenu,
     listItem: isInformation ? c.listItem : clsx(c.listItem, c.lisWithoutInfo),
   }
 
-  useOutsideClick(refka, callback, isVisible)
+  useOutsideClick(tooltipRef, callback, isVisible)
 
   const name = 'Dima'
   const email = 'asdffa@asd.com'

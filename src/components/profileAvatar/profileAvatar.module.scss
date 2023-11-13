@@ -3,6 +3,12 @@
   height: 36px;
   border-radius: 50px;
   cursor: pointer;
+
+  transition: box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    box-shadow: -1px 1px 11px 5px var(--color-dark-100);
+  }
 }
 
 .profileAvatar {
