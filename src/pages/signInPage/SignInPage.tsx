@@ -2,7 +2,7 @@ import { LoginForm } from '../../components/auth/loginForm/LoginForm.tsx'
 
 import c from './signIn.module.scss'
 
-export const SignIn = () => {
+export const SignInPage = () => {
   return (
     <div className={c.signIn}>
       <LoginForm />

@@ -25,7 +25,7 @@ export const RegistrationForm = () => {
     <div className={c.formWrapper}>
       <form className={c.loginForm} onSubmit={handleSubmit(onSubmit)}>
         <div className={c.inputGroup}>
-          <Typography variant={'h1'}>Sign In</Typography>
+          <Typography variant={'h1'}>Sign Up</Typography>
           <ControlledTextField name={'email'} type={'text'} control={control} label={'Email'} />
           <ControlledTextField
             name={'password'}
@@ -37,7 +37,7 @@ export const RegistrationForm = () => {
             name={'password2'}
             control={control}
             type={'password'}
-            label={'Password'}
+            label={'Repeat your password'}
           />
         </div>
         <Button fullWidth type="submit">

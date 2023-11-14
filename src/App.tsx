@@ -1,12 +1,13 @@
 import './App.module.scss'
 import { Header } from './components/header/Header.tsx'
-import { SignIn } from './pages/signInPage/SignIn.tsx'
-
+import { SignUpPage } from './pages/signUpPage/SignUpPage.tsx'
+import { Loader } from "./components/loader/Loader.tsx";
 export function App() {
   return (
     <div>
       <Header />
-      <SignIn />
+      <SignUpPage />
+      <Loader/>
     </div>
   )
 }
