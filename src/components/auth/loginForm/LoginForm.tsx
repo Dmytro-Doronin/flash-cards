@@ -3,12 +3,11 @@ import { useForm } from 'react-hook-form'
 
 import { Button } from '../../ui/button'
 import { ControlledCheckbox, ControlledTextField } from '../../ui/controlled'
-// import { TextField } from '../../ui/textField'
+import { Typography } from '../../ui/typography'
 
-import { FormValues } from './login-form-types.ts'
-import { loginSchema } from './login-form-validation.ts'
 import c from './loginForm.module.scss'
-import { Typography } from "../../ui/typography";
+import { loginSchema } from './loginForm.validation.ts'
+import { FormValues } from './loginFormTypes.ts'
 
 export const LoginForm = () => {
   const {
@@ -23,23 +22,9 @@ export const LoginForm = () => {
     console.log(data)
   }
 
-  // const {
-  //   field: { value, onChange },
-  // } = useController({
-  //   name: 'rememberMe',
-  //   control,
-  //   defaultValue: false,
-  // })
-
   return (
     <div className={c.formWrapper}>
       <form className={c.loginForm} onSubmit={handleSubmit(onSubmit)}>
-        {/*<TextField {...register('email')} label={'email'} errorMessage={errors.email?.message} />*/}
-        {/*<TextField*/}
-        {/*  {...register('password')}*/}
-        {/*  label={'password'}*/}
-        {/*  errorMessage={errors.password?.message}*/}
-        {/*/>*/}
         <div className={c.inputGroup}>
           <Typography variant={'h1'}>Sign In</Typography>
           <ControlledTextField name={'email'} type={'text'} control={control} label={'Email'} />

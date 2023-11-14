@@ -1,4 +1,4 @@
-import { LoginForm } from '../../components/auth/login-form/Login-form.tsx'
+import { LoginForm } from '../../components/auth/loginForm/LoginForm.tsx'
 
 import c from './signIn.module.scss'
 

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { LoginForm } from './Login-form.tsx'
+import { LoginForm } from './LoginForm.tsx'
 
 const meta = {
   title: 'Auth/LoginForm',
