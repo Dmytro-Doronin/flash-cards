@@ -1,10 +1,15 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
+import { privetRoutesArray } from './privateRoutesArray.tsx'
+import { PrivateRoutes } from './PrivetRoutes.tsx'
+import { publicRoutesArray } from './publicRoutesArray.tsx'
+
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <div>Hi</div>,
+    element: <PrivateRoutes />,
+    children: privetRoutesArray,
   },
+  ...publicRoutesArray,
 ])
 
 export const Router = () => {
