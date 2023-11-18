@@ -1,0 +1,31 @@
+@mixin form {
+  position: relative;
+
+  //transform: translate(-50%, -50%);
+  background-color: var(--color-dark-900);
+  padding: 20px;
+  min-width: 430px;
+
+  //transform: translateY(-20%);
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    top: -0.1px;
+    right: -0.1px;
+    bottom: -0.1px;
+    left: -0.1px;
+    background: linear-gradient(45deg,
+            var(--color-accent-500),
+            var(--color-info-500));
+    background-size: 500%;
+    z-index: -1;
+    animation: amimate 30s ease infinite;
+  }
+
+  &:after {
+    filter: blur(5px);
+  }
+
+}

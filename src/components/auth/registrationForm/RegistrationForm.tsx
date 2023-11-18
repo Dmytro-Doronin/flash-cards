@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form'
 import { Button } from '../../ui/button'
 import { ControlledTextField } from '../../ui/controlled'
 import { Typography } from '../../ui/typography'
-import c from '../loginForm/loginForm.module.scss'
 
+import c from './registrationForm.module.scss'
 import { registrationSchema } from './registrationForm.validation.ts'
 import { RegistrationFormValues } from './registrationFormTypes.ts'
 export const RegistrationForm = () => {
@@ -23,7 +23,7 @@ export const RegistrationForm = () => {
 
   return (
     <div className={c.formWrapper}>
-      <form className={c.loginForm} onSubmit={handleSubmit(onSubmit)}>
+      <form className={c.registrationForm} onSubmit={handleSubmit(onSubmit)}>
         <div className={c.inputGroup}>
           <Typography variant={'h1'}>Sign Up</Typography>
           <ControlledTextField name={'email'} type={'text'} control={control} label={'Email'} />
@@ -40,9 +40,15 @@ export const RegistrationForm = () => {
             label={'Repeat your password'}
           />
         </div>
-        <Button fullWidth type="submit">
+        <Button className={c.button} fullWidth type="submit">
           Submit
         </Button>
+        <Typography className={c.question} variant="body2">
+          Already have an account?
+        </Typography>
+        <a className={c.linkSignUp} href="#/">
+          <Typography variant="body2">Sign In</Typography>
+        </a>
       </form>
     </div>
   )

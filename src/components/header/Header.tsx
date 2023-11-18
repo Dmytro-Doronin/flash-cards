@@ -12,7 +12,7 @@ export const Header = () => {
         <div className={s.headerInner}>
           {/*<ProfileContent />*/}
           <Button>
-            <a style={{ textDecoration: 'none' }} href="#">
+            <a style={{ textDecoration: 'none', color: 'white'}} href="#">
               Sign Up
             </a>
           </Button>
