@@ -1,7 +1,11 @@
+import { FC } from 'react'
+
 import { zodResolver } from '@hookform/resolvers/zod'
+import { clsx } from 'clsx'
 import { useForm } from 'react-hook-form'
 
 import { Button } from '../../ui/button'
+import { Card } from '../../ui/card'
 import { ControlledCheckbox, ControlledTextField } from '../../ui/controlled'
 import { Typography } from '../../ui/typography'
 
@@ -9,7 +13,15 @@ import c from './loginForm.module.scss'
 import { loginSchema } from './loginForm.validation.ts'
 import { FormValues } from './loginFormTypes.ts'
 
-export const LoginForm = () => {
+type LoginFormType = {
+  className?: string
+}
+
+export const LoginForm: FC<LoginFormType> = ({ className }) => {
+  const styles = {
+    formWrapper: clsx(c.formWrapper, className),
+  }
+
   const {
     control,
     handleSubmit,
@@ -23,16 +35,11 @@ export const LoginForm = () => {
   }
 
   return (
-    <div className={c.formWrapper}>
+    <Card className={styles.formWrapper}>
       <form className={c.loginForm} onSubmit={handleSubmit(onSubmit)}>
         <div className={c.inputGroup}>
           <Typography variant={'h1'}>Sign In</Typography>
-          <ControlledTextField
-            name={'email'}
-            type={'text'}
-            control={control}
-            label={'Email'}
-          />
+          <ControlledTextField name={'email'} type={'text'} control={control} label={'Email'} />
           <ControlledTextField
             name={'password'}
             control={control}
@@ -56,6 +63,6 @@ export const LoginForm = () => {
           <Typography variant="body2">Sign Up</Typography>
         </a>
       </form>
-    </div>
+    </Card>
   )
 }

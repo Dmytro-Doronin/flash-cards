@@ -18,4 +18,3 @@ export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) 
   )
 }
 
-export default Button

@@ -1,27 +1,8 @@
-@import '../../../styles/_mixins.scss';
-
-
-.formWrapper {
- @include form;
-}
 
 .registrationForm {
   display: flex;
   flex-direction: column;
-  //box-shadow: 0px -1px 10px -2px var(--color-dark-500);
 
-}
-
-@keyframes amimate {
-  0% {
-    background-position: 0 0;
-  }
-  50% {
-    background-position: 300% 0;
-  }
-  100% {
-    background-position: 0 0;
-  }
 }
 
 .inputGroup {
@@ -42,5 +23,9 @@
 }
 
 .linkSignUp {
+  text-align: center;
+}
+
+.textAlignCenter {
   text-align: center;
 }

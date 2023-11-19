@@ -2,12 +2,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
 import { Button } from '../../ui/button'
+import { Card } from '../../ui/card'
 import { ControlledTextField } from '../../ui/controlled'
 import { Typography } from '../../ui/typography'
 
 import c from './registrationForm.module.scss'
 import { registrationSchema } from './registrationForm.validation.ts'
 import { RegistrationFormValues } from './registrationFormTypes.ts'
+
 export const RegistrationForm = () => {
   const {
     control,
@@ -22,7 +24,7 @@ export const RegistrationForm = () => {
   }
 
   return (
-    <div className={c.formWrapper}>
+    <Card className={c.formWrapper}>
       <form className={c.registrationForm} onSubmit={handleSubmit(onSubmit)}>
         <div className={c.inputGroup}>
           <Typography variant={'h1'}>Sign Up</Typography>
@@ -46,10 +48,12 @@ export const RegistrationForm = () => {
         <Typography className={c.question} variant="body2">
           Already have an account?
         </Typography>
-        <a className={c.linkSignUp} href="#/">
-          <Typography variant="body2">Sign In</Typography>
-        </a>
+        <div className={c.textAlignCenter}>
+          <Button variant="link" as="a" className={c.linkSignUp} href="#/">
+            <Typography variant="body2">Sign In</Typography>
+          </Button>
+        </div>
       </form>
-    </div>
+    </Card>
   )
 }
