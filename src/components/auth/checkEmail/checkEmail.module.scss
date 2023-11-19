@@ -1,0 +1,22 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.typographyClass {
+  color: var(--color-light-900);
+  opacity: 50%;
+}
+
+.textAlignCenter {
+  text-align: center;
+}
+
+.marginBottom20px {
+  margin-bottom: 20px;
+}
+
+.marginBottom60px {
+  margin-bottom: 60px;
+}
