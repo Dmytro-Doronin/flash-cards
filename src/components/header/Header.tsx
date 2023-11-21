@@ -1,4 +1,4 @@
-// import { ProfileContent } from '../profileContent/ProfileContent.tsx'
+// import { TooltipWrapper } from '../tooltipWrapper/TooltipWrapper.tsx'
 
 import c from '../../App.module.scss'
 import { Button } from '../ui/button'
@@ -10,7 +10,7 @@ export const Header = () => {
     <header className={s.header}>
       <div className={c.container}>
         <div className={s.headerInner}>
-          {/*<ProfileContent />*/}
+          {/*<TooltipWrapper />*/}
           <Button>
             <a style={{ textDecoration: 'none', color: 'white'}} href="#">
               Sign Up

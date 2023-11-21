@@ -20,7 +20,9 @@
 
 .card {
   position: relative;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   //transform: translate(-50%, -50%);
   background-color: var(--color-dark-700);
   padding: 33px 36px 25px 36px;

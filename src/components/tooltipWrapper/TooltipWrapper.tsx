@@ -4,9 +4,9 @@ import avatar from '../../assets/images/IMG_0390.jpg'
 import { ProfileAvatar } from '../profileAvatar/ProfileAvatar.tsx'
 import { Tooltip } from '../tooltip/Tooltip.tsx'
 
-import c from './profileContent.module.scss'
+import c from './tooltipWrapper.module.scss'
 
-export const ProfileContent = () => {
+export const TooltipWrapper = () => {
   const tooltipRef = useRef(null)
   const [isVisible, setIsVisible] = useState<boolean>(false)
 
