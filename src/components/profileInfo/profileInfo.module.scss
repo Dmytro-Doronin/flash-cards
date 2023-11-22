@@ -4,6 +4,10 @@
   margin-bottom: 12px;
 }
 
+.infoBlock.profile {
+  flex-direction: column;
+}
+
 .textBlock {
   margin-left: 10px;
 }
@@ -11,4 +15,3 @@
 .email {
   color: var(--color-dark-100);
 }
-

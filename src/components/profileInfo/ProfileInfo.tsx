@@ -17,9 +17,8 @@ type ProfileInfoType = {
 }
 
 export const ProfileInfo: FC<ProfileInfoType> = ({ name, email, variant }) => {
-
   const classes = {
-    infoBlock: clsx(variant === 'profile')
+    infoBlock: clsx(variant === 'profile' ? `${c.infoBlock} ${c.profile}` : c.infoBlock),
   }
 
   return (
