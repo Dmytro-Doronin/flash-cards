@@ -22,7 +22,7 @@ export const ProfileInfo: FC<ProfileInfoType> = ({ name, email, variant }) => {
   }
 
   return (
-    <div className={c.infoBlock}>
+    <div className={classes.infoBlock}>
       <ProfileAvatar variant={variant} image={avatar} />
       <div className={c.textBlock}>
         <Typography variant={'body1'}>{name}</Typography>
