@@ -21,6 +21,7 @@ export const ProfileInfo: FC<ProfileInfoType> = ({ name, email, variant }) => {
     infoBlock: clsx(variant === 'profile' ? `${c.infoBlock} ${c.profile}` : c.infoBlock),
   }
 
+  //add clases
   return (
     <div className={classes.infoBlock}>
       <ProfileAvatar variant={variant} image={avatar} />
