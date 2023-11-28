@@ -15,7 +15,6 @@ export type ProfileAvatarType = {
 }
 
 export const ProfileAvatar: FC<ProfileAvatarType> = ({ image, callback, variant }) => {
-
   const classes = {
     avatarWrapper: clsx(
       variant === 'profile' ? `${c.profileAvatarWrapper} ${c[variant]}` : c.profileAvatarWrapper

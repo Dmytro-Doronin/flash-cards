@@ -1,7 +1,13 @@
 .infoBlock {
   display: flex;
+  justify-content: center;
   align-items: center;
+  text-align: center;
   margin-bottom: 12px;
+}
+
+.name {
+  margin-bottom: 5px;
 }
 
 .infoBlock.profile {
@@ -14,4 +20,5 @@
 
 .email {
   color: var(--color-dark-100);
+  margin-bottom: 8px;
 }

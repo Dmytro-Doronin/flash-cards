@@ -19,6 +19,7 @@ type ProfileInfoType = {
 export const ProfileInfo: FC<ProfileInfoType> = ({ name, email, variant }) => {
   const classes = {
     infoBlock: clsx(variant === 'profile' ? `${c.infoBlock} ${c.profile}` : c.infoBlock),
+    name: clsx(c.name),
   }
 
   //add clases
@@ -26,7 +27,9 @@ export const ProfileInfo: FC<ProfileInfoType> = ({ name, email, variant }) => {
     <div className={classes.infoBlock}>
       <ProfileAvatar variant={variant} image={avatar} />
       <div className={c.textBlock}>
-        <Typography variant={'body1'}>{name}</Typography>
+        <Typography className={classes.name} variant={'body1'}>
+          {name}
+        </Typography>
         <Typography className={c.email} variant={'caption'}>
           {email}
         </Typography>
