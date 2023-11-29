@@ -12,7 +12,7 @@ export const ProfileCard = () => {
         Personal Information
       </Typography>
       <ProfileInfo variant="profile" name="Dmytro" email="dmytro123@gmail.com" />
-      <Button variant="tertiary">Log out</Button>
+      <Button variant="secondary">Log out</Button>
     </Card>
   )
 }
