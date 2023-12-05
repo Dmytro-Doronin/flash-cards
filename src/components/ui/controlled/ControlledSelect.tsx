@@ -5,6 +5,7 @@ import { SelectComponent, SelectComponentType } from '../select/SelectComponent.
 export type ControlledSelectProps<T extends FieldValues> = UseControllerProps<T> &
   Omit<SelectComponentType, 'value' | 'onChange'>
 
+//gi
 export const ControlledSelect = <T extends FieldValues>(props: ControlledSelectProps<T>) => {
   const {
     field: { onChange, ...field },
