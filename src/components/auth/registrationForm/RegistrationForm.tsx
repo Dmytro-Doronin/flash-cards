@@ -38,6 +38,7 @@ export const RegistrationForm = () => {
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={classes.inputGroup}>
           <Typography variant={'h1'}>Sign Up</Typography>
+          <ControlledTextField name={'name'} type={'text'} control={control} label={'Name'} />
           <ControlledTextField name={'email'} type={'text'} control={control} label={'Email'} />
           <ControlledTextField
             name={'password'}
