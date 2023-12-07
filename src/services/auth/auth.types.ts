@@ -1,5 +1,8 @@
 export type CreateUser = {
-  name: string
-  email: string
+  html?: string
+  name?: string
   password: string
+  email: string
+  subject?: string
+  sendConfirmationEmail?: boolean
 }

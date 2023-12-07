@@ -1,17 +1,23 @@
+import { useEffect } from 'react'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import { clsx } from 'clsx'
 import { useForm } from 'react-hook-form'
 
+import { useSignUpMutation } from '../../../services/auth/auth.service.ts'
 import { Button } from '../../ui/button'
 import { Card } from '../../ui/card'
 import { ControlledTextField } from '../../ui/controlled'
 import { Typography } from '../../ui/typography'
 
 import c from './registrationForm.module.scss'
-import { registrationSchema } from './registrationForm.validation.ts'
+import { registrationWithPasswordConfirmationSchema } from './registrationForm.validation.ts'
 import { RegistrationFormValues } from './registrationFormTypes.ts'
 
 export const RegistrationForm = () => {
+  const [signUp, { error }] = useSignUpMutation()
+
+  console.log(error)
   const classes = {
     card: clsx(c.formWrapper),
     form: clsx(c.registrationForm),
@@ -21,16 +27,27 @@ export const RegistrationForm = () => {
     linkButton: clsx(c.linkSignUp),
   }
 
-  const {
-    control,
-    handleSubmit,
-    // formState: { errors },
-  } = useForm<RegistrationFormValues>({
-    resolver: zodResolver(registrationSchema),
+  const { control, handleSubmit, formState, reset } = useForm<RegistrationFormValues>({
+    defaultValues: {
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
+    mode: 'onSubmit',
+    resolver: zodResolver(registrationWithPasswordConfirmationSchema),
   })
+
+  useEffect(() => {
+    if (formState.isSubmitSuccessful) {
+      reset()
+    }
+  }, [formState, reset])
 
   const onSubmit = (data: RegistrationFormValues) => {
     console.log(data)
+    signUp({ name: data.name, email: data.email, password: data.password }).then(data =>
+      console.log(data)
+    )
   }
 
   return (
@@ -47,7 +64,7 @@ export const RegistrationForm = () => {
             label={'Password'}
           />
           <ControlledTextField
-            name={'password2'}
+            name={'confirmPassword'}
             control={control}
             type={'password'}
             label={'Repeat your password'}
