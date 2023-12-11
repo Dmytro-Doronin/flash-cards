@@ -1,13 +1,11 @@
-import { useEffect } from 'react'
-
 import { zodResolver } from '@hookform/resolvers/zod'
 import { clsx } from 'clsx'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 
 import { useSignUpMutation } from '../../../services/auth/auth.service.ts'
 import { Button } from '../../ui/button'
 import { Card } from '../../ui/card'
-import { ControlledTextField } from '../../ui/controlled'
+import { TextField } from '../../ui/textField'
 import { Typography } from '../../ui/typography'
 
 import c from './registrationForm.module.scss'
@@ -27,27 +25,20 @@ export const RegistrationForm = () => {
     linkButton: clsx(c.linkSignUp),
   }
 
-  const { control, handleSubmit, formState, reset } = useForm<RegistrationFormValues>({
-    defaultValues: {
-      email: '',
-      password: '',
-      confirmPassword: '',
-    },
-    mode: 'onSubmit',
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<RegistrationFormValues>({
     resolver: zodResolver(registrationWithPasswordConfirmationSchema),
   })
 
-  useEffect(() => {
-    if (formState.isSubmitSuccessful) {
-      reset()
-    }
-  }, [formState, reset])
-
   const onSubmit = (data: RegistrationFormValues) => {
-    console.log(data)
     signUp({ name: data.name, email: data.email, password: data.password }).then(data =>
       console.log(data)
     )
+    reset()
   }
 
   return (
@@ -55,20 +46,74 @@ export const RegistrationForm = () => {
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={classes.inputGroup}>
           <Typography variant={'h1'}>Sign Up</Typography>
-          <ControlledTextField name={'name'} type={'text'} control={control} label={'Name'} />
-          <ControlledTextField name={'email'} type={'text'} control={control} label={'Email'} />
-          <ControlledTextField
+          {/*<ControlledTextField name={'name'} type={'text'} control={control} label={'Name'} />*/}
+          <Controller
+            render={({ field }) => (
+              <TextField
+                errorMessage={errors.name?.message}
+                label={'Name'}
+                type={'text'}
+                {...field}
+              />
+            )}
+            name={'name'}
+            control={control}
+            defaultValue=""
+          />
+          <Controller
+            render={({ field }) => (
+              <TextField
+                errorMessage={errors.email?.message}
+                label={'Email'}
+                type={'text'}
+                {...field}
+              />
+            )}
+            name={'email'}
+            control={control}
+            defaultValue=""
+          />
+
+          <Controller
+            render={({ field }) => (
+              <TextField
+                errorMessage={errors.password?.message}
+                label={'Password'}
+                type={'password'}
+                {...field}
+              />
+            )}
             name={'password'}
             control={control}
-            type={'password'}
-            label={'Password'}
+            defaultValue=""
           />
-          <ControlledTextField
+
+          <Controller
+            render={({ field }) => (
+              <TextField
+                errorMessage={errors.confirmPassword?.message}
+                label={'Confirm password'}
+                type={'password'}
+                {...field}
+              />
+            )}
             name={'confirmPassword'}
             control={control}
-            type={'password'}
-            label={'Repeat your password'}
+            defaultValue=""
           />
+          {/*<ControlledTextField name={'email'} type={'text'} control={control} label={'Email'} />*/}
+          {/*<ControlledTextField*/}
+          {/*  name={'password'}*/}
+          {/*  control={control}*/}
+          {/*  type={'password'}*/}
+          {/*  label={'Password'}*/}
+          {/*/>*/}
+          {/*<ControlledTextField*/}
+          {/*  name={'confirmPassword'}*/}
+          {/*  control={control}*/}
+          {/*  type={'password'}*/}
+          {/*  label={'Repeat your password'}*/}
+          {/*/>*/}
         </div>
         <Button className={classes.submitButton} fullWidth type="submit">
           Submit

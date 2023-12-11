@@ -2,11 +2,12 @@ import { FC } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { clsx } from 'clsx'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 
 import { Button } from '../../ui/button'
 import { Card } from '../../ui/card'
-import { ControlledCheckbox, ControlledTextField } from '../../ui/controlled'
+import { ControlledCheckbox } from '../../ui/controlled'
+import { TextField } from '../../ui/textField'
 import { Typography } from '../../ui/typography'
 
 import c from './loginForm.module.scss'
@@ -25,13 +26,15 @@ export const LoginForm: FC<LoginFormType> = ({ className }) => {
   const {
     control,
     handleSubmit,
-    // formState: { errors },
+    formState: { errors },
+    reset,
   } = useForm<FormValues>({
     resolver: zodResolver(loginSchema),
   })
 
   const onSubmit = (data: FormValues) => {
     console.log(data)
+    reset()
   }
 
   return (
@@ -39,12 +42,31 @@ export const LoginForm: FC<LoginFormType> = ({ className }) => {
       <form className={c.loginForm} onSubmit={handleSubmit(onSubmit)}>
         <div className={c.inputGroup}>
           <Typography variant={'h1'}>Sign In</Typography>
-          <ControlledTextField name={'email'} type={'text'} control={control} label={'Email'} />
-          <ControlledTextField
+          <Controller
+            render={({ field }) => (
+              <TextField
+                errorMessage={errors.email?.message}
+                label={'Email'}
+                type={'text'}
+                {...field}
+              />
+            )}
+            name={'email'}
+            control={control}
+            defaultValue=""
+          />
+          <Controller
+            render={({ field }) => (
+              <TextField
+                errorMessage={errors.password?.message}
+                label={'Password'}
+                type={'password'}
+                {...field}
+              />
+            )}
             name={'password'}
             control={control}
-            type={'password'}
-            label={'Password'}
+            defaultValue=""
           />
         </div>
         <ControlledCheckbox name={'rememberMe'} control={control} label={'Remember me'} />
