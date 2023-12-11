@@ -1,6 +1,9 @@
 // import { TooltipWrapper } from '../tooltipWrapper/TooltipWrapper.tsx'
 
+import { NavLink } from 'react-router-dom'
+
 import c from '../../App.module.scss'
+import { pathVariables } from '../../route/pathVariables.ts'
 import { Button } from '../ui/button'
 
 import s from './header.module.scss'
@@ -12,9 +15,9 @@ export const Header = () => {
         <div className={s.headerInner}>
           {/*<TooltipWrapper />*/}
           <Button>
-            <a style={{ textDecoration: 'none', color: 'white'}} href="#">
+            <NavLink to={pathVariables.SIGNUP} style={{ textDecoration: 'none', color: 'white' }}>
               Sign Up
-            </a>
+            </NavLink>
           </Button>
         </div>
       </div>

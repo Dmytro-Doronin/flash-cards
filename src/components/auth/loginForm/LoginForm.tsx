@@ -13,6 +13,8 @@ import { Typography } from '../../ui/typography'
 import c from './loginForm.module.scss'
 import { loginSchema } from './loginForm.validation.ts'
 import { FormValues } from './loginFormTypes.ts'
+import { NavLink } from "react-router-dom";
+import { pathVariables } from "../../../route/pathVariables.ts";
 
 type LoginFormType = {
   className?: string
@@ -81,9 +83,9 @@ export const LoginForm: FC<LoginFormType> = ({ className }) => {
         <div className={c.question}>
           <Typography variant="body2">Don`t have an account?</Typography>
         </div>
-        <a className={c.linkSignUp} href="/#">
+        <NavLink to={pathVariables.SIGNUP} className={c.linkSignUp}>
           <Typography variant="body2">Sign Up</Typography>
-        </a>
+        </NavLink>
       </form>
     </Card>
   )

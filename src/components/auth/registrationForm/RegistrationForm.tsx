@@ -11,6 +11,8 @@ import { Typography } from '../../ui/typography'
 import c from './registrationForm.module.scss'
 import { registrationWithPasswordConfirmationSchema } from './registrationForm.validation.ts'
 import { RegistrationFormValues } from './registrationFormTypes.ts'
+import { NavLink } from "react-router-dom";
+import { pathVariables } from "../../../route/pathVariables.ts";
 
 export const RegistrationForm = () => {
   const [signUp, { error }] = useSignUpMutation()
@@ -122,9 +124,9 @@ export const RegistrationForm = () => {
           Already have an account?
         </Typography>
         <div className={c.textAlignCenter}>
-          <Button variant="link" as="a" className={classes.linkButton} href="#/">
+          <NavLink to={pathVariables.LOGIN} className={classes.linkButton}>
             <Typography variant="body2">Sign In</Typography>
-          </Button>
+          </NavLink>
         </div>
       </form>
     </Card>
