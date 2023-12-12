@@ -3,7 +3,10 @@ import { FC } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { clsx } from 'clsx'
 import { Controller, useForm } from 'react-hook-form'
+import { NavLink } from 'react-router-dom'
 
+import { pathVariables } from '../../../route/pathVariables.ts'
+import { LoginType } from '../../../services/auth/auth.types.ts'
 import { Button } from '../../ui/button'
 import { Card } from '../../ui/card'
 import { ControlledCheckbox } from '../../ui/controlled'
@@ -13,14 +16,13 @@ import { Typography } from '../../ui/typography'
 import c from './loginForm.module.scss'
 import { loginSchema } from './loginForm.validation.ts'
 import { FormValues } from './loginFormTypes.ts'
-import { NavLink } from "react-router-dom";
-import { pathVariables } from "../../../route/pathVariables.ts";
 
 type LoginFormType = {
   className?: string
+  onSubmit: (data: LoginType) => void
 }
 
-export const LoginForm: FC<LoginFormType> = ({ className }) => {
+export const LoginForm: FC<LoginFormType> = ({ className, onSubmit }) => {
   const styles = {
     formWrapper: clsx(c.formWrapper, className),
   }
@@ -34,14 +36,14 @@ export const LoginForm: FC<LoginFormType> = ({ className }) => {
     resolver: zodResolver(loginSchema),
   })
 
-  const onSubmit = (data: FormValues) => {
-    console.log(data)
+  const onSubmitForm = (data: FormValues) => {
+    onSubmit(data)
     reset()
   }
 
   return (
     <Card className={styles.formWrapper}>
-      <form className={c.loginForm} onSubmit={handleSubmit(onSubmit)}>
+      <form className={c.loginForm} onSubmit={handleSubmit(onSubmitForm)}>
         <div className={c.inputGroup}>
           <Typography variant={'h1'}>Sign In</Typography>
           <Controller

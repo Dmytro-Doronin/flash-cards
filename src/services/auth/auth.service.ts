@@ -1,6 +1,6 @@
 import { baseApi } from '../base.service.ts'
 
-import { CreateUser } from './auth.types.ts'
+import { CreateUser, LoginType } from './auth.types.ts'
 
 export const authService = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -11,7 +11,14 @@ export const authService = baseApi.injectEndpoints({
         url: '/v1/auth/sign-up',
       }),
     }),
+    login: builder.mutation<void, LoginType>({
+      query: body => ({
+        body,
+        method: 'POST',
+        url: '/v1/auth/login',
+      }),
+    }),
   }),
 })
 
-export const { useSignUpMutation } = authService
+export const { useSignUpMutation, useLoginMutation } = authService

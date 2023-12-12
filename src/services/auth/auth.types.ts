@@ -6,3 +6,9 @@ export type CreateUser = {
   subject?: string
   sendConfirmationEmail?: boolean
 }
+
+export type LoginType = {
+  email: string
+  password: string
+  rememberMe: boolean
+}
