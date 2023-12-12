@@ -145,11 +145,11 @@ const SvgComponent = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) =
       </linearGradient>
       <linearGradient id="paint10_linear_2_5413" x1="442.731" y1="99.1465" x2="442.765" y2="117.114" gradientUnits="userSpaceOnUse">
         <stop offset="0.00065435" stopColor="white" stopOpacity="0"/>
-        <stop offset="1"/>
+        <stop offset="1" />
       </linearGradient>
       <linearGradient id="paint11_linear_2_5413" x1="144.5" y1="4.89589" x2="279.12" y2="193.6" gradientUnits="userSpaceOnUse">
         <stop offset="0.00065435" stopColor="white" stopOpacity="0"/>
-        <stop offset="1"/>
+        <stop offset="1" />
       </linearGradient>
     </defs>
   </svg>
