@@ -1,4 +1,5 @@
-import { NavLink } from "react-router-dom";
+import { NavLink } from 'react-router-dom'
+
 import Error404img from '../../assets/images/404.png'
 import { Header } from '../../components/header/Header.tsx'
 import { Button } from '../../components/ui/button'
