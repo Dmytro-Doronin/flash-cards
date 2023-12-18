@@ -1,15 +1,17 @@
 // eslint-disable-next-line import/default
 import React, { FC } from 'react'
 
+
 import { clsx } from 'clsx'
 
 import EditIcon from '../../assets/icons/Edit.tsx'
+import AvatarNotFound from '../../assets/images/userImageNotFound.png'
 import { InfoType } from '../profileInfo/ProfileInfo.tsx'
 
 import c from './profileAvatar.module.scss'
 
 export type ProfileAvatarType = {
-  image: string
+  image?: string | null
   callback?: React.Dispatch<React.SetStateAction<boolean>>
   variant: InfoType
 }
@@ -31,7 +33,7 @@ export const ProfileAvatar: FC<ProfileAvatarType> = ({ image, callback, variant 
         }
       }}
     >
-      <img className={c.profileAvatar} src={image} alt="avatar" />
+      <img className={c.profileAvatar} src={image ? image : AvatarNotFound} alt="avatar" />
       {variant === 'profile' ? (
         <div className={classes.editWrapper}>
           <EditIcon />

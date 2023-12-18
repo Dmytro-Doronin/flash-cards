@@ -17,7 +17,7 @@ export type User = {
   avatar: string | null
   id: string
   email: string
-  isEmailVerified: true
+  isEmailVerified: boolean
   name: string
   created: string
   updated: string

@@ -2,7 +2,6 @@ import { FC } from 'react'
 
 import { clsx } from 'clsx'
 
-import avatar from '../../assets/images/IMG_0390.jpg'
 import { ProfileAvatar } from '../profileAvatar/ProfileAvatar.tsx'
 import { Typography } from '../ui/typography'
 
@@ -11,12 +10,13 @@ import c from './profileInfo.module.scss'
 export type InfoType = 'tooltip' | 'profile'
 
 type ProfileInfoType = {
-  name: string
-  email: string
+  name: string | undefined
+  email: string | undefined
   variant: InfoType
+  avatar?: string | null
 }
 
-export const ProfileInfo: FC<ProfileInfoType> = ({ name, email, variant }) => {
+export const ProfileInfo: FC<ProfileInfoType> = ({ name, email, variant, avatar }) => {
   const classes = {
     infoBlock: clsx(variant === 'profile' ? `${c.infoBlock} ${c.profile}` : c.infoBlock),
     name: clsx(c.name),

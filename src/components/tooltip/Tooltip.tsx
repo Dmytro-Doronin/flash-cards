@@ -10,11 +10,15 @@ import { Typography } from '../ui/typography'
 
 import c from './toolltip.module.scss'
 
+
 type ProfileMenuType = {
   isVisible: boolean
   isInformation: boolean
   callback: () => void
   tooltipRef: React.MutableRefObject<null>
+  avatar?: string | null
+  name?: string
+  email?: string
 }
 
 export const Tooltip: FC<ProfileMenuType> = ({
@@ -22,6 +26,9 @@ export const Tooltip: FC<ProfileMenuType> = ({
   isInformation,
   callback,
   tooltipRef,
+  avatar,
+  name,
+  email,
 }) => {
   const styles = {
     wrapper: isVisible ? clsx(c.profileMenu, c.visible) : c.profileMenu,
@@ -30,13 +37,12 @@ export const Tooltip: FC<ProfileMenuType> = ({
 
   useOutsideClick(tooltipRef, callback, isVisible)
 
-  const name = 'Dima'
-  const email = 'asdffa@asd.com'
-
   return (
     <div className={styles.wrapper}>
       <div className={c.triangleMenu}></div>
-      {isInformation ? <ProfileInfo name={name} email={email} /> : null}
+      {isInformation ? (
+        <ProfileInfo variant={'tooltip'} name={name} email={email} avatar={avatar} />
+      ) : null}
       <ul className={c.list}>
         {dataList.map(Item => (
           <li key={Item.id} className={styles.listItem}>
