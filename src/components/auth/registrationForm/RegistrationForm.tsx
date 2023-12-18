@@ -1,7 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { clsx } from 'clsx'
 import { Controller, useForm } from 'react-hook-form'
+import { NavLink } from 'react-router-dom'
 
+import { pathVariables } from '../../../route/pathVariables.ts'
 import { useSignUpMutation } from '../../../services/auth/auth.service.ts'
 import { Button } from '../../ui/button'
 import { Card } from '../../ui/card'
@@ -11,13 +13,10 @@ import { Typography } from '../../ui/typography'
 import c from './registrationForm.module.scss'
 import { registrationWithPasswordConfirmationSchema } from './registrationForm.validation.ts'
 import { RegistrationFormValues } from './registrationFormTypes.ts'
-import { NavLink } from "react-router-dom";
-import { pathVariables } from "../../../route/pathVariables.ts";
 
 export const RegistrationForm = () => {
-  const [signUp, { error }] = useSignUpMutation()
+  const [signUp] = useSignUpMutation()
 
-  console.log(error)
   const classes = {
     card: clsx(c.formWrapper),
     form: clsx(c.registrationForm),

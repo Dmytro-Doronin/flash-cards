@@ -1,16 +1,14 @@
-import { Header } from '../../components/header/Header.tsx'
 import { ProfileCard } from '../../components/profileCard/ProfileCard.tsx'
 import { useMeQuery } from '../../services/auth/auth.service.ts'
 
 import c from './profilePage.module.scss'
 
 export const ProfilePage = () => {
-  const {data, isError } = useMeQuery()
+  const { data } = useMeQuery()
 
   return (
     <div className={c.profilePage}>
-      <Header loggedIn={!isError} />
-      <ProfileCard  />
+      <ProfileCard name={data?.name} email={data?.email} avatar={data?.avatar} />
     </div>
   )
 }

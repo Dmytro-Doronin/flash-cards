@@ -6,18 +6,18 @@ import { Typography } from '../ui/typography'
 import c from './profileCard.module.scss'
 
 type ProfileCardType = {
-  name?: string | null
-  email: string | null
-  avatar: string | null
+  name?: string
+  email?: string
+  avatar?: string | null
 }
 
-export const ProfileCard = () => {
+export const ProfileCard = ({ name, email, avatar }: ProfileCardType) => {
   return (
     <Card>
       <Typography className={c.title} variant="large">
         Personal Information
       </Typography>
-      <ProfileInfo variant="profile" name="Dmytro" email="dmytro123@gmail.com" />
+      <ProfileInfo variant="profile" name={name} email={email} avatar={avatar} />
       <Button variant="secondary">Log out</Button>
     </Card>
   )

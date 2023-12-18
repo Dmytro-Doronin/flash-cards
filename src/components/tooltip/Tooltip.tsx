@@ -1,15 +1,17 @@
 import { FC } from 'react'
 
 import { clsx } from 'clsx'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 import SignOutIcon from '../../assets/icons/SignOut.tsx'
 import { dataList } from '../../common/MenuData.tsx'
 import { useOutsideClick } from '../../hooks/useOutsideClick.tsx'
+import { pathVariables } from '../../route/pathVariables.ts'
+import { useLogOutMutation } from '../../services/auth/auth.service.ts'
 import { ProfileInfo } from '../profileInfo/ProfileInfo.tsx'
 import { Typography } from '../ui/typography'
 
 import c from './toolltip.module.scss'
-
 
 type ProfileMenuType = {
   isVisible: boolean
@@ -30,12 +32,23 @@ export const Tooltip: FC<ProfileMenuType> = ({
   name,
   email,
 }) => {
+  const [logout] = useLogOutMutation()
+  const navigate = useNavigate()
   const styles = {
     wrapper: isVisible ? clsx(c.profileMenu, c.visible) : c.profileMenu,
     listItem: isInformation ? c.listItem : clsx(c.listItem, c.lisWithoutInfo),
   }
 
   useOutsideClick(tooltipRef, callback, isVisible)
+
+  const handleLogOut = async () => {
+    try {
+      await logout()
+      navigate(pathVariables.LOGIN)
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -46,13 +59,13 @@ export const Tooltip: FC<ProfileMenuType> = ({
       <ul className={c.list}>
         {dataList.map(Item => (
           <li key={Item.id} className={styles.listItem}>
-            <a className={c.link} href="#">
+            <NavLink className={c.link} to={Item.path}>
               <Item.icon className={c.icon} />
               <Typography variant={'caption'}>{Item.title}</Typography>
-            </a>
+            </NavLink>
           </li>
         ))}
-        <li className={c.listItem}>
+        <li onClick={handleLogOut} className={c.listItem}>
           <a className={c.link} href="#">
             <SignOutIcon className={c.icon} />
             <Typography variant={'caption'}>Sign Out</Typography>
