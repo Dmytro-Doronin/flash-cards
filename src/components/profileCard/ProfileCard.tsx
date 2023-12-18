@@ -5,6 +5,12 @@ import { Typography } from '../ui/typography'
 
 import c from './profileCard.module.scss'
 
+type ProfileCardType = {
+  name?: string | null
+  email: string | null
+  avatar: string | null
+}
+
 export const ProfileCard = () => {
   return (
     <Card>
