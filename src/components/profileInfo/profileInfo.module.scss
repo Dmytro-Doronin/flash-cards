@@ -6,8 +6,18 @@
   margin-bottom: 12px;
 }
 
+.nameBlock {
+  display: flex;
+  align-items: center;
+
+}
+
 .name {
-  margin-bottom: 5px;
+  //margin-bottom: 5px;
+}
+
+.mr9px {
+  margin-right: 9px;
 }
 
 .infoBlock.profile {
@@ -32,4 +42,8 @@
 .email {
   color: var(--color-dark-100);
   margin-bottom: 8px;
+}
+
+.edit {
+  cursor: pointer;
 }

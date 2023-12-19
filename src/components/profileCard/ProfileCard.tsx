@@ -4,6 +4,7 @@ import { Card } from '../ui/card'
 import { Typography } from '../ui/typography'
 
 import c from './profileCard.module.scss'
+import { useState } from "react";
 
 type ProfileCardType = {
   name?: string
@@ -11,7 +12,16 @@ type ProfileCardType = {
   avatar?: string | null
 }
 
+
+
 export const ProfileCard = ({ name, email, avatar }: ProfileCardType) => {
+
+  const [nameChange, setNameChange] = useState<boolean>(false)
+
+  const openNameChangeHandler = (data: boolean) => {
+    setNameChange(data)
+  }
+
   return (
     <Card>
       <Typography className={c.title} variant="large">

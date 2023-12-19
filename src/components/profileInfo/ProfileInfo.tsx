@@ -2,6 +2,7 @@ import { FC } from 'react'
 
 import { clsx } from 'clsx'
 
+import Edit from '../../assets/icons/Edit.tsx'
 import { ProfileAvatar } from '../profileAvatar/ProfileAvatar.tsx'
 import { Typography } from '../ui/typography'
 
@@ -24,7 +25,9 @@ export const ProfileInfo: FC<ProfileInfoType> = ({ name, email, variant, avatar 
         ? `${c.textBlock} ${c.textBlock_center}`
         : `${c.textBlock} ${c.textBlock_start}`
     ),
-    name: clsx(c.name),
+    name: clsx(variant === 'profile' ? `${c.name} ${c.mr9px}` : c.name),
+    nameBlock: clsx(c.nameBlock),
+    edit: clsx(c.edit),
   }
 
   //add clases
@@ -32,9 +35,13 @@ export const ProfileInfo: FC<ProfileInfoType> = ({ name, email, variant, avatar 
     <div className={classes.infoBlock}>
       <ProfileAvatar variant={variant} image={avatar} />
       <div className={classes.textBlock}>
-        <Typography className={classes.name} variant={'body1'}>
-          {name}
-        </Typography>
+        <div className={classes.nameBlock}>
+          <Typography className={classes.name} variant={'body1'}>
+            {name}
+          </Typography>
+          {variant === 'profile' ? <Edit className={classes.edit} /> : null}
+        </div>
+
         <Typography className={c.email} variant={'caption'}>
           {email}
         </Typography>
