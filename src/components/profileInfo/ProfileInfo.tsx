@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC} from "react";
 
 import { clsx } from 'clsx'
 
@@ -15,9 +15,18 @@ type ProfileInfoType = {
   email: string | undefined
   variant: InfoType
   avatar?: string | null
+  openNameChangeHandler?: (e: any) => void
+  nameChange?: boolean
 }
 
-export const ProfileInfo: FC<ProfileInfoType> = ({ name, email, variant, avatar }) => {
+export const ProfileInfo: FC<ProfileInfoType> = ({
+  name,
+  email,
+  variant,
+  avatar,
+  openNameChangeHandler,
+  nameChange,
+}) => {
   const classes = {
     infoBlock: clsx(variant === 'profile' ? `${c.infoBlock} ${c.profile}` : c.infoBlock),
     textBlock: clsx(
@@ -39,7 +48,12 @@ export const ProfileInfo: FC<ProfileInfoType> = ({ name, email, variant, avatar 
           <Typography className={classes.name} variant={'body1'}>
             {name}
           </Typography>
-          {variant === 'profile' ? <Edit className={classes.edit} /> : null}
+          {variant === 'profile' && !nameChange ? (
+            <Edit
+              className={classes.edit}
+              onClick={e => (openNameChangeHandler ? openNameChangeHandler(e) : null)}
+            />
+          ) : null}
         </div>
 
         <Typography className={c.email} variant={'caption'}>
