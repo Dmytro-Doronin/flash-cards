@@ -9,7 +9,6 @@
 .nameBlock {
   display: flex;
   align-items: center;
-
 }
 
 .name {
@@ -46,4 +45,8 @@
 
 .edit {
   cursor: pointer;
+}
+
+.textField {
+  width: 100%;
 }

@@ -1,13 +1,14 @@
-import { useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from 'react'
 
+import { useOutsideClick } from '../../hooks/useOutsideClick.tsx'
+import { ProfileAvatar } from '../profileAvatar/ProfileAvatar.tsx'
 import { ProfileInfo } from '../profileInfo/ProfileInfo.tsx'
 import { Button } from '../ui/button'
 import { Card } from '../ui/card'
+import { TextField } from '../ui/textField'
 import { Typography } from '../ui/typography'
 
 import c from './profileCard.module.scss'
-import { useOutsideClick } from "../../hooks/useOutsideClick.tsx";
-
 
 type ProfileCardType = {
   name?: string
@@ -18,7 +19,7 @@ type ProfileCardType = {
 export const ProfileCard = ({ name, email, avatar }: ProfileCardType) => {
   const [nameChange, setNameChange] = useState<boolean>(false)
   const componentRef = useRef<HTMLDivElement | null>(null)
-
+  const [currentName, setCurrentName] = useState<string | undefined>(name)
   const openNameChangeHandler = (e: any) => {
     e.stopPropagation()
     console.log('open')
@@ -30,6 +31,10 @@ export const ProfileCard = ({ name, email, avatar }: ProfileCardType) => {
     setNameChange(false)
   }
 
+  const setCurrentNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setCurrentName(e.target.value)
+  }
+
   useOutsideClick(componentRef, closeNameChangeHandler, nameChange)
 
   return (
@@ -37,22 +42,28 @@ export const ProfileCard = ({ name, email, avatar }: ProfileCardType) => {
       <Typography className={c.title} variant="large">
         Personal Information
       </Typography>
-      <ProfileInfo
-        variant="profile"
-        openNameChangeHandler={openNameChangeHandler}
-        name={name}
-        email={email}
-        avatar={avatar}
-        nameChange={nameChange}
-      />
       {nameChange ? (
-        <Button fullWidth variant="primary">
-          Save Changes
-        </Button>
+        <div className={c.inputBlock}>
+          <ProfileAvatar variant={'profile'} image={avatar} />
+          <TextField label={'Nickmame'} value={currentName} onChange={setCurrentNameHandler} />
+          <Button fullWidth variant="primary">
+            Save Changes
+          </Button>
+        </div>
       ) : (
-        <Button onClick={() => setNameChange(true)} variant="secondary">
-          Log out
-        </Button>
+        <>
+          <ProfileInfo
+            variant="profile"
+            openNameChangeHandler={openNameChangeHandler}
+            name={name}
+            email={email}
+            avatar={avatar}
+            nameChange={nameChange}
+          />
+          <Button onClick={() => setNameChange(true)} variant="secondary">
+            Log out
+          </Button>
+        </>
       )}
     </Card>
   )
