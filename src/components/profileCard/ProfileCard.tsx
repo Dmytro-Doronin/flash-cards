@@ -1,14 +1,16 @@
-import { ChangeEvent, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { useOutsideClick } from '../../hooks/useOutsideClick.tsx'
-import { ProfileAvatar } from '../profileAvatar/ProfileAvatar.tsx'
 import { ProfileInfo } from '../profileInfo/ProfileInfo.tsx'
 import { Button } from '../ui/button'
 import { Card } from '../ui/card'
-import { TextField } from '../ui/textField'
 import { Typography } from '../ui/typography'
 
 import c from './profileCard.module.scss'
+import { ChangeNameForm } from "../changeNameForm/ChangeNameForm.tsx";
+import { useLogOutMutation } from "../../services/auth/auth.service.ts";
+import { pathVariables } from "../../route/pathVariables.ts";
+import { useNavigate } from "react-router-dom";
 
 type ProfileCardType = {
   name?: string
@@ -17,10 +19,21 @@ type ProfileCardType = {
 }
 
 export const ProfileCard = ({ name, email, avatar }: ProfileCardType) => {
+  const [logout] = useLogOutMutation()
   const [nameChange, setNameChange] = useState<boolean>(false)
   const componentRef = useRef<HTMLDivElement | null>(null)
-  const [currentName, setCurrentName] = useState<string | undefined>(name)
-  const openNameChangeHandler = (e: any) => {
+  const navigate = useNavigate()
+
+  const handleLogOut = async () => {
+    try {
+      await logout()
+      navigate(pathVariables.LOGIN)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const openNameChangeHandler = (e: MouseEvent) => {
     e.stopPropagation()
     console.log('open')
     setNameChange(true)
@@ -31,10 +44,6 @@ export const ProfileCard = ({ name, email, avatar }: ProfileCardType) => {
     setNameChange(false)
   }
 
-  const setCurrentNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setCurrentName(e.target.value)
-  }
-
   useOutsideClick(componentRef, closeNameChangeHandler, nameChange)
 
   return (
@@ -43,13 +52,7 @@ export const ProfileCard = ({ name, email, avatar }: ProfileCardType) => {
         Personal Information
       </Typography>
       {nameChange ? (
-        <div className={c.inputBlock}>
-          <ProfileAvatar variant={'profile'} image={avatar} />
-          <TextField label={'Nickmame'} value={currentName} onChange={setCurrentNameHandler} />
-          <Button fullWidth variant="primary">
-            Save Changes
-          </Button>
-        </div>
+          <ChangeNameForm nameChange={nameChange} closeNameChangeHandler={closeNameChangeHandler} avatar={avatar} currentName={name}/>
       ) : (
         <>
           <ProfileInfo
@@ -60,7 +63,7 @@ export const ProfileCard = ({ name, email, avatar }: ProfileCardType) => {
             avatar={avatar}
             nameChange={nameChange}
           />
-          <Button onClick={() => setNameChange(true)} variant="secondary">
+          <Button onClick={handleLogOut} variant="secondary">
             Log out
           </Button>
         </>

@@ -17,7 +17,11 @@ export const TooltipWrapper = () => {
 
   return (
     <div ref={tooltipRef} className={c.profileContent}>
-      <ProfileAvatar variant={'tooltip'} image={data?.avatar} callback={setIsVisible} />
+      <div className={c.headerProfileBlock}>
+        <span className={c.name}>{data?.name}</span>
+        <ProfileAvatar variant={'tooltip'} image={data?.avatar} callback={setIsVisible} />
+      </div>
+
       <Tooltip
         tooltipRef={tooltipRef}
         isVisible={isVisible}

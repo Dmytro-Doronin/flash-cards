@@ -7,7 +7,7 @@ import s from './card.module.scss'
 type CardType = {
   className?: string
   children: ReactNode
-  componentRef: React.MutableRefObject<HTMLDivElement | null>
+  componentRef?: React.MutableRefObject<HTMLDivElement | null>
 }
 
 export const Card: FC<CardType> = ({ className, componentRef, ...children }) => {

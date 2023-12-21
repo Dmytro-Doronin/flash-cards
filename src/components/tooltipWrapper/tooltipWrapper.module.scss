@@ -5,3 +5,15 @@
   justify-content: end;
   align-items: end;
 }
+
+.name {
+  //text-decoration: underline;
+  margin-right: 14px;
+  border-bottom: 1px dashed white;
+}
+
+.headerProfileBlock {
+  display: flex;
+  align-items: center;
+
+}
