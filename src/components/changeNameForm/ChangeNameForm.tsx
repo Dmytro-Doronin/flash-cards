@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, useForm } from 'react-hook-form'
 
+import { profileType } from '../../services/profileService/profileService.types.ts'
 import { ProfileAvatar } from '../profileAvatar/ProfileAvatar.tsx'
 import { Button } from '../ui/button'
 import { TextField } from '../ui/textField'
@@ -14,6 +15,8 @@ type ChangeNameFormType = {
   currentName?: string
   closeNameChangeHandler: () => void
   nameChange: boolean
+  changeUserDataHandler: ({ avatar, name, email }: profileType) => Promise<void>
+  isLoading: boolean
 }
 
 export const ChangeNameForm = ({
@@ -21,6 +24,8 @@ export const ChangeNameForm = ({
   currentName,
   closeNameChangeHandler,
   nameChange,
+  changeUserDataHandler,
+  isLoading,
 }: ChangeNameFormType) => {
   const {
     control,
@@ -30,9 +35,14 @@ export const ChangeNameForm = ({
     resolver: zodResolver(changeNameFormSchema),
   })
 
-  const onSubmitForm = (data: FormValues) => {
-    console.log(data)
-    closeNameChangeHandler()
+  const onSubmitForm = async (data: FormValues) => {
+    try {
+      await changeUserDataHandler({ name: data.name })
+    } catch (e) {
+      console.log(e)
+    } finally {
+      closeNameChangeHandler()
+    }
   }
 
   return (
@@ -51,7 +61,7 @@ export const ChangeNameForm = ({
         control={control}
         defaultValue={currentName}
       />
-      <Button fullWidth variant="primary" type={'submit'}>
+      <Button disabled={isLoading} fullWidth variant="primary" type={'submit'}>
         Save Changes
       </Button>
     </form>

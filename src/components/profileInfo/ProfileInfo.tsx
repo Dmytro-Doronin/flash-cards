@@ -3,6 +3,7 @@ import { FC } from 'react'
 import { clsx } from 'clsx'
 
 import Edit from '../../assets/icons/Edit.tsx'
+import { profileType } from '../../services/profileService/profileService.types.ts'
 import { ProfileAvatar } from '../profileAvatar/ProfileAvatar.tsx'
 import { Typography } from '../ui/typography'
 
@@ -17,6 +18,7 @@ type ProfileInfoType = {
   avatar?: string | null
   openNameChangeHandler?: (e: any) => void
   nameChange?: boolean
+  changeUserDataHandler?: ({ avatar, name, email }: profileType) => Promise<void>
 }
 
 export const ProfileInfo: FC<ProfileInfoType> = ({
@@ -26,6 +28,7 @@ export const ProfileInfo: FC<ProfileInfoType> = ({
   avatar,
   openNameChangeHandler,
   nameChange,
+  changeUserDataHandler,
 }) => {
   const classes = {
     infoBlock: clsx(variant === 'profile' ? `${c.infoBlock} ${c.profile}` : c.infoBlock),
@@ -43,7 +46,11 @@ export const ProfileInfo: FC<ProfileInfoType> = ({
   //add clases
   return (
     <div className={classes.infoBlock}>
-      <ProfileAvatar variant={variant} image={avatar} />
+      <ProfileAvatar
+        changeUserDataHandler={changeUserDataHandler}
+        variant={variant}
+        image={avatar}
+      />
       <div className={classes.textBlock}>
         <div className={classes.nameBlock}>
           <Typography className={classes.name} variant={'body1'}>

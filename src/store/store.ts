@@ -7,11 +7,8 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
 import { baseApi } from '../services/base.service.ts'
 
-import { userReducer } from './reducers/userReducer/userReducer.ts'
-
 
 const rootReducer = combineReducers({
-  user: userReducer,
   [baseApi.reducerPath]: baseApi.reducer,
 })
 
