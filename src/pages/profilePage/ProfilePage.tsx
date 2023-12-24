@@ -6,6 +6,7 @@ import c from './profilePage.module.scss'
 export const ProfilePage = () => {
   const { data } = useMeQuery()
 
+  // cr
   return (
     <div className={c.profilePage}>
       <ProfileCard name={data?.name} email={data?.email} avatar={data?.avatar} />
