@@ -1,22 +1,19 @@
 import { baseApi } from '../base.service.ts'
 
-import { profileType } from './profileService.types.ts'
+// import { profileType } from './profileService.types.ts'
 
 export const profileService = baseApi.injectEndpoints({
   endpoints: builder => ({
-    userUpdate: builder.mutation<void, void>({
-      invalidatesTags: ['me'],
+    avatarUpdate: builder.mutation<any, FormData>({
       query: body => ({
         body,
         method: 'PATCH',
         url: '/v1/auth/me',
-        headers: {
-          'Content-Type': 'multipart/form-data;',
-        },
         formData: true,
       }),
+      invalidatesTags: ['me'],
     }),
   }),
 })
 
-export const { useUserUpdateMutation } = profileService
+export const { useAvatarUpdateMutation } = profileService

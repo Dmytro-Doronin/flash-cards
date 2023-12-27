@@ -8,6 +8,7 @@ import { dataList } from '../../common/MenuData.tsx'
 import { useOutsideClick } from '../../hooks/useOutsideClick.tsx'
 import { pathVariables } from '../../route/pathVariables.ts'
 import { useLogOutMutation } from '../../services/auth/auth.service.ts'
+import { ProfileAvatar } from '../profileAvatar/ProfileAvatar.tsx'
 import { ProfileInfo } from '../profileInfo/ProfileInfo.tsx'
 import { Typography } from '../ui/typography'
 
@@ -37,6 +38,7 @@ export const Tooltip: FC<ProfileMenuType> = ({
   const styles = {
     wrapper: isVisible ? clsx(c.profileMenu, c.visible) : c.profileMenu,
     listItem: isInformation ? c.listItem : clsx(c.listItem, c.lisWithoutInfo),
+    tooltipInfoBlock: clsx(c.tooltipInfoBlock),
   }
 
   useOutsideClick(tooltipRef, callback, isVisible)
@@ -53,9 +55,12 @@ export const Tooltip: FC<ProfileMenuType> = ({
   return (
     <div className={styles.wrapper}>
       <div className={c.triangleMenu}></div>
-      {isInformation ? (
-        <ProfileInfo variant={'tooltip'} name={name} email={email} avatar={avatar} />
-      ) : null}
+      {isInformation && (
+        <div className={styles.tooltipInfoBlock}>
+          <ProfileAvatar variant={'tooltip'} image={avatar} />
+          <ProfileInfo variant={'tooltip'} name={name} email={email} />
+        </div>
+      )}
       <ul className={c.list}>
         {dataList.map(Item => (
           <li key={Item.id} className={styles.listItem}>

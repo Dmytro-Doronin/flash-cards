@@ -4,7 +4,6 @@ import { clsx } from 'clsx'
 
 import Edit from '../../assets/icons/Edit.tsx'
 import { profileType } from '../../services/profileService/profileService.types.ts'
-import { ProfileAvatar } from '../profileAvatar/ProfileAvatar.tsx'
 import { Typography } from '../ui/typography'
 
 import c from './profileInfo.module.scss'
@@ -15,7 +14,6 @@ type ProfileInfoType = {
   name: string | undefined
   email: string | undefined
   variant: InfoType
-  avatar?: string | null
   openNameChangeHandler?: (e: any) => void
   nameChange?: boolean
   changeUserDataHandler?: ({ avatar, name, email }: profileType) => Promise<void>
@@ -25,10 +23,8 @@ export const ProfileInfo: FC<ProfileInfoType> = ({
   name,
   email,
   variant,
-  avatar,
   openNameChangeHandler,
   nameChange,
-  changeUserDataHandler,
 }) => {
   const classes = {
     infoBlock: clsx(variant === 'profile' ? `${c.infoBlock} ${c.profile}` : c.infoBlock),
@@ -46,22 +42,17 @@ export const ProfileInfo: FC<ProfileInfoType> = ({
   //add clases
   return (
     <div className={classes.infoBlock}>
-      <ProfileAvatar
-        changeUserDataHandler={changeUserDataHandler}
-        variant={variant}
-        image={avatar}
-      />
       <div className={classes.textBlock}>
         <div className={classes.nameBlock}>
           <Typography className={classes.name} variant={'body1'}>
             {name}
           </Typography>
-          {variant === 'profile' && !nameChange ? (
+          {variant === 'profile' && !nameChange && (
             <Edit
               className={classes.edit}
               onClick={e => (openNameChangeHandler ? openNameChangeHandler(e) : null)}
             />
-          ) : null}
+          )}
         </div>
         <Typography className={c.email} variant={'caption'}>
           {email}
