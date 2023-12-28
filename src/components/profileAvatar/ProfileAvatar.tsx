@@ -18,13 +18,7 @@ export type ProfileAvatarType = {
   changeUserDataHandler?: ({ avatar, name, email }: profileType) => Promise<void>
 }
 
-export const ProfileAvatar: FC<ProfileAvatarType> = ({
-  image,
-  callback,
-  variant,
-  nameChange,
-  changeUserDataHandler,
-}) => {
+export const ProfileAvatar: FC<ProfileAvatarType> = ({ image, callback, variant, nameChange }) => {
   const classes = {
     avatarWrapper: clsx(
       variant === 'profile' ? `${c.profileAvatarWrapper} ${c[variant]}` : c.profileAvatarWrapper
@@ -44,7 +38,7 @@ export const ProfileAvatar: FC<ProfileAvatarType> = ({
       <img className={c.profileAvatar} src={image ? image : AvatarNotFound} alt="avatar" />
       {variant === 'profile' && !nameChange && (
         <div className={classes.editWrapper}>
-          <InputFile changeUserDataHandler={changeUserDataHandler} />
+          <InputFile />
         </div>
       )}
     </div>

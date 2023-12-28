@@ -22,12 +22,24 @@ export const InputFile = () => {
   //   reader.readAsDataURL(file)
   // }
 
+  // file validation
+  const isValidFile = (file: File) => {
+    const allowedTypes = ['image/jpeg', 'image/png']
+    const maxSize = 1024 * 1024 // 1 MB
+
+    return allowedTypes.includes(file.type) && file.size <= maxSize
+  }
+
   const uploadHandler = async (e: ChangeEvent<HTMLInputElement>) => {
     const formData = new FormData()
     const file = e.target.files![0]
 
-    formData.append('avatar', file)
-    avatarUpdate(formData)
+    if (file && isValidFile(file)) {
+      formData.append('avatar', file)
+      avatarUpdate(formData)
+    } else {
+      alert('Choose yhe valid file')
+    }
   }
 
   return (
