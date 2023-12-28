@@ -4,21 +4,25 @@ import React, { FC } from 'react'
 import { clsx } from 'clsx'
 
 import AvatarNotFound from '../../assets/images/userImageNotFound.png'
-import { profileType } from '../../services/profileService/profileService.types.ts'
 import { InputFile } from '../inputFile/InputFile.tsx'
 import { InfoType } from '../profileInfo/ProfileInfo.tsx'
 
 import c from './profileAvatar.module.scss'
+
 
 export type ProfileAvatarType = {
   image?: string | null
   callback?: React.Dispatch<React.SetStateAction<boolean>>
   variant: InfoType
   nameChange?: boolean
-  changeUserDataHandler?: ({ avatar, name, email }: profileType) => Promise<void>
 }
 
-export const ProfileAvatar: FC<ProfileAvatarType> = ({ image, callback, variant, nameChange }) => {
+export const ProfileAvatar: FC<ProfileAvatarType> = ({
+  image,
+  callback,
+  variant,
+  nameChange,
+}) => {
   const classes = {
     avatarWrapper: clsx(
       variant === 'profile' ? `${c.profileAvatarWrapper} ${c[variant]}` : c.profileAvatarWrapper

@@ -13,7 +13,16 @@ export const profileService = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['me'],
     }),
+    changeName: builder.mutation<any, FormData>({
+      query: body => ({
+        body,
+        method: 'PATCH',
+        url: '/v1/auth/me',
+        formData: true,
+      }),
+      invalidatesTags: ['me'],
+    }),
   }),
 })
 
-export const { useAvatarUpdateMutation } = profileService
+export const { useAvatarUpdateMutation, useChangeNameMutation } = profileService

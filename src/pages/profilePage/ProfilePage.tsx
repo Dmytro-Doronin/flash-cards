@@ -4,12 +4,17 @@ import { useMeQuery } from '../../services/auth/auth.service.ts'
 import c from './profilePage.module.scss'
 
 export const ProfilePage = () => {
-  const { data } = useMeQuery()
+  const { data, isLoading } = useMeQuery()
 
   // cr
   return (
     <div className={c.profilePage}>
-      <ProfileCard name={data?.name} email={data?.email} avatar={data?.avatar} />
+      <ProfileCard
+        isLoading={isLoading}
+        name={data?.name}
+        email={data?.email}
+        avatar={data?.avatar}
+      />
     </div>
   )
 }

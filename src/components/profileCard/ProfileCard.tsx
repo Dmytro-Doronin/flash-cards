@@ -5,11 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { useOutsideClick } from '../../hooks/useOutsideClick.tsx'
 import { pathVariables } from '../../route/pathVariables.ts'
 import { useLogOutMutation } from '../../services/auth/auth.service.ts'
-import {
-  useAvatarUpdateMutation,
-  useUserUpdateMutation,
-} from '../../services/profileService/profile.service.ts'
-import { profileType } from '../../services/profileService/profileService.types.ts'
+
 import { ChangeNameForm } from '../changeNameForm/ChangeNameForm.tsx'
 import { ProfileAvatar } from '../profileAvatar/ProfileAvatar.tsx'
 import { ProfileInfo } from '../profileInfo/ProfileInfo.tsx'
@@ -23,6 +19,7 @@ type ProfileCardType = {
   name?: string
   email?: string
   avatar?: string | null
+  isLoading: boolean
 }
 
 export const ProfileCard = ({ name, email, avatar }: ProfileCardType) => {
@@ -60,7 +57,6 @@ export const ProfileCard = ({ name, email, avatar }: ProfileCardType) => {
       </Typography>
       {nameChange ? (
         <ChangeNameForm
-          changeUserDataHandler={changeUserDataHandler}
           nameChange={nameChange}
           closeNameChangeHandler={closeNameChangeHandler}
           avatar={avatar}

@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, useForm } from 'react-hook-form'
 
-import { profileType } from '../../services/profileService/profileService.types.ts'
+import { useChangeNameMutation } from '../../services/profileService/profile.service.ts'
 import { ProfileAvatar } from '../profileAvatar/ProfileAvatar.tsx'
 import { Button } from '../ui/button'
 import { TextField } from '../ui/textField'
@@ -15,8 +15,7 @@ type ChangeNameFormType = {
   currentName?: string
   closeNameChangeHandler: () => void
   nameChange: boolean
-  changeUserDataHandler: ({ avatar, name, email }: profileType) => Promise<void>
-  isLoading: boolean
+  // changeUserDataHandler: ({ avatar, name, email }: profileType) => Promise<void>
 }
 
 export const ChangeNameForm = ({
@@ -24,9 +23,9 @@ export const ChangeNameForm = ({
   currentName,
   closeNameChangeHandler,
   nameChange,
-  changeUserDataHandler,
-  isLoading,
 }: ChangeNameFormType) => {
+  const [changeName, { isLoading }] = useChangeNameMutation()
+
   const {
     control,
     handleSubmit,
@@ -37,7 +36,10 @@ export const ChangeNameForm = ({
 
   const onSubmitForm = async (data: FormValues) => {
     try {
-      await changeUserDataHandler({ name: data.name })
+      const formDada = new FormData()
+
+      formDada.append('name', data.name)
+      await changeName(formDada)
     } catch (e) {
       console.log(e)
     } finally {
