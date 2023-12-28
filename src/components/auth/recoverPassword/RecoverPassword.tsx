@@ -2,15 +2,15 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
 import { Button } from '../../ui/button'
+import { Card } from '../../ui/card'
 import { ControlledTextField } from '../../ui/controlled'
 import { Typography } from '../../ui/typography'
 
 import { recoverSchema } from './recoverForm.validation.ts'
 import { RecoverFormValues } from './recoverFormType.ts'
 import c from './recoverPassword.module.scss'
-import { Card } from "../../ui/card";
 
-const RecoverPassword = () => {
+export const RecoverPassword = () => {
   const {
     control,
     handleSubmit,
@@ -49,10 +49,7 @@ const RecoverPassword = () => {
             Try logging in
           </Button>
         </div>
-
       </form>
     </Card>
   )
 }
-
-export default RecoverPassword

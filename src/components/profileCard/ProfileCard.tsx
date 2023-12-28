@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 import { useOutsideClick } from '../../hooks/useOutsideClick.tsx'
 import { pathVariables } from '../../route/pathVariables.ts'
 import { useLogOutMutation } from '../../services/auth/auth.service.ts'
-
 import { ChangeNameForm } from '../changeNameForm/ChangeNameForm.tsx'
 import { ProfileAvatar } from '../profileAvatar/ProfileAvatar.tsx'
 import { ProfileInfo } from '../profileInfo/ProfileInfo.tsx'

@@ -75,9 +75,9 @@ export const LoginForm: FC<LoginFormType> = ({ className, onSubmit }) => {
         </div>
         <ControlledCheckbox name={'rememberMe'} control={control} label={'Remember me'} />
         <div className={c.forgotPassword}>
-          <a href="/#">
+          <NavLink to={pathVariables.RECOVER}>
             <Typography variant="body2">Forgot password?</Typography>
-          </a>
+          </NavLink>
         </div>
         <Button className={c.button} fullWidth type="submit">
           Submit

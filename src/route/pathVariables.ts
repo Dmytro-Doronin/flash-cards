@@ -3,4 +3,5 @@ export const pathVariables = {
   PROFILE: '/profile',
   LOGIN: '/login',
   SIGNUP: '/signup',
+  RECOVER: '/recoverPassword',
 }
