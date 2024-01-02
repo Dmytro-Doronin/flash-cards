@@ -1,6 +1,8 @@
 import { clsx } from 'clsx'
+import { NavLink } from 'react-router-dom'
 
 import CheckEmailSvg from '../../../assets/icons/CheckEmailSvg.tsx'
+import { pathVariables } from '../../../route/pathVariables.ts'
 import { Button } from '../../ui/button'
 import { Card } from '../../ui/card'
 import { Typography } from '../../ui/typography'
@@ -23,9 +25,11 @@ export const CheckEmail = () => {
       <Typography className={classes.typoBody} variant="body2">
         We’ve sent an Email with instructions to example@mail.com
       </Typography>
-      <Button fullWidth variant="primary">
-        Back to Sign In
-      </Button>
+      <NavLink to={pathVariables.LOGIN}>
+        <Button fullWidth variant="primary">
+          Back to Sign In
+        </Button>
+      </NavLink>
     </Card>
   )
 }

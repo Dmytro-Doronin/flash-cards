@@ -1,6 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
+import { RecoverPasswordType } from '../../../services/auth/auth.types.ts'
+import { Loader } from '../../loader/Loader.tsx'
 import { Button } from '../../ui/button'
 import { Card } from '../../ui/card'
 import { ControlledTextField } from '../../ui/controlled'
@@ -10,7 +12,14 @@ import { recoverSchema } from './recoverForm.validation.ts'
 import { RecoverFormValues } from './recoverFormType.ts'
 import c from './recoverPassword.module.scss'
 
-export const RecoverPassword = () => {
+type RecoverPasswordTypeC = {
+  isLoading: boolean
+  recoverPasswordHandler: (data: RecoverPasswordType) => void
+}
+
+export const RecoverPassword = ({ isLoading, recoverPasswordHandler }: RecoverPasswordTypeC) => {
+  const htmlLink: string =
+    '<h1>Hi, ##name##</h1><p>Click <a href="http://localhost:5173/newPassword/##token##">here</a> to recover your password</p>'
   const {
     control,
     handleSubmit,
@@ -20,6 +29,7 @@ export const RecoverPassword = () => {
   })
 
   const onSubmit = (data: RecoverFormValues) => {
+    recoverPasswordHandler({ html: htmlLink, email: data.recoverEmail })
     console.log(data)
   }
 
@@ -41,6 +51,7 @@ export const RecoverPassword = () => {
         <Button className={c.mbForButton} fullWidth variant="primary" type="submit">
           Send Instructions
         </Button>
+        {isLoading && <Loader />}
         <Typography className={c.footerSubtitle} variant="body2">
           Did you remember your password?
         </Typography>

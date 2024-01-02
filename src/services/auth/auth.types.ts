@@ -22,3 +22,14 @@ export type User = {
   created: string
   updated: string
 }
+
+export type RecoverPasswordType = {
+  html?: string
+  email: string
+  subject?: string
+}
+
+export type NewPasswordType = {
+  hash?: string
+  password: string
+}

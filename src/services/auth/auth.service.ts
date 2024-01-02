@@ -1,6 +1,6 @@
 import { baseApi } from '../base.service.ts'
 
-import { CreateUser, LoginType, User } from './auth.types.ts'
+import { CreateUser, LoginType, NewPasswordType, RecoverPasswordType, User } from './auth.types.ts'
 
 export const authService = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -30,7 +30,28 @@ export const authService = baseApi.injectEndpoints({
         url: '/v1/auth/logout',
       }),
     }),
+    recoverPassword: builder.mutation<void, RecoverPasswordType>({
+      query: body => ({
+        body,
+        method: 'POST',
+        url: '/v1/auth/recover-password',
+      }),
+    }),
+    newPassword: builder.mutation<void, NewPasswordType>({
+      query: body => ({
+        body: { password: body.password },
+        method: 'POST',
+        url: `/v1/auth/reset-password/${body.hash}`,
+      }),
+    }),
   }),
 })
 
-export const { useSignUpMutation, useLoginMutation, useMeQuery, useLogOutMutation } = authService
+export const {
+  useSignUpMutation,
+  useLoginMutation,
+  useMeQuery,
+  useLogOutMutation,
+  useRecoverPasswordMutation,
+  useNewPasswordMutation,
+} = authService

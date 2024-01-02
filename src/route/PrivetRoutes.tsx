@@ -15,7 +15,7 @@ export const PrivateRoutes = () => {
 
   return isAuthenticated ? (
     <>
-      <Header loggedIn={isAuthenticated} />
+      <Header variant="authenticated" loggedIn={isAuthenticated} />
       <Outlet />
     </>
   ) : (

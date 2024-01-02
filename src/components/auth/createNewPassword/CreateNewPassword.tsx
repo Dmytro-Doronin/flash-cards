@@ -2,6 +2,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { clsx } from 'clsx'
 import { useForm } from 'react-hook-form'
 
+import { NewPasswordType } from '../../../services/auth/auth.types.ts'
+import { Loader } from '../../loader/Loader.tsx'
+import { Button } from '../../ui/button'
 import { Card } from '../../ui/card'
 import { ControlledTextField } from '../../ui/controlled'
 import { Typography } from '../../ui/typography'
@@ -9,9 +12,17 @@ import { Typography } from '../../ui/typography'
 import c from './createNewPassword.module.scss'
 import { createNewPasswordSchema } from './createNewPassword.validation.ts'
 import { CreateNewPasswordFormValues } from './createNewPasswordTypes.ts'
-import { Button } from "../../ui/button";
 
-export const CreateNewPassword = () => {
+type CreateNewPasswordType = {
+  hash?: string
+  isLoading: boolean
+  createNewPasswordHandler: (data: NewPasswordType) => void
+}
+export const CreateNewPassword = ({
+  hash,
+  isLoading,
+  createNewPasswordHandler,
+}: CreateNewPasswordType) => {
   const classes = {
     card: clsx(c.card),
     title: clsx(c.title),
@@ -19,12 +30,13 @@ export const CreateNewPassword = () => {
     subtitle: clsx(c.subtitle),
   }
 
-  const { control, handleSubmit } = useForm<CreateNewPasswordFormValues>({
+  const { control, handleSubmit, reset } = useForm<CreateNewPasswordFormValues>({
     resolver: zodResolver(createNewPasswordSchema),
   })
 
   const submit = (data: CreateNewPasswordFormValues) => {
-    console.log(data)
+    createNewPasswordHandler({ hash: hash, password: data.createNewPassword })
+    reset()
   }
 
   return (
@@ -45,11 +57,11 @@ export const CreateNewPassword = () => {
           Create new password and we will send you further instructions to email
         </Typography>
 
-        <Button fullWidth variant="primary">
+        <Button type={'submit'} fullWidth variant="primary">
           Create New Password
         </Button>
+        {isLoading && <Loader />}
       </form>
-
     </Card>
   )
 }

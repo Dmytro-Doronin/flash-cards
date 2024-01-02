@@ -12,21 +12,22 @@ import s from './header.module.scss'
 type HeaderType = {
   signUp?: boolean
   loggedIn?: boolean
+  variant: 'login' | 'signUp' | 'authenticated'
 }
 
-export const Header = ({ signUp, loggedIn }: HeaderType) => {
+export const Header = ({ loggedIn, variant }: HeaderType) => {
   return (
     <header className={s.header}>
       <div className={c.container}>
         <div className={s.headerInner}>
-          {loggedIn ? (
+          {loggedIn && variant === 'authenticated' ? (
             <TooltipWrapper />
           ) : (
             <NavLink
-              to={signUp ? pathVariables.LOGIN : pathVariables.SIGNUP}
+              to={variant === 'login' ? pathVariables.LOGIN : pathVariables.SIGNUP}
               style={{ textDecoration: 'none', color: 'white' }}
             >
-              <Button>{signUp ? <div>Log In</div> : <div>Sign Up</div>}</Button>
+              <Button>{variant === 'login' ? <div>Log In</div> : <div>Sign Up</div>}</Button>
             </NavLink>
           )}
         </div>

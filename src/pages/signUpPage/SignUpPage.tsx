@@ -5,7 +5,7 @@ import c from './signUpPage.module.scss'
 export const SignUpPage = () => {
   return (
     <div className={c.signUpPage}>
-      <Header signUp />
+      <Header variant="login" />
       <RegistrationForm />
     </div>
   )
