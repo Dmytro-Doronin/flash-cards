@@ -1,0 +1,45 @@
+.toastBox {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  border-radius: 5px;
+
+  width: 400px;
+  height: 80px;
+  background-color: var(--color-dark-700);
+  font-weight: 500;
+  margin: 15px 0;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  transition: 0.4s ease-in-out;
+}
+
+.isOpen {
+  opacity: 1;
+  visibility: visible;
+}
+
+.iconBlock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15%;
+  height: 100%;
+  border-radius: 5px 0 0 5px;
+}
+
+.success {
+  background-color: var(--color-success-300);
+}
+
+.error {
+  background-color: var(--color-danger-300);
+}
+
+.messageBlock {
+  padding: 10px;
+}
+
