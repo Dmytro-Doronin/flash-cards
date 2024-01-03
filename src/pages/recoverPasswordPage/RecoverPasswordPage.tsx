@@ -10,6 +10,7 @@ import c from './recoverPassword.module.scss'
 export const RecoverPasswordPage = () => {
   const [recoverPassword, { isLoading }] = useRecoverPasswordMutation()
   const [checkEmail, setCheckEmail] = useState(false)
+
   const recoverPasswordHandler = async (data: RecoverPasswordType) => {
     try {
       await recoverPassword(data)

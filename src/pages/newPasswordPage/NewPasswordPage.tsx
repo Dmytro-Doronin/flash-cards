@@ -7,9 +7,11 @@ import { NewPasswordType } from '../../services/auth/auth.types.ts'
 
 import c from './newPasswordPage.module.scss'
 
+
 export const NewPasswordPage = () => {
   const [setNewPassword, { isLoading }] = useNewPasswordMutation()
   const { hash } = useParams()
+
   const createNewPasswordHandler = async (data: NewPasswordType) => {
     try {
       await setNewPassword(data)

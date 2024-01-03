@@ -4,7 +4,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { NavLink } from 'react-router-dom'
 
 import { pathVariables } from '../../../route/pathVariables.ts'
-import { useSignUpMutation } from '../../../services/auth/auth.service.ts'
+import { Loader } from '../../loader/Loader.tsx'
 import { Button } from '../../ui/button'
 import { Card } from '../../ui/card'
 import { TextField } from '../../ui/textField'
@@ -14,9 +14,12 @@ import c from './registrationForm.module.scss'
 import { registrationWithPasswordConfirmationSchema } from './registrationForm.validation.ts'
 import { RegistrationFormValues } from './registrationFormTypes.ts'
 
-export const RegistrationForm = () => {
-  const [signUp] = useSignUpMutation()
+type RegistrationFormType = {
+  isLoading: boolean
+  callback: (data: RegistrationFormValues) => void
+}
 
+export const RegistrationForm = ({ isLoading, callback }: RegistrationFormType) => {
   const classes = {
     card: clsx(c.formWrapper),
     form: clsx(c.registrationForm),
@@ -35,10 +38,8 @@ export const RegistrationForm = () => {
     resolver: zodResolver(registrationWithPasswordConfirmationSchema),
   })
 
-  const onSubmit = (data: RegistrationFormValues) => {
-    signUp({ name: data.name, email: data.email, password: data.password }).then(data =>
-      console.log(data)
-    )
+  const onSubmit = async (data: RegistrationFormValues) => {
+    await callback(data)
     reset()
   }
 
@@ -119,6 +120,7 @@ export const RegistrationForm = () => {
         <Button className={classes.submitButton} fullWidth type="submit">
           Submit
         </Button>
+        {isLoading && <Loader variant="secondary" />}
         <Typography className={classes.subtitle} variant="body2">
           Already have an account?
         </Typography>

@@ -16,13 +16,15 @@ import { Typography } from '../../ui/typography'
 import c from './loginForm.module.scss'
 import { loginSchema } from './loginForm.validation.ts'
 import { FormValues } from './loginFormTypes.ts'
+import { Loader } from "../../loader/Loader.tsx";
 
 type LoginFormType = {
+  isLoading: boolean
   className?: string
   onSubmit: (data: LoginType) => void
 }
 
-export const LoginForm: FC<LoginFormType> = ({ className, onSubmit }) => {
+export const LoginForm: FC<LoginFormType> = ({ className, onSubmit, isLoading }) => {
   const styles = {
     formWrapper: clsx(c.formWrapper, className),
   }
@@ -82,6 +84,7 @@ export const LoginForm: FC<LoginFormType> = ({ className, onSubmit }) => {
         <Button className={c.button} fullWidth type="submit">
           Submit
         </Button>
+        {isLoading && <Loader variant="secondary" />}
         <div className={c.question}>
           <Typography variant="body2">Don`t have an account?</Typography>
         </div>

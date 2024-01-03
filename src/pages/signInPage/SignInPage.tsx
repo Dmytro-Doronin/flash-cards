@@ -5,14 +5,13 @@ import { LoginForm } from '../../components/auth/loginForm/LoginForm.tsx'
 // import RecoverPassword from '../../components/auth/recoverPassword/RecoverPassword.tsx'
 // import { CheckEmail } from '../../components/auth/checkEmail/CheckEmail.tsx'
 import { Header } from '../../components/header/Header.tsx'
-import { Loader } from '../../components/loader/Loader.tsx'
 import { useLoginMutation } from '../../services/auth/auth.service.ts'
 import { LoginType } from '../../services/auth/auth.types.ts'
 
 import c from './signIn.module.scss'
 
 export const SignInPage = () => {
-  const [login, { isLoading }] = useLoginMutation()
+  const [login, { isLoading,error }] = useLoginMutation()
   const navigate = useNavigate()
   const handleSubmit = async (args: LoginType) => {
     try {
@@ -22,11 +21,11 @@ export const SignInPage = () => {
       console.log(e)
     }
   }
-
+  console.log(error)
   return (
     <div className={c.signIn}>
-      <Header />
-      {isLoading ? <Loader /> : <LoginForm onSubmit={handleSubmit} />}
+      <Header variant="signUp" />
+      <LoginForm isLoading={isLoading} onSubmit={handleSubmit} />
     </div>
   )
 }

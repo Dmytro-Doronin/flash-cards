@@ -8,7 +8,7 @@ export const PrivateRoutes = () => {
   const { isLoading, isError } = useMeQuery()
 
   if (isLoading) {
-    return <Loader />
+    return <Loader variant="main" />
   }
 
   const isAuthenticated = !isError

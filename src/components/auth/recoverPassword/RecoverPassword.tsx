@@ -1,6 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
+import { NavLink } from 'react-router-dom'
+import { pathVariables } from '../../../route/pathVariables.ts'
 import { RecoverPasswordType } from '../../../services/auth/auth.types.ts'
 import { Loader } from '../../loader/Loader.tsx'
 import { Button } from '../../ui/button'
@@ -19,10 +21,11 @@ type RecoverPasswordTypeC = {
 
 export const RecoverPassword = ({ isLoading, recoverPasswordHandler }: RecoverPasswordTypeC) => {
   const htmlLink: string =
-    '<h1>Hi, ##name##</h1><p>Click <a href="http://localhost:5173/newPassword/##token##">here</a> to recover your password</p>'
+    '<h1>Hi, ##name##</h1><p>Click <a href=`http://localhost:5173/new-password/##token##`>here</a> to recover your password</p>'
   const {
     control,
     handleSubmit,
+    reset,
     // formState: { errors },
   } = useForm<RecoverFormValues>({
     resolver: zodResolver(recoverSchema),
@@ -30,7 +33,7 @@ export const RecoverPassword = ({ isLoading, recoverPasswordHandler }: RecoverPa
 
   const onSubmit = (data: RecoverFormValues) => {
     recoverPasswordHandler({ html: htmlLink, email: data.recoverEmail })
-    console.log(data)
+    reset()
   }
 
   return (
@@ -51,14 +54,16 @@ export const RecoverPassword = ({ isLoading, recoverPasswordHandler }: RecoverPa
         <Button className={c.mbForButton} fullWidth variant="primary" type="submit">
           Send Instructions
         </Button>
-        {isLoading && <Loader />}
+        {isLoading && <Loader variant="secondary" />}
         <Typography className={c.footerSubtitle} variant="body2">
           Did you remember your password?
         </Typography>
         <div className={c.footerLink}>
-          <Button variant="link" as="a">
-            Try logging in
-          </Button>
+          <NavLink to={pathVariables.LOGIN}>
+            <Button variant="link" as="a">
+              Try logging in
+            </Button>
+          </NavLink>
         </div>
       </form>
     </Card>
