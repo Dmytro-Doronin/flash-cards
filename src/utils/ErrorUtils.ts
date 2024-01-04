@@ -1,7 +1,7 @@
 // import { SerializedError } from '@reduxjs/toolkit'
 // import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
-import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
 // type ResponseError = {
 //   status: number
@@ -20,16 +20,15 @@ import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 export type ReturnedErrorType = {
   status: 'FETCH_ERROR' | number
-  errorMessage: string
+  message: string
 }
 
 export const ErrorUtils = (response: FetchBaseQueryError): ReturnedErrorType => {
-  console.log(response)
   if (response.status === 'FETCH_ERROR') {
-    return { status: 'FETCH_ERROR', errorMessage: 'No internet connection' }
+    return { status: 'FETCH_ERROR', message: 'No internet connection' }
   } else if (response.status === 401) {
-    return { status: 401, errorMessage: 'Invalid credentials' }
+    return { status: 401, message: 'Invalid credentials' }
   }
 
-  return { status: 400, errorMessage: 'Something went wrong' }
+  return { status: 400, message: 'Something went wrong' }
 }

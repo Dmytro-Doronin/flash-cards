@@ -35,5 +35,5 @@ export type NewPasswordType = {
 }
 
 export type DataFromLoginType = {
-   accessToken: string
+  accessToken: string
 }

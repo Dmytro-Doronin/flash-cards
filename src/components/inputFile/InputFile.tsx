@@ -1,12 +1,13 @@
 import { ChangeEvent, useRef } from 'react'
 
 import EditIcon from '../../assets/icons/Edit.tsx'
-import { useAvatarUpdateMutation } from '../../services/profileService/profile.service.ts'
-// import { profileType } from '../../services/profileService/profileService.types.ts'
 
-export const InputFile = () => {
+type InputFileType = {
+  callback: (data: FormData) => void
+}
+
+export const InputFile = ({ callback }: InputFileType) => {
   const inputRef = useRef<HTMLInputElement>(null)
-  const [avatarUpdate] = useAvatarUpdateMutation()
   const selectFileHandler = () => {
     inputRef && inputRef.current?.click()
   }
@@ -36,9 +37,9 @@ export const InputFile = () => {
 
     if (file && isValidFile(file)) {
       formData.append('avatar', file)
-      avatarUpdate(formData)
+      await callback(formData)
     } else {
-      alert('Choose yhe valid file')
+      throw new Error('Chose valid picture')
     }
   }
 

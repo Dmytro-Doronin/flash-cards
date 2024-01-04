@@ -3,22 +3,22 @@ import { useEffect, useState } from 'react'
 import { CheckCircledIcon, CrossCircledIcon } from '@radix-ui/react-icons'
 import { clsx } from 'clsx'
 
-import c from './errorSnackbar.module.scss'
+import c from './alertSnackbar.module.scss'
 
 type ErrorSnackbarType = {
   variant: 'success' | 'error'
-  error: any
+  message: any
 }
 
-export const ErrorSnackbar = ({ variant, error }: ErrorSnackbarType) => {
-  const [isOpen, setIsOpen] = useState(!!error)
+export const AlertSnackbar = ({ variant, message }: ErrorSnackbarType) => {
+  const [isOpen, setIsOpen] = useState(!!message)
   const classes = {
     toastBlock: clsx(isOpen ? `${c.toastBox} ${c.isOpen}` : c.toastBox),
     iconBlock: clsx(c.iconBlock, c[variant]),
   }
 
   useEffect(() => {
-    setIsOpen(error && true)
+    setIsOpen(message && true)
     const timeout = setTimeout(() => {
       setIsOpen(false)
     }, 4000)
@@ -37,7 +37,7 @@ export const ErrorSnackbar = ({ variant, error }: ErrorSnackbarType) => {
           <CrossCircledIcon width="40" height="40" />
         )}
       </div>
-      <div className={c.messageBlock}>{error.errorMessage}</div>
+      <div className={c.messageBlock}>{message.message}</div>
     </div>
   )
 }

@@ -39,7 +39,7 @@ export const ProfileInfo: FC<ProfileInfoType> = ({
     textField: clsx(c.textField),
   }
 
-  //add clases
+
   return (
     <div className={classes.infoBlock}>
       <div className={classes.textBlock}>
@@ -50,7 +50,7 @@ export const ProfileInfo: FC<ProfileInfoType> = ({
           {variant === 'profile' && !nameChange && (
             <Edit
               className={classes.edit}
-              onClick={e => (openNameChangeHandler ? openNameChangeHandler(e) : null)}
+              onClick={e => openNameChangeHandler && openNameChangeHandler(e)}
             />
           )}
         </div>

@@ -9,6 +9,8 @@ import { InfoType } from '../profileInfo/ProfileInfo.tsx'
 
 import c from './profileAvatar.module.scss'
 
+import { useAvatarUpdateMutation } from "../../services/profileService/profile.service.ts";
+
 export type ProfileAvatarType = {
   image?: string | null
   callback?: React.Dispatch<React.SetStateAction<boolean>>
@@ -22,11 +24,17 @@ export const ProfileAvatar: FC<ProfileAvatarType> = ({
   variant,
   nameChange,
 }) => {
+
+  const [avatarUpdate] = useAvatarUpdateMutation()
   const classes = {
     avatarWrapper: clsx(
       variant === 'profile' ? `${c.profileAvatarWrapper} ${c[variant]}` : c.profileAvatarWrapper
     ),
     editWrapper: c.editWrapper,
+  }
+
+  const updateAvatarHandler = async (data: FormData) => {
+    await avatarUpdate(data)
   }
 
   return (
@@ -41,7 +49,7 @@ export const ProfileAvatar: FC<ProfileAvatarType> = ({
       <img className={c.profileAvatar} src={image ? image : AvatarNotFound} alt="avatar" />
       {variant === 'profile' && !nameChange && (
         <div className={classes.editWrapper}>
-          <InputFile />
+          <InputFile callback={updateAvatarHandler} />
         </div>
       )}
     </div>

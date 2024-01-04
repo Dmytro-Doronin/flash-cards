@@ -13,6 +13,7 @@ import { Card } from '../ui/card'
 import { Typography } from '../ui/typography'
 
 import c from './profileCard.module.scss'
+import { AlertSnackbar } from "../alertSnackbar/AlertSnackbar.tsx";
 
 type ProfileCardType = {
   name?: string
@@ -25,15 +26,12 @@ export const ProfileCard = ({ name, email, avatar }: ProfileCardType) => {
   const [logout] = useLogOutMutation()
   const [nameChange, setNameChange] = useState<boolean>(false)
   const componentRef = useRef<HTMLDivElement | null>(null)
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   const handleLogOut = async () => {
-    try {
-      await logout()
-      navigate(pathVariables.LOGIN)
-    } catch (e) {
-      console.log(e)
-    }
+       await logout()
+      // navigate(pathVariables.LOGIN)
+
   }
 
   const openNameChangeHandler = (e: MouseEvent) => {
@@ -46,6 +44,7 @@ export const ProfileCard = ({ name, email, avatar }: ProfileCardType) => {
     console.log('close')
     setNameChange(false)
   }
+
 
   useOutsideClick(componentRef, closeNameChangeHandler, nameChange)
 

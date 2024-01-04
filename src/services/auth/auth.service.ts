@@ -31,6 +31,7 @@ export const authService = baseApi.injectEndpoints({
         method: 'POST',
         url: '/v1/auth/logout',
       }),
+      transformErrorResponse: response => ErrorUtils(response),
     }),
     recoverPassword: builder.mutation<void, RecoverPasswordType>({
       query: body => ({
