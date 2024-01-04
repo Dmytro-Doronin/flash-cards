@@ -12,22 +12,22 @@ import { LoginType } from '../../services/auth/auth.types.ts'
 import c from './signIn.module.scss'
 
 export const SignInPage = () => {
-  const [login, { isLoading, error, isError }] = useLoginMutation()
+  const [login, { isLoading, error }] = useLoginMutation()
   const navigate = useNavigate()
-
-
   
   const handleSubmit = async (args: LoginType) => {
-    const result = await login(args)
 
-    if (!result.error) {
+    const response = await login(args)
+
+    // console.log(response)
+    if ('data' in response && response) {
       navigate('/')
     }
   }
 
   // console.log(error)
   // console.log(error)
-  
+
   return (
     <div className={c.signIn}>
       <Header variant="signUp" />

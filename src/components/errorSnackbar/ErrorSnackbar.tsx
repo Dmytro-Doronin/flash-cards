@@ -37,7 +37,7 @@ export const ErrorSnackbar = ({ variant, error }: ErrorSnackbarType) => {
           <CrossCircledIcon width="40" height="40" />
         )}
       </div>
-      <div className={c.messageBlock}>{error.data?.message}</div>
+      <div className={c.messageBlock}>{error.errorMessage}</div>
     </div>
   )
 }

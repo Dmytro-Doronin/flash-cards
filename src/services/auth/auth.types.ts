@@ -33,3 +33,7 @@ export type NewPasswordType = {
   hash?: string
   password: string
 }
+
+export type DataFromLoginType = {
+   accessToken: string
+}
