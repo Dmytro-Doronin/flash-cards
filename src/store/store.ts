@@ -6,9 +6,10 @@ import { setupListeners } from '@reduxjs/toolkit/query'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
 import { baseApi } from '../services/base.service.ts'
-
+import { appReducer } from '../state/appReducer/appReducer.ts'
 
 const rootReducer = combineReducers({
+  app: appReducer,
   [baseApi.reducerPath]: baseApi.reducer,
 })
 

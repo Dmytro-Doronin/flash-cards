@@ -8,7 +8,7 @@ import c from './profilePage.module.scss'
 
 export const ProfilePage = () => {
   const { data, isLoading } = useMeQuery()
-  const [, { isSuccess, error }] = useAvatarUpdateMutation()
+
 
   return (
     <div className={c.profilePage}>
@@ -18,8 +18,8 @@ export const ProfilePage = () => {
         email={data?.email}
         avatar={data?.avatar}
       />
-      {isSuccess && <AlertSnackbar variant="success" message={alertUtil('avatar')} />}
-      {error && <AlertSnackbar variant="error" message={error} />}
+      {/*{isSuccess && <AlertSnackbar variant="success" message={alertUtil('avatar')} />}*/}
+      {/*{error && <AlertSnackbar variant="error" message={error} />}*/}
     </div>
   )
 }

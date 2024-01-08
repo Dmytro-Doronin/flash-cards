@@ -1,12 +1,16 @@
 import { ChangeEvent, useRef } from 'react'
 
 import EditIcon from '../../assets/icons/Edit.tsx'
+import { useAppDispatch } from "../../store/store.ts";
 
 type InputFileType = {
   callback: (data: FormData) => void
 }
 
 export const InputFile = ({ callback }: InputFileType) => {
+
+  const dispatch = useAppDispatch()
+
   const inputRef = useRef<HTMLInputElement>(null)
   const selectFileHandler = () => {
     inputRef && inputRef.current?.click()

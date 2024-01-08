@@ -9,13 +9,12 @@ import { InfoType } from '../profileInfo/ProfileInfo.tsx'
 
 import c from './profileAvatar.module.scss'
 
-import { useAvatarUpdateMutation } from "../../services/profileService/profile.service.ts";
-
 export type ProfileAvatarType = {
   image?: string | null
   callback?: React.Dispatch<React.SetStateAction<boolean>>
   variant: InfoType
   nameChange?: boolean
+  updateAvatarHandler: (data: FormData) => void
 }
 
 export const ProfileAvatar: FC<ProfileAvatarType> = ({
@@ -23,18 +22,13 @@ export const ProfileAvatar: FC<ProfileAvatarType> = ({
   callback,
   variant,
   nameChange,
+  updateAvatarHandler,
 }) => {
-
-  const [avatarUpdate] = useAvatarUpdateMutation()
   const classes = {
     avatarWrapper: clsx(
       variant === 'profile' ? `${c.profileAvatarWrapper} ${c[variant]}` : c.profileAvatarWrapper
     ),
     editWrapper: c.editWrapper,
-  }
-
-  const updateAvatarHandler = async (data: FormData) => {
-    await avatarUpdate(data)
   }
 
   return (

@@ -1,9 +1,6 @@
 import { useRef, useState } from 'react'
 
-import { useNavigate } from 'react-router-dom'
-
 import { useOutsideClick } from '../../hooks/useOutsideClick.tsx'
-import { pathVariables } from '../../route/pathVariables.ts'
 import { useLogOutMutation } from '../../services/auth/auth.service.ts'
 import { ChangeNameForm } from '../changeNameForm/ChangeNameForm.tsx'
 import { ProfileAvatar } from '../profileAvatar/ProfileAvatar.tsx'
@@ -13,7 +10,9 @@ import { Card } from '../ui/card'
 import { Typography } from '../ui/typography'
 
 import c from './profileCard.module.scss'
+import { useAvatarUpdateMutation } from "../../services/profileService/profile.service.ts";
 import { AlertSnackbar } from "../alertSnackbar/AlertSnackbar.tsx";
+// import { AlertSnackbar } from "../alertSnackbar/AlertSnackbar.tsx";
 
 type ProfileCardType = {
   name?: string
@@ -24,6 +23,7 @@ type ProfileCardType = {
 
 export const ProfileCard = ({ name, email, avatar }: ProfileCardType) => {
   const [logout] = useLogOutMutation()
+  const [avatarUpdate, { error }] = useAvatarUpdateMutation()
   const [nameChange, setNameChange] = useState<boolean>(false)
   const componentRef = useRef<HTMLDivElement | null>(null)
   // const navigate = useNavigate()
@@ -45,6 +45,9 @@ export const ProfileCard = ({ name, email, avatar }: ProfileCardType) => {
     setNameChange(false)
   }
 
+  const updateAvatarHandler = async (data: FormData) => {
+    await avatarUpdate(data)
+  }
 
   useOutsideClick(componentRef, closeNameChangeHandler, nameChange)
 
@@ -62,7 +65,7 @@ export const ProfileCard = ({ name, email, avatar }: ProfileCardType) => {
         />
       ) : (
         <>
-          <ProfileAvatar variant={'profile'} image={avatar} />
+          <ProfileAvatar updateAvatarHandler={updateAvatarHandler} variant={'profile'} image={avatar} />
           <ProfileInfo
             variant="profile"
             openNameChangeHandler={openNameChangeHandler}
@@ -75,6 +78,7 @@ export const ProfileCard = ({ name, email, avatar }: ProfileCardType) => {
           </Button>
         </>
       )}
+      {error && <AlertSnackbar variant='error' message={error}/>}
     </Card>
   )
 }
