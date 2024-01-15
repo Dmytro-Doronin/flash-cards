@@ -1,3 +1,4 @@
+import { ErrorUtils } from '../../utils/ErrorUtils.ts'
 import { baseApi } from '../base.service.ts'
 
 // import { profileType } from './profileService.types.ts'
@@ -11,6 +12,7 @@ export const profileService = baseApi.injectEndpoints({
         url: '/v1/auth/me',
         formData: true,
       }),
+      transformErrorResponse: response => ErrorUtils(response),
       invalidatesTags: ['me'],
     }),
     changeName: builder.mutation<any, FormData>({
@@ -20,6 +22,7 @@ export const profileService = baseApi.injectEndpoints({
         url: '/v1/auth/me',
         formData: true,
       }),
+      transformErrorResponse: response => ErrorUtils(response),
       invalidatesTags: ['me'],
     }),
   }),

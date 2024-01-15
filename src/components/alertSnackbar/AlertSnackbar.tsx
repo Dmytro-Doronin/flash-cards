@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react'
 import { CheckCircledIcon, CrossCircledIcon } from '@radix-ui/react-icons'
 import { clsx } from 'clsx'
 
+import { appActions } from '../../state/appReducer/appReducer.ts'
+import { useAppDispatch } from '../../store/store.ts'
+
 import c from './alertSnackbar.module.scss'
 
 type ErrorSnackbarType = {
@@ -12,6 +15,7 @@ type ErrorSnackbarType = {
 
 export const AlertSnackbar = ({ variant, message }: ErrorSnackbarType) => {
   const [isOpen, setIsOpen] = useState(!!message)
+  const dispatch = useAppDispatch()
   const classes = {
     toastBlock: clsx(isOpen ? `${c.toastBox} ${c.isOpen}` : c.toastBox),
     iconBlock: clsx(c.iconBlock, c[variant]),
@@ -21,6 +25,7 @@ export const AlertSnackbar = ({ variant, message }: ErrorSnackbarType) => {
     setIsOpen(message && true)
     const timeout = setTimeout(() => {
       setIsOpen(false)
+      dispatch(appActions.setMessage({ message: '' }))
     }, 4000)
 
     return () => {

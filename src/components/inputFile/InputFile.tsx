@@ -1,16 +1,18 @@
 import { ChangeEvent, useRef } from 'react'
 
 import EditIcon from '../../assets/icons/Edit.tsx'
-import { useAppDispatch } from "../../store/store.ts";
+import { useAppDispatch } from '../../store/store.ts'
+import c from '../changeNameForm/changeNameForm.module.scss'
+import {appActions} from "../../state/appReducer/appReducer.ts";
+// import { useAppDispatch } from '../../store/store.ts'
 
 type InputFileType = {
   callback: (data: FormData) => void
 }
 
 export const InputFile = ({ callback }: InputFileType) => {
-
+  // const dispatch = useAppDispatch()
   const dispatch = useAppDispatch()
-
   const inputRef = useRef<HTMLInputElement>(null)
   const selectFileHandler = () => {
     inputRef && inputRef.current?.click()
@@ -43,14 +45,14 @@ export const InputFile = ({ callback }: InputFileType) => {
       formData.append('avatar', file)
       await callback(formData)
     } else {
-      throw new Error('Chose valid picture')
+      dispatch(appActions.setMessage({ message: 'Chose valid picture' }))
     }
   }
 
   return (
-    <>
+    <div className={c.editWrapper}>
       <EditIcon onClick={selectFileHandler} />
       <input style={{ display: 'none' }} ref={inputRef} type="file" onChange={uploadHandler} />
-    </>
+    </div>
   )
 }

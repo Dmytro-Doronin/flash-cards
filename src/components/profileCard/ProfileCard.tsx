@@ -10,8 +10,8 @@ import { Card } from '../ui/card'
 import { Typography } from '../ui/typography'
 
 import c from './profileCard.module.scss'
-import { useAvatarUpdateMutation } from "../../services/profileService/profile.service.ts";
-import { AlertSnackbar } from "../alertSnackbar/AlertSnackbar.tsx";
+import { InputFile } from "../inputFile/InputFile.tsx";
+import { Loader } from "../loader/Loader.tsx";
 // import { AlertSnackbar } from "../alertSnackbar/AlertSnackbar.tsx";
 
 type ProfileCardType = {
@@ -19,11 +19,14 @@ type ProfileCardType = {
   email?: string
   avatar?: string | null
   isLoading: boolean
+  updateAvatarHandler: (data: FormData) => void
+  avatarLoading: boolean
+  updateNameHandler: (data: FormData) => void
+  changeNameIsLoading: boolean
 }
 
-export const ProfileCard = ({ name, email, avatar }: ProfileCardType) => {
+export const ProfileCard = ({ name, email, avatar, updateAvatarHandler, avatarLoading, updateNameHandler, changeNameIsLoading }: ProfileCardType) => {
   const [logout] = useLogOutMutation()
-  const [avatarUpdate, { error }] = useAvatarUpdateMutation()
   const [nameChange, setNameChange] = useState<boolean>(false)
   const componentRef = useRef<HTMLDivElement | null>(null)
   // const navigate = useNavigate()
@@ -36,7 +39,6 @@ export const ProfileCard = ({ name, email, avatar }: ProfileCardType) => {
 
   const openNameChangeHandler = (e: MouseEvent) => {
     e.stopPropagation()
-    console.log('open')
     setNameChange(true)
   }
 
@@ -45,12 +47,8 @@ export const ProfileCard = ({ name, email, avatar }: ProfileCardType) => {
     setNameChange(false)
   }
 
-  const updateAvatarHandler = async (data: FormData) => {
-    await avatarUpdate(data)
-  }
 
   useOutsideClick(componentRef, closeNameChangeHandler, nameChange)
-
   return (
     <Card componentRef={componentRef}>
       <Typography className={c.title} variant="large">
@@ -62,10 +60,16 @@ export const ProfileCard = ({ name, email, avatar }: ProfileCardType) => {
           closeNameChangeHandler={closeNameChangeHandler}
           avatar={avatar}
           currentName={name}
+          updateNameHandler={updateNameHandler}
+          changeNameIsLoading={changeNameIsLoading}
         />
       ) : (
         <>
-          <ProfileAvatar updateAvatarHandler={updateAvatarHandler} variant={'profile'} image={avatar} />
+          <div className={c.avatarWrapper}>
+            <InputFile callback={updateAvatarHandler} />
+            <ProfileAvatar variant={'profile'} image={avatar} />
+          </div>
+          {/*<ProfileAvatar variant={'profile'} image={avatar} />*/}
           <ProfileInfo
             variant="profile"
             openNameChangeHandler={openNameChangeHandler}
@@ -73,12 +77,13 @@ export const ProfileCard = ({ name, email, avatar }: ProfileCardType) => {
             email={email}
             nameChange={nameChange}
           />
+          {avatarLoading && <Loader variant='secondary'/>}
           <Button onClick={handleLogOut} variant="secondary">
             Log out
           </Button>
         </>
       )}
-      {error && <AlertSnackbar variant='error' message={error}/>}
+      {/*{avatarError && <AlertSnackbar variant='error' message={avatarError}/>}*/}
     </Card>
   )
 }

@@ -4,3 +4,23 @@
   align-items: center;
   width: 100%;
 }
+
+.editWrapper {
+  position: absolute;
+  right: 0;
+  top: 68%;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 6px 6px;
+  background-color: var(--color-dark-300);
+  border-radius: 4px;
+  z-index: 10;
+}
+
+.avatarWrapper {
+  position: relative;
+}

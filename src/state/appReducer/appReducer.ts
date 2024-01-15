@@ -3,11 +3,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 const slice = createSlice({
   name: 'app',
   initialState: {
-    message: '',
+    message: { message: '' },
   },
   reducers: {
     setMessage: (state, action: PayloadAction<{ message: string }>) => {
-      state.message = action.payload.message
+      state.message.message = action.payload.message
     },
   },
 })

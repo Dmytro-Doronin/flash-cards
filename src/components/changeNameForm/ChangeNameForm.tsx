@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, useForm } from 'react-hook-form'
 
-import { useChangeNameMutation } from '../../services/profileService/profile.service.ts'
+
 import { ProfileAvatar } from '../profileAvatar/ProfileAvatar.tsx'
 import { Button } from '../ui/button'
 import { TextField } from '../ui/textField'
@@ -15,6 +15,8 @@ type ChangeNameFormType = {
   currentName?: string
   closeNameChangeHandler: () => void
   nameChange: boolean
+  updateNameHandler: (data: FormData) => void
+  changeNameIsLoading: boolean
   // changeUserDataHandler: ({ avatar, name, email }: profileType) => Promise<void>
 }
 
@@ -22,10 +24,10 @@ export const ChangeNameForm = ({
   avatar,
   currentName,
   closeNameChangeHandler,
-  nameChange,
+  updateNameHandler,
+  changeNameIsLoading,
 }: ChangeNameFormType) => {
-  const [changeName, { isLoading }] = useChangeNameMutation()
-
+  // const [changeName, { isLoading }] = useChangeNameMutation()
   const {
     control,
     handleSubmit,
@@ -39,7 +41,7 @@ export const ChangeNameForm = ({
       const formDada = new FormData()
 
       formDada.append('name', data.name)
-      await changeName(formDada)
+      await updateNameHandler(formDada)
     } catch (e) {
       console.log(e)
     } finally {
@@ -49,7 +51,10 @@ export const ChangeNameForm = ({
 
   return (
     <form className={c.changeNameForm} onSubmit={handleSubmit(onSubmitForm)}>
-      <ProfileAvatar nameChange={nameChange} variant={'profile'} image={avatar} />
+      <div className={c.avatarWrapper}>
+        <ProfileAvatar variant={'profile'} image={avatar} />
+      </div>
+
       <Controller
         render={({ field }) => (
           <TextField
@@ -63,7 +68,7 @@ export const ChangeNameForm = ({
         control={control}
         defaultValue={currentName}
       />
-      <Button disabled={isLoading} fullWidth variant="primary" type={'submit'}>
+      <Button disabled={changeNameIsLoading} fullWidth variant="primary" type={'submit'}>
         Save Changes
       </Button>
     </form>

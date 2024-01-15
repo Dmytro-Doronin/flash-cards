@@ -5,13 +5,13 @@ import { Loader } from '../components/loader/Loader.tsx'
 import { useMeQuery } from '../services/auth/auth.service.ts'
 
 export const PrivateRoutes = () => {
-  const { isLoading, isError } = useMeQuery()
+  const { data, isLoading} = useMeQuery()
 
   if (isLoading) {
     return <Loader variant="main" />
   }
 
-  const isAuthenticated = !isError
+  const isAuthenticated = !!data?.id
 
   return isAuthenticated ? (
     <>

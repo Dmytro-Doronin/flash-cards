@@ -4,7 +4,7 @@ import React, { FC } from 'react'
 import { clsx } from 'clsx'
 
 import AvatarNotFound from '../../assets/images/userImageNotFound.png'
-import { InputFile } from '../inputFile/InputFile.tsx'
+// import { InputFile } from '../inputFile/InputFile.tsx'
 import { InfoType } from '../profileInfo/ProfileInfo.tsx'
 
 import c from './profileAvatar.module.scss'
@@ -13,17 +13,10 @@ export type ProfileAvatarType = {
   image?: string | null
   callback?: React.Dispatch<React.SetStateAction<boolean>>
   variant: InfoType
-  nameChange?: boolean
-  updateAvatarHandler: (data: FormData) => void
+  // updateAvatarHandler: (data: FormData) => void
 }
 
-export const ProfileAvatar: FC<ProfileAvatarType> = ({
-  image,
-  callback,
-  variant,
-  nameChange,
-  updateAvatarHandler,
-}) => {
+export const ProfileAvatar: FC<ProfileAvatarType> = ({ image, callback, variant }) => {
   const classes = {
     avatarWrapper: clsx(
       variant === 'profile' ? `${c.profileAvatarWrapper} ${c[variant]}` : c.profileAvatarWrapper
@@ -41,11 +34,11 @@ export const ProfileAvatar: FC<ProfileAvatarType> = ({
       }}
     >
       <img className={c.profileAvatar} src={image ? image : AvatarNotFound} alt="avatar" />
-      {variant === 'profile' && !nameChange && (
-        <div className={classes.editWrapper}>
-          <InputFile callback={updateAvatarHandler} />
-        </div>
-      )}
+      {/*{variant === 'profile' && !nameChange && (*/}
+      {/*  <div className={classes.editWrapper}>*/}
+      {/*    <InputFile callback={updateAvatarHandler} />*/}
+      {/*  </div>*/}
+      {/*)}*/}
     </div>
   )
 }
