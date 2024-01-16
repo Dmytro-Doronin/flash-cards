@@ -1,0 +1,40 @@
+.page {
+  margin-top: 93px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.headerControl {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 7px;
+}
+
+
+.headerBlock {
+  display: flex;
+  justify-content: space-between;
+}
+
+.control {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+
+}
+.search {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  max-width: 299px;
+  margin-bottom: 0 !important;
+}

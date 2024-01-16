@@ -24,7 +24,7 @@ export const TabSwitcher: FC<TabSwitcherPropsType> = ({ tabs, label }) => {
       <label className={c.span}>
         <Typography variant={'body2'}>{label}</Typography>
       </label>
-      <Tabs.Root defaultValue={'tab1'}>
+      <Tabs.Root defaultValue={tabs[1].text}>
         <Tabs.List>
           {tabs.map((tab, i) => (
             <Tabs.Trigger className={c.trigger} key={i} {...tab}>
@@ -32,9 +32,9 @@ export const TabSwitcher: FC<TabSwitcherPropsType> = ({ tabs, label }) => {
             </Tabs.Trigger>
           ))}
         </Tabs.List>
-        <Tabs.Content value="tab1">tab1</Tabs.Content>
-        <Tabs.Content value="tab2">tab2</Tabs.Content>
-        <Tabs.Content value="tab3">tab3</Tabs.Content>
+        {/*<Tabs.Content value="tab1">tab1</Tabs.Content>*/}
+        {/*<Tabs.Content value="tab2">tab2</Tabs.Content>*/}
+        {/*<Tabs.Content value="tab3">tab3</Tabs.Content>*/}
       </Tabs.Root>
     </div>
   )

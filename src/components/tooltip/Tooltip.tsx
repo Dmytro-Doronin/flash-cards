@@ -64,7 +64,7 @@ export const Tooltip: FC<ProfileMenuType> = ({
       <ul className={c.list}>
         {dataList.map(Item => (
           <li key={Item.id} className={styles.listItem}>
-            <NavLink className={c.link} to={Item.path}>
+            <NavLink onClick={callback} className={c.link} to={Item.path}>
               <Item.icon className={c.icon} />
               <Typography variant={'caption'}>{Item.title}</Typography>
             </NavLink>

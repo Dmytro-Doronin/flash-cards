@@ -10,7 +10,7 @@ import s from './text-field.module.scss'
 
 export type TextFieldProps = {
   onValueChange?: (value: string) => void
-  containerProps?: ComponentProps<'div'>
+  containerProps?: string
   labelProps?: ComponentProps<'label'>
   errorMessage?: string
   label?: string
@@ -44,7 +44,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     }
 
     const classNames = {
-      root: clsx(s.root, containerProps?.className),
+      root: clsx(s.root, containerProps),
       fieldContainer: clsx(s.fieldContainer),
       field: clsx(s.field, !!errorMessage && s.error, className),
       label: clsx(s.label, labelProps?.className),
