@@ -4,6 +4,7 @@ import { clsx } from 'clsx'
 
 import ClosedEye from '../../../assets/icons/ClosedEye.tsx'
 import Eye from '../../../assets/icons/Eye.tsx'
+import SearchIcon from '../../../assets/icons/SearchIcon.tsx'
 import { Typography } from '../typography'
 
 import s from './text-field.module.scss'
