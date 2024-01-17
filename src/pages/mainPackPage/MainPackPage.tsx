@@ -1,11 +1,12 @@
+import SearchIcon from '../../assets/icons/SearchIcon.tsx'
 import { Button } from '../../components/ui/button'
-
+import SliderRange from '../../components/ui/slider/SliderRange.tsx'
+import { TabSwitcher } from '../../components/ui/tabs/TabSwitcher.tsx'
+import { TextField } from '../../components/ui/textField'
 import { Typography } from '../../components/ui/typography'
 
 import c from './mainPackPage.module.scss'
-import { TextField } from "../../components/ui/textField";
-import TabSwitcher from "../../components/ui/tabs/TabSwitcher.tsx";
-import SliderRange from '../../components/ui/slider/SliderRange.tsx'
+import { ControlPanel } from "../../components/controlPanel/ControlPanel.tsx";
 
 const tabs = [
   {
@@ -29,13 +30,21 @@ export const MainPackPage = () => {
               <Button variant="primary">Add New Pack</Button>
             </div>
             <div className={c.control}>
-              <TextField containerProps={c.search} placeholder="Input search" />
+              <TextField Icon={SearchIcon} containerProps={c.search} placeholder="Input search" />
               <TabSwitcher label="Show packs cards" tabs={tabs} />
-              <SliderRange label="Number of cards" />
+              <SliderRange
+                defaultValue={[1, 10]}
+                min={1}
+                max={10}
+                step={1}
+                value={[1, 10]}
+                label="Number of cards"
+              />
               <Button variant="secondary">Clear Filter</Button>
             </div>
           </div>
         </div>
+        <ControlPanel />
       </div>
     </div>
   )

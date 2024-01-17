@@ -1,10 +1,18 @@
-import { ComponentProps, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
+import {
+  ComponentProps,
+  ComponentPropsWithoutRef,
+  forwardRef,
+  ForwardRefExoticComponent,
+  MemoExoticComponent,
+  RefAttributes,
+  SVGProps,
+  useState,
+} from 'react'
 
 import { clsx } from 'clsx'
 
 import ClosedEye from '../../../assets/icons/ClosedEye.tsx'
 import Eye from '../../../assets/icons/Eye.tsx'
-import SearchIcon from '../../../assets/icons/SearchIcon.tsx'
 import { Typography } from '../typography'
 
 import s from './text-field.module.scss'
@@ -15,6 +23,9 @@ export type TextFieldProps = {
   labelProps?: ComponentProps<'label'>
   errorMessage?: string
   label?: string
+  Icon?: MemoExoticComponent<
+    ForwardRefExoticComponent<Omit<SVGProps<SVGSVGElement>, 'ref'> & RefAttributes<SVGSVGElement>>
+  >
 } & ComponentPropsWithoutRef<'input'>
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
@@ -22,6 +33,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     {
       className,
       errorMessage,
+      Icon,
       placeholder,
       type,
       containerProps,
@@ -34,7 +46,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     ref
   ) => {
     const [showPassword, setShowPassword] = useState(false)
-
+    const [containerFocused, setContainerFocused] = useState(false)
     const isShowPasswordButtonShown = type === 'password'
 
     const finalType = getFinalType(type, showPassword)
@@ -46,10 +58,21 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
 
     const classNames = {
       root: clsx(s.root, containerProps),
-      fieldContainer: clsx(s.fieldContainer),
+      fieldContainer: clsx(
+        containerFocused ? `${s.fieldContainer} ${s.containerFocused}` : s.fieldContainer
+      ),
       field: clsx(s.field, !!errorMessage && s.error, className),
       label: clsx(s.label, labelProps?.className),
       error: clsx(s.error),
+      icon: clsx(s.icon),
+    }
+
+    const focusedHandler = () => {
+      setContainerFocused(true)
+    }
+
+    const unFocusedHandler = () => {
+      setContainerFocused(false)
     }
 
     return (
@@ -59,7 +82,13 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             {label}
           </Typography>
         )}
-        <div className={classNames.fieldContainer}>
+        <div
+          onFocus={focusedHandler}
+          onBlur={unFocusedHandler}
+          className={classNames.fieldContainer}
+        >
+          {Icon && <Icon className={classNames.icon} />}
+          {/*<SearchIcon />*/}
           <input
             className={classNames.field}
             placeholder={placeholder}
