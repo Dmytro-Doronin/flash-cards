@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom'
 
 import { pathVariables } from '../../../route/pathVariables.ts'
 import { LoginType } from '../../../services/auth/auth.types.ts'
+import { Loader } from '../../loader/Loader.tsx'
 import { Button } from '../../ui/button'
 import { Card } from '../../ui/card'
 import { ControlledCheckbox } from '../../ui/controlled'
@@ -16,7 +17,6 @@ import { Typography } from '../../ui/typography'
 import c from './loginForm.module.scss'
 import { loginSchema } from './loginForm.validation.ts'
 import { FormValues } from './loginFormTypes.ts'
-import { Loader } from "../../loader/Loader.tsx";
 
 type LoginFormType = {
   isLoading: boolean

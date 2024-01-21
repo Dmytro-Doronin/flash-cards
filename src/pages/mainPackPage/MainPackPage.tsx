@@ -1,4 +1,5 @@
 import SearchIcon from '../../assets/icons/SearchIcon.tsx'
+import { Deck } from '../../components/deck/Deck.tsx'
 import { Button } from '../../components/ui/button'
 import SliderRange from '../../components/ui/slider/SliderRange.tsx'
 import { TabSwitcher } from '../../components/ui/tabs/TabSwitcher.tsx'
@@ -6,7 +7,6 @@ import { TextField } from '../../components/ui/textField'
 import { Typography } from '../../components/ui/typography'
 
 import c from './mainPackPage.module.scss'
-import { ControlPanel } from "../../components/controlPanel/ControlPanel.tsx";
 
 const tabs = [
   {
@@ -44,7 +44,7 @@ export const MainPackPage = () => {
             </div>
           </div>
         </div>
-        <ControlPanel />
+        <Deck />
       </div>
     </div>
   )
