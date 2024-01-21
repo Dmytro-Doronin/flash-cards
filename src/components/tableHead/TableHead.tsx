@@ -1,5 +1,7 @@
 import { ComponentPropsWithoutRef, FC } from 'react'
 
+import c from './tableHead.module.scss'
+
 type Column = {
   key: string
   title: string
@@ -34,10 +36,10 @@ export const TableHead: FC<
   }
 
   return (
-    <thead {...restProps}>
-      <tr>
+    <thead className={c.thead} {...restProps}>
+      <tr className={c.thr}>
         {columns.map(({ title, key }) => (
-          <th onClick={() => handleSort(title)} key={key}>
+          <th className={c.th} onClick={() => handleSort(title)} key={key}>
             {title}
           </th>
         ))}

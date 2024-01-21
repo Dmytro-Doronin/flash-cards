@@ -2,6 +2,8 @@ import { useMemo, useState } from 'react'
 
 import { TableHead } from '../tableHead/TableHead.tsx'
 
+import c from './deck.module.scss'
+
 const data = [
   {
     title: 'Project A',
@@ -82,16 +84,16 @@ export const Deck = () => {
   // }
 
   return (
-    <table>
+    <table className={c.table}>
       <TableHead columns={columns} sort={sort} onSort={setSort} />
-      <tbody>
+      <tbody className={c.tbody}>
         {data.map(item => (
-          <tr key={item.title}>
-            <td>{item.title}</td>
-            <td>{item.cardsCount}</td>
-            <td>{item.updated}</td>
-            <td>{item.createdBy}</td>
-            <td>icons...</td>
+          <tr className={c.tr} key={item.title}>
+            <td className={c.td}>{item.title}</td>
+            <td className={c.td}>{item.cardsCount}</td>
+            <td className={c.td}>{item.updated}</td>
+            <td className={c.td}>{item.createdBy}</td>
+            <td className={c.td}>icons...</td>
           </tr>
         ))}
       </tbody>
