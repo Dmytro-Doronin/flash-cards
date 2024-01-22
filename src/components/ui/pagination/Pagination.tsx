@@ -2,7 +2,6 @@ import { FC } from 'react'
 
 import { clsx } from 'clsx'
 
-
 import { MainPaginationButtons } from './MainPaginationButton.tsx'
 import { NextButton } from './NextButton.tsx'
 import s from './pagination.module.scss'
@@ -46,12 +45,7 @@ export type NavigationButtonProps = {
   onClick: () => void
 }
 
-export const Pagination: FC<PaginationProps> = ({
-  count,
-  onChange,
-  page,
-  siblings,
-}) => {
+export const Pagination: FC<PaginationProps> = ({ count, onChange, page, siblings }) => {
   const {
     handleMainPageClicked,
     handleNextPageClicked,
@@ -79,7 +73,6 @@ export const Pagination: FC<PaginationProps> = ({
 
         <NextButton disabled={isLastPage} onClick={handleNextPageClicked} />
       </div>
-
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import { ErrorUtils } from '../../utils/ErrorUtils.ts'
 import { baseApi } from '../base.service.ts'
 
-// import { profileType } from './profileService.types.ts'
+// import { profileType } from './profile.types.ts'
 
 export const profileService = baseApi.injectEndpoints({
   endpoints: builder => ({

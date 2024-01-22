@@ -1,7 +1,7 @@
 import { AlertSnackbar } from '../../components/alertSnackbar/AlertSnackbar.tsx'
 import { ProfileCard } from '../../components/profileCard/ProfileCard.tsx'
 import { useMeQuery } from '../../services/auth/auth.service.ts'
-import { useAvatarUpdateMutation, useChangeNameMutation } from "../../services/profileService/profile.service.ts";
+import { useAvatarUpdateMutation, useChangeNameMutation } from "../../services/profile/profile.service.ts";
 import { useAppSelector } from '../../store/store.ts'
 
 import c from './profilePage.module.scss'

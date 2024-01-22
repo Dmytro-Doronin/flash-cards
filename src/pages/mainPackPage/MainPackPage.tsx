@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import SearchIcon from '../../assets/icons/SearchIcon.tsx'
 import { Deck } from '../../components/deck/Deck.tsx'
 import { Button } from '../../components/ui/button'
@@ -5,8 +7,11 @@ import SliderRange from '../../components/ui/slider/SliderRange.tsx'
 import { TabSwitcher } from '../../components/ui/tabs/TabSwitcher.tsx'
 import { TextField } from '../../components/ui/textField'
 import { Typography } from '../../components/ui/typography'
+import { useMeQuery } from '../../services/auth/auth.service.ts'
+import { useGetDeckQuery } from '../../services/decks/decks.service.ts'
 
 import c from './mainPackPage.module.scss'
+import { Pagination } from "../../components/ui/pagination/Pagination.tsx";
 
 const tabs = [
   {
@@ -19,7 +24,23 @@ const tabs = [
   },
 ]
 
+export type Sort = {
+  key: string
+  direction: 'asc' | 'desc'
+} | null
+
 export const MainPackPage = () => {
+  const [sort, setSort] = useState<Sort>(null)
+
+  const { data: GetDecksData } = useGetDeckQuery()
+  const { data: CurrentUser } = useMeQuery()
+
+  // const sortedString = useMemo(() => {
+  //   if (!sort) return null
+  //
+  //   return `${sort.key}-${sort.direction}`
+  // }, [sort])
+
   return (
     <div className={c.page}>
       <div className={c.container}>
@@ -44,7 +65,13 @@ export const MainPackPage = () => {
             </div>
           </div>
         </div>
-        <Deck />
+        <Deck
+          currentUserId={CurrentUser?.id ?? ''}
+          decks={GetDecksData?.items}
+          sort={sort}
+          onSort={setSort}
+        />
+        {/*<Pagination count={GetDecksData?.pagination?.totalPages || 1} onChange={} page={}/>*/}
       </div>
     </div>
   )

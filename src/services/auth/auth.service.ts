@@ -1,7 +1,14 @@
 import { ErrorUtils } from '../../utils/ErrorUtils.ts'
 import { baseApi } from '../base.service.ts'
 
-import { CreateUser, DataFromLoginType, LoginType, NewPasswordType, RecoverPasswordType, User } from "./auth.types.ts";
+import {
+  CreateUser,
+  DataFromLoginType,
+  LoginType,
+  NewPasswordType,
+  RecoverPasswordType,
+  User,
+} from './auth.types.ts'
 
 export const authService = baseApi.injectEndpoints({
   endpoints: builder => ({

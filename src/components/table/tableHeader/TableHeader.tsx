@@ -1,6 +1,10 @@
 import { ComponentPropsWithoutRef, FC } from 'react'
 
-import c from './tableHead.module.scss'
+import { TableHead } from '../tableHead/TableHead.tsx'
+import { TableHeadCell } from '../tableHeadCeil/TableHeadCeil.tsx'
+import { TableRow } from '../tableRow/TableRow.tsx'
+
+import c from './tableHeader.module.scss'
 
 type Column = {
   key: string
@@ -12,7 +16,7 @@ type Sort = {
   direction: 'asc' | 'desc'
 } | null
 
-export const TableHead: FC<
+export const TableHeader: FC<
   Omit<
     ComponentPropsWithoutRef<'thead'> & {
       columns: Column[]
@@ -36,15 +40,15 @@ export const TableHead: FC<
   }
 
   return (
-    <thead className={c.thead} {...restProps}>
-      <tr className={c.thr}>
+    <TableHead className={c.thead} {...restProps}>
+      <TableRow className={c.thr}>
         {columns.map(({ title, key }) => (
-          <th className={c.th} onClick={() => handleSort(title)} key={key}>
+          <TableHeadCell className={c.th} onClick={() => handleSort(title)} key={key}>
             {title}
-          </th>
+          </TableHeadCell>
         ))}
-        <th></th>
-      </tr>
-    </thead>
+        <TableHeadCell></TableHeadCell>
+      </TableRow>
+    </TableHead>
   )
 }

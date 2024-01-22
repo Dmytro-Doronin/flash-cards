@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { clsx } from 'clsx'
 
 import Edit from '../../assets/icons/Edit.tsx'
-import { profileType } from '../../services/profileService/profileService.types.ts'
+import { profileType } from '../../services/profile/profileService.types.ts'
 import { Typography } from '../ui/typography'
 
 import c from './profileInfo.module.scss'

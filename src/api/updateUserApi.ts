@@ -1,4 +1,4 @@
-import { profileType } from '../services/profileService/profileService.types.ts'
+import { profileType } from '../services/profile/profileService.types.ts'
 
 import { MutationTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks'
 import { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query'
