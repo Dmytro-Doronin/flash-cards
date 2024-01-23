@@ -7,8 +7,11 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
 import { baseApi } from '../services/base.service.ts'
 import { appReducer } from '../state/appReducer/appReducer.ts'
+// eslint-disable-next-line import/namespace
+import { decksReducer } from '../state/decksReducer/decksReducer.ts'
 
 const rootReducer = combineReducers({
+  decks: decksReducer,
   app: appReducer,
   [baseApi.reducerPath]: baseApi.reducer,
 })

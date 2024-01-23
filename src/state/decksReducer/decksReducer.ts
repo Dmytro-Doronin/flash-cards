@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const slice = createSlice({
   name: 'decks',
@@ -15,7 +15,29 @@ const slice = createSlice({
       state.currentPage = 1
     },
     resetFilters: state => {
-
-    }
-  }
+      state.authorId = undefined
+      state.currentPage = 1
+      state.maxCard = undefined
+      state.minCard = 0
+      state.search = ''
+    },
+    setCurrentPage: (state, action: PayloadAction<number>) => {
+      state.currentPage = action.payload
+    },
+    setMaxCard: (state, action: PayloadAction<number>) => {
+      state.maxCard = action.payload
+    },
+    setMinCard: (state, action: PayloadAction<number>) => {
+      state.maxCard = action.payload
+    },
+    setPerPage: (state, action: PayloadAction<number>) => {
+      state.perPage = action.payload
+    },
+    setSearch: (state, action: PayloadAction<string>) => {
+      state.search = action.payload
+    },
+  },
 })
+
+export const decksReducer = slice.reducer
+export const deckActions = slice.actions
