@@ -1,10 +1,13 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
+import { Tab } from '../../services/decks/decks.types.ts'
 
 const slice = createSlice({
   name: 'decks',
   initialState: {
     authorId: undefined as string | undefined,
     currentPage: 1,
+    currentTab: 'all' as Tab,
     maxCard: undefined as number | undefined,
     minCard: 0,
     perPage: 10,
@@ -23,6 +26,10 @@ const slice = createSlice({
     },
     setCurrentPage: (state, action: PayloadAction<number>) => {
       state.currentPage = action.payload
+    },
+    setCurrentTab: (state, action: PayloadAction<{ authorId?: string; tab: Tab }>) => {
+      state.currentTab = action.payload.tab
+      state.authorId = action.payload.authorId
     },
     setMaxCard: (state, action: PayloadAction<number>) => {
       state.maxCard = action.payload

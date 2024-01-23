@@ -1,4 +1,4 @@
-import { Sort } from '../../pages/mainPackPage/MainPackPage.tsx'
+import { Sort } from '../../pages/decksPage/DecksPage.tsx'
 import { DeckType } from '../../services/decks/decks.types.ts'
 import { Table, TableBody, TableCell, TableRow, TableHeader } from '../table'
 

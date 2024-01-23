@@ -19,7 +19,7 @@ export type GetDecksArgs = {
   maxCardsCount?: number
   name?: string
   authorId?: string
-  currentPage?: string
+  currentPage?: number
 }
 
 export type DecksResponseType = {
@@ -32,3 +32,5 @@ export type DecksResponseType = {
   }
   maxCardsCount: number
 }
+
+export type Tab = 'all' | 'my'

@@ -1,17 +1,20 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
+
+import { useSelector } from 'react-redux'
 
 import SearchIcon from '../../assets/icons/SearchIcon.tsx'
 import { Deck } from '../../components/deck/Deck.tsx'
 import { Button } from '../../components/ui/button'
+import { Pagination } from '../../components/ui/pagination/Pagination.tsx'
 import SliderRange from '../../components/ui/slider/SliderRange.tsx'
 import { TabSwitcher } from '../../components/ui/tabs/TabSwitcher.tsx'
 import { TextField } from '../../components/ui/textField'
 import { Typography } from '../../components/ui/typography'
 import { useMeQuery } from '../../services/auth/auth.service.ts'
 import { useGetDeckQuery } from '../../services/decks/decks.service.ts'
+import { useAppSelector } from '../../store/store.ts'
 
-import c from './mainPackPage.module.scss'
-import { Pagination } from "../../components/ui/pagination/Pagination.tsx";
+import c from './decksPage.module.scss'
 
 const tabs = [
   {
@@ -29,17 +32,28 @@ export type Sort = {
   direction: 'asc' | 'desc'
 } | null
 
-export const MainPackPage = () => {
+export const DecksPage = () => {
+  const { data: CurrentUser } = useMeQuery()
   const [sort, setSort] = useState<Sort>(null)
 
-  const { data: GetDecksData } = useGetDeckQuery()
-  const { data: CurrentUser } = useMeQuery()
+  const sortedString = useMemo(() => {
+    if (!sort) return undefined
 
-  // const sortedString = useMemo(() => {
-  //   if (!sort) return null
-  //
-  //   return `${sort.key}-${sort.direction}`
-  // }, [sort])
+    return `${sort.key}-${sort.direction}`
+  }, [sort])
+
+  const { authorId, currentPage, perPage, currentTab, search, minCard, maxCard } = useAppSelector(
+    state => state.decks
+  )
+
+  const currentUserId = CurrentUser?.id
+  const { data: GetDecksData } = useGetDeckQuery({
+    minCardsCount: minCard,
+    maxCardsCount: maxCard,
+    authorId,
+    currentPage,
+    orderBy: sortedString,
+  })
 
   return (
     <div className={c.page}>
