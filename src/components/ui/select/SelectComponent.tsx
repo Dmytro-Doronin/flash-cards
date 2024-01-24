@@ -43,10 +43,11 @@ export type SelectComponentType = Omit<
   options: Options[]
   variant: variantType
   errorMessage?: string
+  className?: string
 }
 
 export const SelectComponent: React.FC<SelectComponentType> = props => {
-  const { errorMessage, options, defaultValue, onChange, variant, ...restProps } = props
+  const { errorMessage, options, defaultValue, onChange, variant, value, ...restProps } = props
   const triggerClasses = clsx(s.SelectTrigger, s[variant])
 
   return (
@@ -58,7 +59,7 @@ export const SelectComponent: React.FC<SelectComponentType> = props => {
         </Select.Icon>
       </Select.Trigger>
       <Select.Portal>
-        <Select.Content position={'popper'} className={s.SelectContent}>
+        <Select.Content side="bottom" position={'popper'} className={s.SelectContent}>
           <Select.ScrollUpButton className={s.SelectScrollButton}>
             <ChevronUpIcon />
           </Select.ScrollUpButton>

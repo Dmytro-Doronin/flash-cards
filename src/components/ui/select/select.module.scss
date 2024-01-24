@@ -12,7 +12,6 @@ button {
 }
 
 .simple {
-
 }
 
 .pagination {
@@ -40,7 +39,6 @@ button {
 }
 
 .SelectViewport {
-
 }
 
 .SelectGroup {
@@ -53,12 +51,12 @@ button {
   justify-content: space-between;
   width: auto;
   cursor: pointer;
-  //background-color: var(--color-dark-500);
+  background-color: var(--color-dark-500);
   &:hover {
-    background-color: var( --color-accent-900);
+    background-color: var(--color-accent-900);
   }
   &:hover .selectTypography {
-    color: var( --color-accent-300);
+    color: var(--color-accent-300);
   }
 
   //&:hover .selectIcon {

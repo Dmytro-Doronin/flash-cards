@@ -20,6 +20,7 @@ export type GetDecksArgs = {
   name?: string
   authorId?: string
   currentPage?: number
+  itemsPerPage?: number
 }
 
 export type DecksResponseType = {
