@@ -43,7 +43,7 @@ export const TableHeader: FC<
     <TableHead className={c.thead} {...restProps}>
       <TableRow className={c.thr}>
         {columns.map(({ title, key }) => (
-          <TableHeadCell className={c.th} onClick={() => handleSort(title)} key={key}>
+          <TableHeadCell className={c.th} onClick={() => handleSort(key)} key={key}>
             {title}
           </TableHeadCell>
         ))}

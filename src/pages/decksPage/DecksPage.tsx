@@ -12,7 +12,8 @@ import { TextField } from '../../components/ui/textField'
 import { Typography } from '../../components/ui/typography'
 import { useMeQuery } from '../../services/auth/auth.service.ts'
 import { useGetDeckQuery } from '../../services/decks/decks.service.ts'
-import { useAppSelector } from '../../store/store.ts'
+import { deckActions } from '../../state/decksReducer/decksReducer.ts'
+import { useAppDispatch, useAppSelector } from '../../store/store.ts'
 
 import c from './decksPage.module.scss'
 
@@ -35,6 +36,7 @@ export type Sort = {
 export const DecksPage = () => {
   const { data: CurrentUser } = useMeQuery()
   const [sort, setSort] = useState<Sort>(null)
+  const [paf, setPaf] = useState<number>(1)
 
   const sortedString = useMemo(() => {
     if (!sort) return undefined
@@ -42,6 +44,7 @@ export const DecksPage = () => {
     return `${sort.key}-${sort.direction}`
   }, [sort])
 
+  const dispatch = useAppDispatch()
   const { authorId, currentPage, perPage, currentTab, search, minCard, maxCard } = useAppSelector(
     state => state.decks
   )
@@ -52,8 +55,13 @@ export const DecksPage = () => {
     maxCardsCount: maxCard,
     authorId,
     currentPage,
-    orderBy: sortedString,
+    name: search,
+    orderBy: sort ? sortedString : undefined,
   })
+
+  const setCurrenPageHandler = (page: number) => {
+    dispatch(deckActions.setCurrentPage(page))
+  }
 
   return (
     <div className={c.page}>
@@ -61,6 +69,7 @@ export const DecksPage = () => {
         <div className={c.inner}>
           <div className={c.controlBlock}>
             <div className={c.headerControl}>
+              <div>Current page{GetDecksData?.pagination?.currentPage}</div>
               <Typography variant="large">Packs list</Typography>
               <Button variant="primary">Add New Pack</Button>
             </div>
@@ -85,7 +94,11 @@ export const DecksPage = () => {
           sort={sort}
           onSort={setSort}
         />
-        {/*<Pagination count={GetDecksData?.pagination?.totalPages || 1} onChange={} page={}/>*/}
+        <Pagination
+          count={GetDecksData?.pagination?.totalPages || 1}
+          onChange={setCurrenPageHandler}
+          page={currentPage}
+        />
       </div>
     </div>
   )
