@@ -35,7 +35,7 @@
   align-items: center;
   flex-grow: 1;
   max-width: 299px;
-  margin-bottom: 0 !important;
+  margin-bottom: 0;
 }
 
 .paginationWrapper {
@@ -53,4 +53,16 @@
 
 .t2 {
   margin-left: 20px;
+}
+
+.alert {
+  text-align: center;
+}
+.decksWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  min-height: 315px;
+
 }

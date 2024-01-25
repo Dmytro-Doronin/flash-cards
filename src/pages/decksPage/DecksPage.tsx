@@ -11,6 +11,7 @@ import { TextField } from '../../components/ui/textField'
 import { Typography } from '../../components/ui/typography'
 import { useMeQuery } from '../../services/auth/auth.service.ts'
 import { useGetDeckQuery } from '../../services/decks/decks.service.ts'
+// import { Tab } from '../../services/decks/decks.types.ts'
 import { deckActions } from '../../state/decksReducer/decksReducer.ts'
 import { useAppDispatch, useAppSelector } from '../../store/store.ts'
 
@@ -18,12 +19,12 @@ import c from './decksPage.module.scss'
 
 const tabs = [
   {
-    value: 'My Cards',
-    text: 'My Cards',
+    value: 'all',
+    text: 'All Cards',
   },
   {
-    value: 'All Cards',
-    text: 'All Cards',
+    value: 'my',
+    text: 'My Cards',
   },
 ]
 
@@ -58,11 +59,11 @@ export const DecksPage = () => {
   }, [sort])
 
   const dispatch = useAppDispatch()
-  const { authorId, currentPage, perPage, currentTab, search, minCard, maxCard } = useAppSelector(
+  const { currentPage, perPage, currentTab, search, minCard, maxCard } = useAppSelector(
     state => state.decks
   )
-
   const currentUserId = CurrentUser?.id
+  const authorId = currentTab === 'my' ? currentUserId : undefined
   const { data: GetDecksData } = useGetDeckQuery({
     minCardsCount: minCard,
     maxCardsCount: maxCard,
@@ -84,6 +85,16 @@ export const DecksPage = () => {
     dispatch(deckActions.setSearch(search))
   }
 
+  const setTabHandler = (tab: string) => {
+    dispatch(deckActions.resetCurrentPage())
+    dispatch(deckActions.setCurrentTab({ tab }))
+  }
+
+  const setSliderHandler = (values: number[]) => {
+    dispatch(deckActions.setMinCard(values[0]))
+    dispatch(deckActions.setMaxCard(values[1]))
+  }
+
   return (
     <div className={c.page}>
       <div className={c.container}>
@@ -101,47 +112,62 @@ export const DecksPage = () => {
                 containerProps={c.search}
                 placeholder="Input search"
               />
-              <TabSwitcher label="Show packs cards" tabs={tabs} />
+              <TabSwitcher
+                onValueChange={setTabHandler}
+                value={currentTab}
+                label="Show packs cards"
+                tabs={tabs}
+              />
               <SliderRange
                 defaultValue={[1, 10]}
-                min={1}
-                max={10}
-                step={1}
-                value={[1, 10]}
+                min={0}
+                max={GetDecksData?.maxCardsCount}
+                value={[minCard, maxCard]}
+                onValueChange={setSliderHandler}
                 label="Number of cards"
               />
               <Button variant="secondary">Clear Filter</Button>
             </div>
           </div>
         </div>
-        <Deck
-          currentUserId={CurrentUser?.id ?? ''}
-          decks={GetDecksData?.items}
-          sort={sort}
-          onSort={setSort}
-        />
-        <div className={c.paginationWrapper}>
-          <Pagination
-            count={GetDecksData?.pagination?.totalPages || 1}
-            onChange={setCurrenPageHandler}
-            page={currentPage}
-          />
-          <div className={c.selectWrapper}>
-            <Typography className={c.t1} variant="body1">
-              Show
-            </Typography>
-            <SelectComponent
-              className={c.decksSelect}
-              defaultValue={perPage.toString()}
-              onChange={setPerPageHandler}
-              options={options}
-              variant="pagination"
-            />
-            <Typography className={c.t2} variant="body1">
-              in page
+        {GetDecksData?.items.length === 0 ? (
+          <div className={c.decksWrapper}>
+            <Typography className={c.alert} variant="h1">
+              Your decks were not found
             </Typography>
           </div>
-        </div>
+        ) : (
+          <div className={c.decksWrapper}>
+            <Deck
+              currentUserId={currentUserId ?? ''}
+              decks={GetDecksData?.items}
+              sort={sort}
+              onSort={setSort}
+            />
+            <div className={c.paginationWrapper}>
+              <Pagination
+                count={GetDecksData?.pagination?.totalPages || 1}
+                onChange={setCurrenPageHandler}
+                page={currentPage}
+              />
+              <div className={c.selectWrapper}>
+                <Typography className={c.t1} variant="body1">
+                  Show
+                </Typography>
+                <SelectComponent
+                  className={c.decksSelect}
+                  defaultValue={perPage.toString()}
+                  onChange={setPerPageHandler}
+                  options={options}
+                  variant="pagination"
+                />
+                <Typography className={c.t2} variant="body1">
+                  in page
+                </Typography>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )

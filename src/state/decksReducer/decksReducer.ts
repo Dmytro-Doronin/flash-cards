@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { Tab } from '../../services/decks/decks.types.ts'
+// import { Tab } from '../../services/decks/decks.types.ts'
 
 const slice = createSlice({
   name: 'decks',
   initialState: {
     authorId: undefined as string | undefined,
     currentPage: 1,
-    currentTab: 'all' as Tab,
-    maxCard: undefined as number | undefined,
+    currentTab: 'all',
+    maxCard: 0,
     minCard: 0,
     perPage: 10,
     search: '',
@@ -20,14 +20,14 @@ const slice = createSlice({
     resetFilters: state => {
       state.authorId = undefined
       state.currentPage = 1
-      state.maxCard = undefined
+      state.maxCard = 0
       state.minCard = 0
       state.search = ''
     },
     setCurrentPage: (state, action: PayloadAction<number>) => {
       state.currentPage = action.payload
     },
-    setCurrentTab: (state, action: PayloadAction<{ authorId?: string; tab: Tab }>) => {
+    setCurrentTab: (state, action: PayloadAction<{ tab: string; authorId?: string }>) => {
       state.currentTab = action.payload.tab
       state.authorId = action.payload.authorId
     },
