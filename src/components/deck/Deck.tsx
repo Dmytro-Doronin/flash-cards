@@ -37,7 +37,7 @@ export const Deck = ({ decks, currenUserId, sort, onSort }: DeckComponentType) =
       <TableBody>
         {decks?.map(deck => (
           <TableRow key={deck.id} className={c.tr}>
-            <TableCell>{deck.author.name}</TableCell>
+            <TableCell>{deck.name}</TableCell>
             <TableCell>{deck.cardsCount}</TableCell>
             <TableCell>{deck.updated}</TableCell>
             <TableCell>{deck.author.name}</TableCell>

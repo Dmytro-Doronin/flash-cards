@@ -8,7 +8,7 @@ const slice = createSlice({
     authorId: undefined as string | undefined,
     currentPage: 1,
     currentTab: 'all',
-    maxCard: 0,
+    maxCard: undefined as number | undefined,
     minCard: 0,
     perPage: 10,
     search: '',
@@ -35,7 +35,7 @@ const slice = createSlice({
       state.maxCard = action.payload
     },
     setMinCard: (state, action: PayloadAction<number>) => {
-      state.maxCard = action.payload
+      state.minCard = action.payload
     },
     setPerPage: (state, action: PayloadAction<number>) => {
       state.perPage = action.payload

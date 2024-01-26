@@ -7,12 +7,19 @@ export const decksService = baseApi.injectEndpoints({
     getDeck: builder.query<DecksResponseType, GetDecksArgs | void>({
       query: args => {
         return {
-          url: 'v1/decks',
+          url: 'v2/decks',
           params: args ?? {},
+        }
+      },
+    }),
+    getMaxAndMinDeck: builder.query<{ min: number; max: number }, void>({
+      query: () => {
+        return {
+          url: 'v2/decks/min-max-cards',
         }
       },
     }),
   }),
 })
 
-export const { useGetDeckQuery } = decksService
+export const { useGetDeckQuery, useGetMaxAndMinDeckQuery } = decksService

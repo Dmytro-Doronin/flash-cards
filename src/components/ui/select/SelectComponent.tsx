@@ -51,7 +51,7 @@ export const SelectComponent: React.FC<SelectComponentType> = props => {
   const triggerClasses = clsx(s.SelectTrigger, s[variant])
 
   return (
-    <Select.Root onValueChange={onChange} {...restProps}>
+    <Select.Root defaultValue={defaultValue} onValueChange={onChange} {...restProps}>
       <Select.Trigger className={triggerClasses}>
         <Select.Value defaultValue={defaultValue} placeholder={defaultValue} />
         <Select.Icon className={s.SelectIcon}>

@@ -10,7 +10,7 @@ import { TabSwitcher } from '../../components/ui/tabs/TabSwitcher.tsx'
 import { TextField } from '../../components/ui/textField'
 import { Typography } from '../../components/ui/typography'
 import { useMeQuery } from '../../services/auth/auth.service.ts'
-import { useGetDeckQuery } from '../../services/decks/decks.service.ts'
+import { useGetDeckQuery, useGetMaxAndMinDeckQuery } from '../../services/decks/decks.service.ts'
 // import { Tab } from '../../services/decks/decks.types.ts'
 import { deckActions } from '../../state/decksReducer/decksReducer.ts'
 import { useAppDispatch, useAppSelector } from '../../store/store.ts'
@@ -62,17 +62,21 @@ export const DecksPage = () => {
   const { currentPage, perPage, currentTab, search, minCard, maxCard } = useAppSelector(
     state => state.decks
   )
+
   const currentUserId = CurrentUser?.id
   const authorId = currentTab === 'my' ? currentUserId : undefined
   const { data: GetDecksData } = useGetDeckQuery({
+    authorId,
     minCardsCount: minCard,
     maxCardsCount: maxCard,
-    authorId,
     currentPage,
     itemsPerPage: perPage,
     name: search,
     orderBy: sort ? sortedString : undefined,
   })
+
+  const { data: minMaxData } = useGetMaxAndMinDeckQuery()
+  const [rangeValue, setRangeValue] = useState([0, GetDecksData?.maxCardsCount])
 
   const setCurrenPageHandler = (page: number) => {
     dispatch(deckActions.setCurrentPage(page))
@@ -82,6 +86,7 @@ export const DecksPage = () => {
   }
 
   const setSearchHandler = (search: string) => {
+    dispatch(deckActions.resetCurrentPage())
     dispatch(deckActions.setSearch(search))
   }
 
@@ -90,9 +95,14 @@ export const DecksPage = () => {
     dispatch(deckActions.setCurrentTab({ tab }))
   }
 
-  const setSliderHandler = (values: number[]) => {
-    dispatch(deckActions.setMinCard(values[0]))
-    dispatch(deckActions.setMaxCard(values[1]))
+  // const setRangeSliderHandler = (values: number[]) => {
+  //   dispatch(deckActions.setMinCard(values[0]))
+  //   dispatch(deckActions.setMaxCard(values[1]))
+  // }
+  const handleSliderCommitted = (value: number[]) => {
+    dispatch(deckActions.setCurrentPage(1))
+    dispatch(deckActions.setMinCard(value[0]))
+    dispatch(deckActions.setMaxCard(value[1]))
   }
 
   return (
@@ -107,7 +117,7 @@ export const DecksPage = () => {
             <div className={c.control}>
               <TextField
                 onValueChange={setSearchHandler}
-                value={search ?? ''}
+                value={search}
                 Icon={SearchIcon}
                 containerProps={c.search}
                 placeholder="Input search"
@@ -119,11 +129,12 @@ export const DecksPage = () => {
                 tabs={tabs}
               />
               <SliderRange
-                defaultValue={[1, 10]}
                 min={0}
-                max={GetDecksData?.maxCardsCount}
-                value={[minCard, maxCard]}
-                onValueChange={setSliderHandler}
+                max={minMaxData?.max}
+                // value={rangeValue}
+                value={rangeValue}
+                onValueChange={setRangeValue}
+                onValueCommit={handleSliderCommitted}
                 label="Number of cards"
               />
               <Button variant="secondary">Clear Filter</Button>
@@ -133,7 +144,7 @@ export const DecksPage = () => {
         {GetDecksData?.items.length === 0 ? (
           <div className={c.decksWrapper}>
             <Typography className={c.alert} variant="h1">
-              Your decks were not found
+              Can't find any pack
             </Typography>
           </div>
         ) : (
