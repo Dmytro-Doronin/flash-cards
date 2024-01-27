@@ -4,7 +4,6 @@ import TrashIcon from '../../assets/icons/Trash.tsx'
 
 import c from './controlPanel.module.scss'
 
-
 export const ControlPanel = () => {
   return (
     <div className={c.wrapper}>

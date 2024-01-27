@@ -1,10 +1,12 @@
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
+import EditIcon from '../../assets/icons/Edit.tsx'
+import PlayIcon from '../../assets/icons/PlayIcon.tsx'
+import TrashIcon from '../../assets/icons/Trash.tsx'
 import { Sort } from '../../pages/decksPage/DecksPage.tsx'
 import { DeckType } from '../../services/decks/decks.types.ts'
 import { formatDate } from '../../utils/FormatDateUtils.ts'
 import { Table, TableBody, TableCell, TableRow, TableHeader } from '../table'
-import { Typography } from '../ui/typography'
 
 import c from './deck.module.scss'
 
@@ -34,7 +36,7 @@ type DeckComponentType = {
   sort: Sort
 }
 
-export const Deck = ({ decks, currenUserId, sort, onSort }: DeckComponentType) => {
+export const Deck = ({ decks, currentUserId, sort, onSort }: DeckComponentType) => {
   return (
     <Table>
       <TableHeader columns={columns} sort={sort} onSort={onSort} />
@@ -58,7 +60,24 @@ export const Deck = ({ decks, currenUserId, sort, onSort }: DeckComponentType) =
             <TableCell>{deck.cardsCount}</TableCell>
             <TableCell>{formatDate(deck.updated)}</TableCell>
             <TableCell>{deck.author.name}</TableCell>
-            <TableCell>icons...</TableCell>
+            <TableCell>
+              <div className={c.iconWrapper}>
+                <NavLink to="/#">
+                  <PlayIcon />
+                </NavLink>
+
+                {deck.author.id === currentUserId && (
+                  <>
+                    <NavLink to="/#">
+                      <EditIcon />
+                    </NavLink>
+                    <NavLink to="/#">
+                      <TrashIcon />
+                    </NavLink>
+                  </>
+                )}
+              </div>
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>

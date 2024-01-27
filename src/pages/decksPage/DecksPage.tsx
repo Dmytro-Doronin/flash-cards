@@ -154,6 +154,7 @@ export const DecksPage = () => {
         {GetDecksData?.items.length === 0 ? (
           <div className={c.decksWrapper}>
             <Typography className={c.alert} variant="h1">
+              {/* eslint-disable-next-line react/no-unescaped-entities */}
               Can't find any pack
             </Typography>
           </div>
