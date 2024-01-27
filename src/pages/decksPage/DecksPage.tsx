@@ -78,6 +78,14 @@ export const DecksPage = () => {
   const { data: minMaxData } = useGetMaxAndMinDeckQuery()
   const [rangeValue, setRangeValue] = useState([0, GetDecksData?.maxCardsCount])
 
+  const resetFilter = () => {
+    dispatch(deckActions.setCurrentPage(1))
+    dispatch(deckActions.setSearch(''))
+    dispatch(deckActions.setCurrentTab({ tab: 'all' }))
+    dispatch(deckActions.setMinCard(0))
+    dispatch(deckActions.setMaxCard(undefined))
+    setRangeValue([0, minMaxData?.max ?? undefined])
+  }
   const setCurrenPageHandler = (page: number) => {
     dispatch(deckActions.setCurrentPage(page))
   }
@@ -137,7 +145,9 @@ export const DecksPage = () => {
                 onValueCommit={handleSliderCommitted}
                 label="Number of cards"
               />
-              <Button variant="secondary">Clear Filter</Button>
+              <Button onClick={resetFilter} variant="secondary">
+                Clear Filter
+              </Button>
             </div>
           </div>
         </div>

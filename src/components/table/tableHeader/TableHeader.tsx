@@ -1,5 +1,7 @@
 import { ComponentPropsWithoutRef, FC } from 'react'
 
+import ArrowDown from '../../../assets/icons/ArrowDown.tsx'
+import ArrowUp from '../../../assets/icons/ArrowUp.tsx'
 import { TableHead } from '../tableHead/TableHead.tsx'
 import { TableHeadCell } from '../tableHeadCeil/TableHeadCeil.tsx'
 import { TableRow } from '../tableRow/TableRow.tsx'
@@ -45,6 +47,9 @@ export const TableHeader: FC<
         {columns.map(({ title, key }) => (
           <TableHeadCell className={c.th} onClick={() => handleSort(key)} key={key}>
             {title}
+            {sort && sort.key === key && (
+              <span>{sort.direction === 'asc' ? <ArrowUp /> : <ArrowDown />}</span>
+            )}
           </TableHeadCell>
         ))}
         <TableHeadCell></TableHeadCell>

@@ -31,7 +31,7 @@ const slice = createSlice({
       state.currentTab = action.payload.tab
       state.authorId = action.payload.authorId
     },
-    setMaxCard: (state, action: PayloadAction<number>) => {
+    setMaxCard: (state, action: PayloadAction<number | undefined>) => {
       state.maxCard = action.payload
     },
     setMinCard: (state, action: PayloadAction<number>) => {
