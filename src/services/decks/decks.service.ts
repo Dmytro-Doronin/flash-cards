@@ -1,3 +1,4 @@
+// import { ConfirmType } from '../../components/deckModals/addDeckModal/AddDeckModal.tsx'
 import { ErrorUtils } from '../../utils/ErrorUtils.ts'
 import { baseApi } from '../base.service.ts'
 
@@ -21,11 +22,12 @@ export const decksService = baseApi.injectEndpoints({
         }
       },
     }),
-    addNewDeck: builder.mutation<void, void>({
+    addNewDeck: builder.mutation<void, FormData>({
       query: body => ({
         body,
         method: 'POST',
-        url: '/v1/auth/login',
+        url: '/v1/decks',
+        formData: true,
       }),
       transformErrorResponse: response => ErrorUtils(response),
       invalidatesTags: ['Decks'],
@@ -33,4 +35,4 @@ export const decksService = baseApi.injectEndpoints({
   }),
 })
 
-export const { useGetDeckQuery, useGetMaxAndMinDeckQuery } = decksService
+export const { useGetDeckQuery, useGetMaxAndMinDeckQuery, useAddNewDeckMutation } = decksService

@@ -11,8 +11,11 @@ import { TabSwitcher } from '../../components/ui/tabs/TabSwitcher.tsx'
 import { TextField } from '../../components/ui/textField'
 import { Typography } from '../../components/ui/typography'
 import { useMeQuery } from '../../services/auth/auth.service.ts'
-import { useGetDeckQuery, useGetMaxAndMinDeckQuery } from '../../services/decks/decks.service.ts'
-// import { Tab } from '../../services/decks/decks.types.ts'
+import {
+  useAddNewDeckMutation,
+  useGetDeckQuery,
+  useGetMaxAndMinDeckQuery,
+} from '../../services/decks/decks.service.ts'
 import { deckActions } from '../../state/decksReducer/decksReducer.ts'
 import { useAppDispatch, useAppSelector } from '../../store/store.ts'
 
@@ -67,7 +70,7 @@ export const DecksPage = () => {
 
   const currentUserId = CurrentUser?.id
   const authorId = currentTab === 'my' ? currentUserId : undefined
-  const { data: GetDecksData, currentData: GetDecksCurrentData } = useGetDeckQuery({
+  const { data: GetDecksData } = useGetDeckQuery({
     authorId,
     minCardsCount: minCard,
     maxCardsCount: maxCard,
@@ -78,6 +81,7 @@ export const DecksPage = () => {
   })
 
   const { data: minMaxData } = useGetMaxAndMinDeckQuery()
+  const [addNewDeck] = useAddNewDeckMutation()
   const [rangeValue, setRangeValue] = useState([0, GetDecksData?.maxCardsCount])
   const openCreateModalHandler = () => setOpenCreateModal(true)
 
@@ -120,7 +124,12 @@ export const DecksPage = () => {
     <div className={c.page}>
       <div className={c.container}>
         <div className={c.inner}>
-          <AddDeckModal open={openCreateModal} onOpenChange={setOpenCreateModal} />
+          <AddDeckModal
+            onCancel={() => setOpenCreateModal(false)}
+            onConfirm={addNewDeck}
+            open={openCreateModal}
+            onOpenChange={setOpenCreateModal}
+          />
 
           <div className={c.controlBlock}>
             <div className={c.headerControl}>

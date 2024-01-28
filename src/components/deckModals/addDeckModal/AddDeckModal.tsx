@@ -3,7 +3,8 @@ import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, useForm } from 'react-hook-form'
 
-import Eye from '../../../assets/icons/Eye.tsx'
+import Picture from '../../../assets/icons/PictureIcon.tsx'
+import { fileToImage } from '../../../utils/FileToImage.ts'
 import { InputFile } from '../../inputFile/InputFile.tsx'
 import { ModalDialog, ModalDialogType } from '../../modalDialog/ModalDialog.tsx'
 import { Button } from '../../ui/button'
@@ -14,11 +15,12 @@ import c from './addDeckModal.module.scss'
 import { addDeckModalSchema } from './addDeckModal.validation.ts'
 import { AddDeckModalFormValues } from './addDeckModalType.ts'
 
-export type ConfirmType = AddDeckModalFormValues & { image?: string }
+
+// export type ConfirmType = AddDeckModalFormValues & { image?: File }
 
 type AddDeckModalType = Pick<ModalDialogType, 'onCancel' | 'onOpenChange' | 'open'> & {
   defaultValues?: AddDeckModalFormValues
-  onConfirm: (data: ConfirmType) => void
+  onConfirm: (data: FormData) => void
 }
 
 export const AddDeckModal = ({
@@ -36,17 +38,30 @@ export const AddDeckModal = ({
     defaultValues,
     resolver: zodResolver(addDeckModalSchema),
   })
-  const [modalImage, setModalImage] = useState()
+  const [modalImage, setModalImage] = useState<File | null>(null)
+  const [modalPreviewImage, setModalPreviewImage] = useState('')
 
   const onSubmit = handleSubmit(data => {
-    onConfirm(data)
+    const formData = new FormData()
+
+    formData.append('name', data.name)
+    formData.append('isPrivate', String(data.isPrivate))
+    if (modalImage) {
+      formData.append('cover', modalImage)
+    }
+    onConfirm(formData)
     restProps.onOpenChange?.(false)
+    setModalPreviewImage('')
     reset()
   })
 
   const handleCancel = () => {
     reset()
     onCancel?.()
+  }
+  const setImageHandler = (img: File) => {
+    fileToImage(img, setModalPreviewImage)
+    setModalImage(img)
   }
 
   return (
@@ -72,13 +87,19 @@ export const AddDeckModal = ({
           control={control}
           // defaultValue=""
         />
-        <InputFile>
-          <Button type="button" fullWidth variant="secondary">
-            <Eye />
-            Upload Image
-          </Button>
-        </InputFile>
-
+        <div className={c.inputFileWrapper}>
+          {modalPreviewImage && (
+            <div className={c.imgPreview}>
+              <img className={c.img} src={modalPreviewImage} alt="img" />
+            </div>
+          )}
+          <InputFile callback={setImageHandler}>
+            <Button type="button" fullWidth variant="secondary">
+              <Picture />
+              Upload Image
+            </Button>
+          </InputFile>
+        </div>
         <ControlledCheckbox name={'isPrivate'} control={control} label={'Private Pack'} />
       </form>
     </ModalDialog>
