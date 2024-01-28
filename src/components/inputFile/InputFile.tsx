@@ -1,16 +1,14 @@
-import { ChangeEvent, useRef } from 'react'
+import { ChangeEvent, ReactElement, useRef } from 'react'
 
-import EditIcon from '../../assets/icons/Edit.tsx'
+import { appActions } from '../../state/appReducer/appReducer.ts'
 import { useAppDispatch } from '../../store/store.ts'
-import c from '../changeNameForm/changeNameForm.module.scss'
-import {appActions} from "../../state/appReducer/appReducer.ts";
-// import { useAppDispatch } from '../../store/store.ts'
 
 type InputFileType = {
-  callback: (data: FormData) => void
+  callback?: (data: File) => void
+  children: ReactElement
 }
 
-export const InputFile = ({ callback }: InputFileType) => {
+export const InputFile = ({ callback, children }: InputFileType) => {
   // const dispatch = useAppDispatch()
   const dispatch = useAppDispatch()
   const inputRef = useRef<HTMLInputElement>(null)
@@ -38,20 +36,20 @@ export const InputFile = ({ callback }: InputFileType) => {
   }
 
   const uploadHandler = async (e: ChangeEvent<HTMLInputElement>) => {
-    const formData = new FormData()
+    // const formData = new FormData()
     const file = e.target.files![0]
 
     if (file && isValidFile(file)) {
-      formData.append('avatar', file)
-      await callback(formData)
+      // formData.append('avatar', file)
+      callback?.(file)
     } else {
       dispatch(appActions.setMessage({ message: 'Chose valid picture' }))
     }
   }
 
   return (
-    <div className={c.editWrapper}>
-      <EditIcon onClick={selectFileHandler} />
+    <div onClick={selectFileHandler}>
+      {children}
       <input style={{ display: 'none' }} ref={inputRef} type="file" onChange={uploadHandler} />
     </div>
   )

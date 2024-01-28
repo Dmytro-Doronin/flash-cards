@@ -18,15 +18,15 @@ export const Modal = ({ title, children, ...restProp }: ModalType) => {
   return (
     <ModalPrimitive.Root {...restProp}>
       <ModalPrimitive.Portal>
-        <ModalPrimitive.Overlay />
-        <ModalPrimitive.Content>
+        <ModalPrimitive.Overlay className={c.overlay} />
+        <ModalPrimitive.Content className={c.content}>
           <div className={c.header}>
             <ModalPrimitive.Title asChild>
               <Typography as="h2" variant="h2">
                 {title}
               </Typography>
             </ModalPrimitive.Title>
-            <ModalPrimitive.Close>
+            <ModalPrimitive.Close className={c.close}>
               <Close />
             </ModalPrimitive.Close>
           </div>

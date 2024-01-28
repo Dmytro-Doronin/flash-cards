@@ -21,7 +21,9 @@ export const ModalDialog = ({
     <Modal {...restProps}>
       {children}
       <div className={c.buttonsWrapper}>
-        <Button onClick={onCancel}>{cancelText}</Button>
+        <Button variant="secondary" onClick={onCancel}>
+          {cancelText}
+        </Button>
         <Button onClick={onConfirm}>{confirmText}</Button>
       </div>
     </Modal>

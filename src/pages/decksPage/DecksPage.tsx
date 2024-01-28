@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 
 import SearchIcon from '../../assets/icons/SearchIcon.tsx'
 import { Deck } from '../../components/deck/Deck.tsx'
+import { AddDeckModal } from '../../components/deckModals/addDeckModal/AddDeckModal.tsx'
 import { Button } from '../../components/ui/button'
 import { Pagination } from '../../components/ui/pagination/Pagination.tsx'
 import { SelectComponent } from '../../components/ui/select/SelectComponent.tsx'
@@ -51,6 +52,7 @@ export type Sort = {
 export const DecksPage = () => {
   const { data: CurrentUser } = useMeQuery()
   const [sort, setSort] = useState<Sort>(null)
+  const [openCreateModal, setOpenCreateModal] = useState(false)
 
   const sortedString = useMemo(() => {
     if (!sort) return undefined
@@ -65,7 +67,7 @@ export const DecksPage = () => {
 
   const currentUserId = CurrentUser?.id
   const authorId = currentTab === 'my' ? currentUserId : undefined
-  const { data: GetDecksData } = useGetDeckQuery({
+  const { data: GetDecksData, currentData: GetDecksCurrentData } = useGetDeckQuery({
     authorId,
     minCardsCount: minCard,
     maxCardsCount: maxCard,
@@ -77,6 +79,7 @@ export const DecksPage = () => {
 
   const { data: minMaxData } = useGetMaxAndMinDeckQuery()
   const [rangeValue, setRangeValue] = useState([0, GetDecksData?.maxCardsCount])
+  const openCreateModalHandler = () => setOpenCreateModal(true)
 
   const resetFilter = () => {
     dispatch(deckActions.setCurrentPage(1))
@@ -117,10 +120,14 @@ export const DecksPage = () => {
     <div className={c.page}>
       <div className={c.container}>
         <div className={c.inner}>
+          <AddDeckModal open={openCreateModal} onOpenChange={setOpenCreateModal} />
+
           <div className={c.controlBlock}>
             <div className={c.headerControl}>
               <Typography variant="large">Packs list</Typography>
-              <Button variant="primary">Add New Pack</Button>
+              <Button onClick={openCreateModalHandler} variant="primary">
+                Add New Pack
+              </Button>
             </div>
             <div className={c.control}>
               <TextField

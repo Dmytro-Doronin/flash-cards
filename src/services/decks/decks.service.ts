@@ -1,3 +1,4 @@
+import { ErrorUtils } from '../../utils/ErrorUtils.ts'
 import { baseApi } from '../base.service.ts'
 
 import { DecksResponseType, GetDecksArgs } from './decks.types.ts'
@@ -11,6 +12,7 @@ export const decksService = baseApi.injectEndpoints({
           params: args ?? {},
         }
       },
+      providesTags: ['Decks'],
     }),
     getMaxAndMinDeck: builder.query<{ min: number; max: number }, void>({
       query: () => {
@@ -18,6 +20,15 @@ export const decksService = baseApi.injectEndpoints({
           url: 'v2/decks/min-max-cards',
         }
       },
+    }),
+    addNewDeck: builder.mutation<void, void>({
+      query: body => ({
+        body,
+        method: 'POST',
+        url: '/v1/auth/login',
+      }),
+      transformErrorResponse: response => ErrorUtils(response),
+      invalidatesTags: ['Decks'],
     }),
   }),
 })

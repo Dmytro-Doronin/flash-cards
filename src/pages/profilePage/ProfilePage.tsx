@@ -1,7 +1,10 @@
 import { AlertSnackbar } from '../../components/alertSnackbar/AlertSnackbar.tsx'
 import { ProfileCard } from '../../components/profileCard/ProfileCard.tsx'
 import { useMeQuery } from '../../services/auth/auth.service.ts'
-import { useAvatarUpdateMutation, useChangeNameMutation } from "../../services/profile/profile.service.ts";
+import {
+  useAvatarUpdateMutation,
+  useChangeNameMutation,
+} from '../../services/profile/profile.service.ts'
 import { useAppSelector } from '../../store/store.ts'
 
 import c from './profilePage.module.scss'
@@ -13,8 +16,11 @@ export const ProfilePage = () => {
 
   const appAlert = useAppSelector(item => item.app.message)
 
-  const updateAvatarHandler = async (data: FormData) => {
-    await avatarUpdate(data)
+  const updateAvatarHandler = async (data: File) => {
+    const formData = new FormData()
+
+    formData.append('avatar', data)
+    await avatarUpdate(formData)
   }
 
   const updateNameHandler = async (data: FormData) => {
