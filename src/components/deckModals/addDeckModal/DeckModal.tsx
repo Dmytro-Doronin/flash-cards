@@ -11,9 +11,9 @@ import { Button } from '../../ui/button'
 import { ControlledCheckbox } from '../../ui/controlled'
 import { TextField } from '../../ui/textField'
 
-import c from './addDeckModal.module.scss'
 import { addDeckModalSchema } from './addDeckModal.validation.ts'
 import { AddDeckModalFormValues } from './addDeckModalType.ts'
+import c from './deckModal.module.scss'
 
 // export type ConfirmType = AddDeckModalFormValues & { image?: File }
 
@@ -22,7 +22,7 @@ type AddDeckModalType = Pick<ModalDialogType, 'onCancel' | 'onOpenChange' | 'ope
   onConfirm: (data: FormData) => void
 }
 
-export const AddDeckModal = ({
+export const DeckModal = ({
   defaultValues = { isPrivate: false, name: '' },
   onCancel,
   onConfirm,

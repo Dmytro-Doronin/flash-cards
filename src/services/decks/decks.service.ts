@@ -1,4 +1,5 @@
-// import { ConfirmType } from '../../components/deckModals/addDeckModal/AddDeckModal.tsx'
+// import { ConfirmType } from '../../components/deckModals/addDeckModal/DeckModal.tsx'
+
 import { ErrorUtils } from '../../utils/ErrorUtils.ts'
 import { baseApi } from '../base.service.ts'
 
@@ -41,6 +42,16 @@ export const decksService = baseApi.injectEndpoints({
       transformErrorResponse: response => ErrorUtils(response),
       invalidatesTags: ['Decks'],
     }),
+    editDeck: builder.mutation<void, { id: string; FormData: FormData }>({
+      query: data => ({
+        body: data.FormData,
+        method: 'PATCH',
+        url: `/v1/decks/${data.id}`,
+        formData: true,
+      }),
+      transformErrorResponse: response => ErrorUtils(response),
+      invalidatesTags: ['Decks'],
+    }),
   }),
 })
 
@@ -49,4 +60,5 @@ export const {
   useGetMaxAndMinDeckQuery,
   useAddNewDeckMutation,
   useDeleteDeckMutation,
+  useEditDeckMutation,
 } = decksService

@@ -38,6 +38,7 @@ type DeckComponentType = {
   onSort: (key: Sort) => void
   sort: Sort
   onSetDeleteDeckId: (id: string) => void
+  onEditDeck: (id: string) => void
 }
 
 export const Deck = ({
@@ -46,8 +47,10 @@ export const Deck = ({
   sort,
   onSort,
   onSetDeleteDeckId,
+  onEditDeck,
 }: DeckComponentType) => {
   const onDeleteHandler = (id: string) => onSetDeleteDeckId(id)
+  const onEditHandler = (id: string) => onEditDeck(id)
 
   return (
     <Table>
@@ -80,9 +83,9 @@ export const Deck = ({
 
                 {deck.author.id === currentUserId && (
                   <>
-                    <NavLink to="/#">
+                    <Button variant="icon" onClick={() => onEditHandler(deck.id)}>
                       <EditIcon />
-                    </NavLink>
+                    </Button>
                     <Button variant="icon" onClick={() => onDeleteHandler(deck.id)}>
                       <TrashIcon />
                     </Button>

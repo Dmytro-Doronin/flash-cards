@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 
 import SearchIcon from '../../assets/icons/SearchIcon.tsx'
 import { Deck } from '../../components/deck/Deck.tsx'
-import { AddDeckModal } from '../../components/deckModals/addDeckModal/AddDeckModal.tsx'
+import { DeckModal } from '../../components/deckModals/addDeckModal/DeckModal.tsx'
 import { DeleteDeckModal } from '../../components/deckModals/deleteDeckModal/DeleteDeckModal.tsx'
 import { Button } from '../../components/ui/button'
 import { Pagination } from '../../components/ui/pagination/Pagination.tsx'
@@ -15,6 +15,7 @@ import { useMeQuery } from '../../services/auth/auth.service.ts'
 import {
   useAddNewDeckMutation,
   useDeleteDeckMutation,
+  useEditDeckMutation,
   useGetDeckQuery,
   useGetMaxAndMinDeckQuery,
 } from '../../services/decks/decks.service.ts'
@@ -59,7 +60,9 @@ export const DecksPage = () => {
   const [sort, setSort] = useState<Sort>(null)
   const [openCreateModal, setOpenCreateModal] = useState(false)
   const [deleteDeckId, setDeleteDeckId] = useState<string | null>(null)
+  const [editDeckId, setEditDeckId] = useState<string | null>(null)
   const showConfirmDeleteDeckId = !!deleteDeckId
+  const showConfirmEditDeckId = !!editDeckId
   const sortedString = useMemo(() => {
     if (!sort) return undefined
 
@@ -86,6 +89,7 @@ export const DecksPage = () => {
   const { data: minMaxData } = useGetMaxAndMinDeckQuery()
   const [addNewDeck] = useAddNewDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
+  const [editDeck] = useEditDeckMutation()
   const [rangeValue, setRangeValue] = useState([0, GetDecksData?.maxCardsCount])
   const openCreateModalHandler = () => setOpenCreateModal(true)
 
@@ -133,11 +137,23 @@ export const DecksPage = () => {
     <div className={c.page}>
       <div className={c.container}>
         <div className={c.inner}>
-          <AddDeckModal
+          <DeckModal
             onCancel={() => setOpenCreateModal(false)}
             onConfirm={addNewDeck}
             open={openCreateModal}
             onOpenChange={setOpenCreateModal}
+          />
+          <DeckModal
+            onCancel={() => setEditDeckId(null)}
+            onConfirm={data => {
+              if (!editDeckId) {
+                return
+              }
+              editDeck({ id: editDeckId ?? '', FormData: data })
+              setEditDeckId(null)
+            }}
+            open={showConfirmEditDeckId}
+            onOpenChange={() => setEditDeckId(null)}
           />
           <DeleteDeckModal
             onOpenChange={() => setDeleteDeckId(null)}
@@ -192,6 +208,7 @@ export const DecksPage = () => {
         ) : (
           <div className={c.decksWrapper}>
             <Deck
+              onEditDeck={setEditDeckId}
               onSetDeleteDeckId={setDeleteDeckId}
               currentUserId={currentUserId ?? ''}
               decks={GetDecksData?.items}
