@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react'
 import SearchIcon from '../../assets/icons/SearchIcon.tsx'
 import { Deck } from '../../components/deck/Deck.tsx'
 import { AddDeckModal } from '../../components/deckModals/addDeckModal/AddDeckModal.tsx'
+import { DeleteDeckModal } from '../../components/deckModals/deleteDeckModal/DeleteDeckModal.tsx'
 import { Button } from '../../components/ui/button'
 import { Pagination } from '../../components/ui/pagination/Pagination.tsx'
 import { SelectComponent } from '../../components/ui/select/SelectComponent.tsx'
@@ -13,6 +14,7 @@ import { Typography } from '../../components/ui/typography'
 import { useMeQuery } from '../../services/auth/auth.service.ts'
 import {
   useAddNewDeckMutation,
+  useDeleteDeckMutation,
   useGetDeckQuery,
   useGetMaxAndMinDeckQuery,
 } from '../../services/decks/decks.service.ts'
@@ -56,7 +58,8 @@ export const DecksPage = () => {
   const { data: CurrentUser } = useMeQuery()
   const [sort, setSort] = useState<Sort>(null)
   const [openCreateModal, setOpenCreateModal] = useState(false)
-
+  const [deleteDeckId, setDeleteDeckId] = useState<string | null>(null)
+  const showConfirmDeleteDeckId = !!deleteDeckId
   const sortedString = useMemo(() => {
     if (!sort) return undefined
 
@@ -79,9 +82,10 @@ export const DecksPage = () => {
     name: search,
     orderBy: sort ? sortedString : undefined,
   })
-
+  const deckName = GetDecksData?.items?.find(item => item.id === deleteDeckId)
   const { data: minMaxData } = useGetMaxAndMinDeckQuery()
   const [addNewDeck] = useAddNewDeckMutation()
+  const [deleteDeck] = useDeleteDeckMutation()
   const [rangeValue, setRangeValue] = useState([0, GetDecksData?.maxCardsCount])
   const openCreateModalHandler = () => setOpenCreateModal(true)
 
@@ -120,6 +124,11 @@ export const DecksPage = () => {
     dispatch(deckActions.setMaxCard(value[1]))
   }
 
+  const onDeleteConfirm = () => {
+    deleteDeck({ id: deleteDeckId ?? '' })
+    setDeleteDeckId(null)
+  }
+
   return (
     <div className={c.page}>
       <div className={c.container}>
@@ -130,7 +139,13 @@ export const DecksPage = () => {
             open={openCreateModal}
             onOpenChange={setOpenCreateModal}
           />
-
+          <DeleteDeckModal
+            onOpenChange={() => setDeleteDeckId(null)}
+            open={showConfirmDeleteDeckId}
+            onCancel={() => setDeleteDeckId(null)}
+            onConfirm={onDeleteConfirm}
+            deckName={deckName?.name ?? 'Selected deck'}
+          />
           <div className={c.controlBlock}>
             <div className={c.headerControl}>
               <Typography variant="large">Packs list</Typography>
@@ -177,6 +192,7 @@ export const DecksPage = () => {
         ) : (
           <div className={c.decksWrapper}>
             <Deck
+              onSetDeleteDeckId={setDeleteDeckId}
               currentUserId={currentUserId ?? ''}
               decks={GetDecksData?.items}
               sort={sort}

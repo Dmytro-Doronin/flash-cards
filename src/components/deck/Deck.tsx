@@ -7,6 +7,9 @@ import { Sort } from '../../pages/decksPage/DecksPage.tsx'
 import { DeckType } from '../../services/decks/decks.types.ts'
 import { formatDate } from '../../utils/FormatDateUtils.ts'
 import { Table, TableBody, TableCell, TableRow, TableHeader } from '../table'
+// import { Button } from '../ui/button'
+
+import { Button } from '../ui/button'
 
 import c from './deck.module.scss'
 
@@ -34,9 +37,18 @@ type DeckComponentType = {
   decks: DeckType[] | undefined
   onSort: (key: Sort) => void
   sort: Sort
+  onSetDeleteDeckId: (id: string) => void
 }
 
-export const Deck = ({ decks, currentUserId, sort, onSort }: DeckComponentType) => {
+export const Deck = ({
+  decks,
+  currentUserId,
+  sort,
+  onSort,
+  onSetDeleteDeckId,
+}: DeckComponentType) => {
+  const onDeleteHandler = (id: string) => onSetDeleteDeckId(id)
+
   return (
     <Table>
       <TableHeader columns={columns} sort={sort} onSort={onSort} />
@@ -71,9 +83,9 @@ export const Deck = ({ decks, currentUserId, sort, onSort }: DeckComponentType) 
                     <NavLink to="/#">
                       <EditIcon />
                     </NavLink>
-                    <NavLink to="/#">
+                    <Button variant="icon" onClick={() => onDeleteHandler(deck.id)}>
                       <TrashIcon />
-                    </NavLink>
+                    </Button>
                   </>
                 )}
               </div>

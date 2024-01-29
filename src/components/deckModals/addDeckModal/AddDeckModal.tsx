@@ -15,7 +15,6 @@ import c from './addDeckModal.module.scss'
 import { addDeckModalSchema } from './addDeckModal.validation.ts'
 import { AddDeckModalFormValues } from './addDeckModalType.ts'
 
-
 // export type ConfirmType = AddDeckModalFormValues & { image?: File }
 
 type AddDeckModalType = Pick<ModalDialogType, 'onCancel' | 'onOpenChange' | 'open'> & {

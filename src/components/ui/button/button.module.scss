@@ -22,8 +22,9 @@
   border: none;
   border-radius: 4px;
 
-  transition: 300ms background-color,
-              300ms color;
+  transition:
+    300ms background-color,
+    300ms color;
 
   &:focus-visible {
     outline: 2px solid var(--color-info-700);
@@ -107,5 +108,10 @@
   &:active:enabled {
     color: var(--color-accent-500);
   }
+}
 
+.icon {
+  padding: 0;
+  cursor: pointer;
+  background-color: transparent;
 }

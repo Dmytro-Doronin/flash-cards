@@ -32,7 +32,21 @@ export const decksService = baseApi.injectEndpoints({
       transformErrorResponse: response => ErrorUtils(response),
       invalidatesTags: ['Decks'],
     }),
+    deleteDeck: builder.mutation<void, { id: string }>({
+      query: ({ id }) => ({
+        method: 'DELETE',
+        url: `/v1/decks/${id}`,
+        formData: true,
+      }),
+      transformErrorResponse: response => ErrorUtils(response),
+      invalidatesTags: ['Decks'],
+    }),
   }),
 })
 
-export const { useGetDeckQuery, useGetMaxAndMinDeckQuery, useAddNewDeckMutation } = decksService
+export const {
+  useGetDeckQuery,
+  useGetMaxAndMinDeckQuery,
+  useAddNewDeckMutation,
+  useDeleteDeckMutation,
+} = decksService
