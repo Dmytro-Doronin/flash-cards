@@ -11,7 +11,7 @@ export const TableHeadCell = forwardRef<ElementRef<'th'>, ComponentPropsWithoutR
     }
 
     return (
-      <th className={classNames.headCell} {...rest} ref={ref}>
+      <th className={classNames.headCell} {...rest} style={{ width: '25%' }} ref={ref}>
         <span>{children}</span>
       </th>
     )

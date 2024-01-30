@@ -1,3 +1,4 @@
+import { Sort } from '../../pages/decksPage/DecksPage.tsx'
 import { Card } from '../../services/decks/decks.types.ts'
 import { formatDate } from '../../utils/FormatDateUtils.ts'
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '../table'
@@ -26,13 +27,15 @@ const columns = [
 ]
 
 type DeckType = {
-  cards: Card[]
+  cards: Card[] | undefined
+  onSort: (key: Sort) => void
+  sort: Sort
 }
 
-export const CardsTable = ({ cards }: DeckType) => {
+export const CardsTable = ({ cards, onSort, sort }: DeckType) => {
   return (
     <Table>
-      <TableHeader columns={columns} />
+      <TableHeader onSort={onSort} sort={sort} columns={columns} />
       <TableBody>
         {cards?.map(card => (
           <TableRow key={card.id}>

@@ -52,10 +52,10 @@ export const decksService = baseApi.injectEndpoints({
       transformErrorResponse: response => ErrorUtils(response),
       invalidatesTags: ['Decks'],
     }),
-    getAllCards: builder.query<CardResponseType, { id: string; params: GetCardsArgs | void }>({
+    getAllCards: builder.query<CardResponseType, { id: string; params?: GetCardsArgs | void }>({
       query: args => {
         return {
-          url: `/v1/decks/${args.id}`,
+          url: `/v1/decks/${args.id}/cards`,
           params: args.params ?? {},
         }
       },
