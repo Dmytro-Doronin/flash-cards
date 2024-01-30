@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react'
 
 import SearchIcon from '../../assets/icons/SearchIcon.tsx'
-import { Deck } from '../../components/deck/Deck.tsx'
 import { DeckModal } from '../../components/deckModals/addDeckModal/DeckModal.tsx'
 import { DeleteDeckModal } from '../../components/deckModals/deleteDeckModal/DeleteDeckModal.tsx'
+import { Decks } from '../../components/decks/Decks.tsx'
 import { Button } from '../../components/ui/button'
 import { Pagination } from '../../components/ui/pagination/Pagination.tsx'
 import { SelectComponent } from '../../components/ui/select/SelectComponent.tsx'
@@ -133,6 +133,14 @@ export const DecksPage = () => {
     setDeleteDeckId(null)
   }
 
+  const onEditConfirm = (data: FormData) => {
+    if (!editDeckId) {
+      return
+    }
+    editDeck({ id: editDeckId ?? '', FormData: data })
+    setEditDeckId(null)
+  }
+
   return (
     <div className={c.page}>
       <div className={c.container}>
@@ -145,13 +153,7 @@ export const DecksPage = () => {
           />
           <DeckModal
             onCancel={() => setEditDeckId(null)}
-            onConfirm={data => {
-              if (!editDeckId) {
-                return
-              }
-              editDeck({ id: editDeckId ?? '', FormData: data })
-              setEditDeckId(null)
-            }}
+            onConfirm={onEditConfirm}
             open={showConfirmEditDeckId}
             onOpenChange={() => setEditDeckId(null)}
           />
@@ -160,7 +162,7 @@ export const DecksPage = () => {
             open={showConfirmDeleteDeckId}
             onCancel={() => setDeleteDeckId(null)}
             onConfirm={onDeleteConfirm}
-            deckName={deckName?.name ?? 'Selected deck'}
+            deckName={deckName?.name ?? 'Selected decks'}
           />
           <div className={c.controlBlock}>
             <div className={c.headerControl}>
@@ -207,7 +209,7 @@ export const DecksPage = () => {
           </div>
         ) : (
           <div className={c.decksWrapper}>
-            <Deck
+            <Decks
               onEditDeck={setEditDeckId}
               onSetDeleteDeckId={setDeleteDeckId}
               currentUserId={currentUserId ?? ''}

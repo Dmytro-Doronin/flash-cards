@@ -3,7 +3,7 @@
 import { ErrorUtils } from '../../utils/ErrorUtils.ts'
 import { baseApi } from '../base.service.ts'
 
-import { DecksResponseType, GetDecksArgs } from './decks.types.ts'
+import { CardResponseType, DecksResponseType, GetCardsArgs, GetDecksArgs } from './decks.types.ts'
 
 export const decksService = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -52,6 +52,15 @@ export const decksService = baseApi.injectEndpoints({
       transformErrorResponse: response => ErrorUtils(response),
       invalidatesTags: ['Decks'],
     }),
+    getAllCards: builder.query<CardResponseType, { id: string; params: GetCardsArgs | void }>({
+      query: args => {
+        return {
+          url: `/v1/decks/${args.id}`,
+          params: args.params ?? {},
+        }
+      },
+      providesTags: ['Decks'],
+    }),
   }),
 })
 
@@ -61,4 +70,5 @@ export const {
   useAddNewDeckMutation,
   useDeleteDeckMutation,
   useEditDeckMutation,
+  useGetAllCardsQuery,
 } = decksService

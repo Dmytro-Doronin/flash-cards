@@ -1,0 +1,21 @@
+.page {
+  margin-top: 80px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  justify-content: center;
+  height: 100%;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.controlPanel {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 7px;
+}

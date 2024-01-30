@@ -35,3 +35,38 @@ export type DecksResponseType = {
 }
 
 export type Tab = 'all' | 'my'
+
+//CARD
+export type Card = {
+  grade: number
+  id: string
+  deckId: string
+  userId: string
+  question: string
+  answer: string
+  shots: number
+  answerImg: string | null
+  questionImg: string | null
+  questionVideo: string
+  answerVideo: string
+  created: string
+  updated: string
+}
+
+export type CardResponseType = {
+  pagination: {
+    currentPage: number
+    itemsPerPage: number
+    totalPages: number
+    totalItems: number
+  }
+  items: Card[]
+}
+
+export type GetCardsArgs = {
+  question?: string
+  answer?: string
+  orderBy?: string
+  currentPage?: number
+  itemsPerPage?: number
+}

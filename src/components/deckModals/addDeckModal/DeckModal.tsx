@@ -68,7 +68,7 @@ export const DeckModal = ({
       {...restProps}
       onCancel={handleCancel}
       onConfirm={onSubmit}
-      title={'Create new deck'}
+      title={'Create new decks'}
       cancelText="Cancel"
       confirmText="Add New Pack"
     >

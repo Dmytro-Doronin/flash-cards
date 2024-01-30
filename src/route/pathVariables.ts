@@ -1,5 +1,6 @@
 export const pathVariables = {
   MAIN: '/',
+  DECK: '/decks/:id',
   PROFILE: '/profile',
   LOGIN: '/login',
   SIGNUP: '/signup',

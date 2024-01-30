@@ -7,11 +7,12 @@ import { Sort } from '../../pages/decksPage/DecksPage.tsx'
 import { DeckType } from '../../services/decks/decks.types.ts'
 import { formatDate } from '../../utils/FormatDateUtils.ts'
 import { Table, TableBody, TableCell, TableRow, TableHeader } from '../table'
+
 // import { Button } from '../ui/button'
 
 import { Button } from '../ui/button'
 
-import c from './deck.module.scss'
+import c from './decks.module.scss'
 
 const columns = [
   {
@@ -41,7 +42,7 @@ type DeckComponentType = {
   onEditDeck: (id: string) => void
 }
 
-export const Deck = ({
+export const Decks = ({
   decks,
   currentUserId,
   sort,
@@ -59,7 +60,7 @@ export const Deck = ({
         {decks?.map(deck => (
           <TableRow key={deck.id} className={c.tr}>
             <TableCell>
-              <NavLink className={c.link} to={'/#'}>
+              <NavLink className={c.link} to={`/decks/${deck.id}`}>
                 <div className={c.coverWrapper}>
                   {deck.cover ? (
                     <>
