@@ -2,6 +2,9 @@ import { Sort } from '../../pages/decksPage/DecksPage.tsx'
 import { Card } from '../../services/decks/decks.types.ts'
 import { formatDate } from '../../utils/FormatDateUtils.ts'
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '../table'
+import { NavLink } from "react-router-dom";
+import PlayIcon from "../../assets/icons/PlayIcon.tsx";
+import { Grade } from "../grade/Grade.tsx";
 
 const columns = [
   {
@@ -42,7 +45,15 @@ export const CardsTable = ({ cards, onSort, sort }: DeckType) => {
             <TableCell>{card.question}</TableCell>
             <TableCell>{card.answer}</TableCell>
             <TableCell>{formatDate(card.updated)}</TableCell>
-            <TableCell>{card.grade}</TableCell>
+            <TableCell>
+              {card.grade}
+              <Grade value={card.grade} />
+            </TableCell>
+            <TableCell>
+              <NavLink to="/#">
+                <PlayIcon />
+              </NavLink>
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
