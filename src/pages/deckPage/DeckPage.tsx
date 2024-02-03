@@ -58,7 +58,11 @@ export const DeckPage = () => {
             )}
           </div>
           {cardData?.items.length === 0 ? (
-            <Typography variant="h1"> Con`t find any card</Typography>
+            <div className={c.cardWrapper}>
+              <Typography className={c.alert} variant="h1">
+                Con`t find any card
+              </Typography>
+            </div>
           ) : (
             <>
               <CardsTable onSort={setSort} sort={sort} cards={cardData?.items} />
