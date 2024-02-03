@@ -5,6 +5,7 @@ import { baseApi } from '../base.service.ts'
 
 import {
   CardResponseType,
+  CreateCardsType,
   DecksResponseType,
   DeckType,
   GetCardsArgs,
@@ -72,7 +73,17 @@ export const decksService = baseApi.injectEndpoints({
           params: args.params ?? {},
         }
       },
-      providesTags: ['Decks'],
+      providesTags: ['Cards'],
+    }),
+    addNewCard: builder.mutation<CreateCardsType, { id: string; data: FormData }>({
+      query: body => ({
+        body: body.data,
+        method: 'POST',
+        url: `/v1/decks/${body.id}/cards`,
+        formData: true,
+      }),
+      transformErrorResponse: response => ErrorUtils(response),
+      invalidatesTags: ['Cards'],
     }),
   }),
 })
@@ -85,4 +96,5 @@ export const {
   useEditDeckMutation,
   useGetAllCardsQuery,
   useGetDeckByIdQuery,
+  useAddNewCardMutation,
 } = decksService

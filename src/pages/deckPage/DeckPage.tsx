@@ -2,12 +2,17 @@ import { useMemo, useState } from 'react'
 
 import { useParams } from 'react-router-dom'
 
-import { CardsTable } from '../../components/deck/CardsTable.tsx'
+import { AddCardModal } from '../../components/cardsModals/addCardModal/AddCardModal.tsx'
+import { CardsTable } from '../../components/cardsTable/CardsTable.tsx'
 import { Button } from '../../components/ui/button'
 import { Pagination } from '../../components/ui/pagination/Pagination.tsx'
 import { Typography } from '../../components/ui/typography'
 import { useMeQuery } from '../../services/auth/auth.service.ts'
-import { useGetAllCardsQuery, useGetDeckByIdQuery } from '../../services/decks/decks.service.ts'
+import {
+  useAddNewCardMutation,
+  useGetAllCardsQuery,
+  useGetDeckByIdQuery,
+} from '../../services/decks/decks.service.ts'
 import { cardActions } from '../../state/cardReducer/cardReducer.ts'
 import { useAppDispatch, useAppSelector } from '../../store/store.ts'
 import { Sort } from '../decksPage/DecksPage.tsx'
@@ -17,7 +22,7 @@ import c from './deckPage.module.scss'
 export const DeckPage = () => {
   const dispatch = useAppDispatch()
   const [sort, setSort] = useState<Sort>(null)
-
+  const [openCreateModal, setOpenCreateModal] = useState(false)
   const { id: paramsId } = useParams()
   const sortedString = useMemo(() => {
     if (!sort) return undefined
@@ -34,11 +39,11 @@ export const DeckPage = () => {
     },
   })
   const { data: currentDeck } = useGetDeckByIdQuery({ id: paramsId ?? '' })
+  const [addNewCard] = useAddNewCardMutation()
   const currentUserId = currentUserData?.id
   const currentDeckId = currentDeck?.userId
 
-  console.log(currentUserId, currentDeck, paramsId)
-
+  const openCreateModalHandler = () => setOpenCreateModal(true)
   const setCurrenPageHandler = (page: number) => {
     dispatch(cardActions.setCurrentPage(page))
   }
@@ -47,12 +52,21 @@ export const DeckPage = () => {
     <div className={c.page}>
       <div className={c.container}>
         <div className={c.inner}>
+          <AddCardModal
+            onCancel={() => setOpenCreateModal(false)}
+            paramsId={paramsId ?? ''}
+            onConfirm={addNewCard}
+            open={openCreateModal}
+            onOpenChange={setOpenCreateModal}
+          />
           <div className={c.controlPanel}>
             <Typography variant="h1">
               {currentUserId === currentDeckId ? 'My Pack' : 'Friends Pack'}
             </Typography>
             {currentUserId === currentDeckId ? (
-              <Button variant="primary">Add New Card</Button>
+              <Button onClick={openCreateModalHandler} variant="primary">
+                Add New Card
+              </Button>
             ) : (
               <Button variant="primary">Learn to deck</Button>
             )}

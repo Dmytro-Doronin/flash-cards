@@ -7,6 +7,8 @@ import { formatDate } from '../../utils/FormatDateUtils.ts'
 import { Grade } from '../grade/Grade.tsx'
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '../table'
 
+import c from './cardsTable.module.scss'
+
 const columns = [
   {
     key: 'question',
@@ -43,8 +45,20 @@ export const CardsTable = ({ cards, onSort, sort }: DeckType) => {
       <TableBody>
         {cards?.map(card => (
           <TableRow key={card.id}>
-            <TableCell>{card.question}</TableCell>
-            <TableCell>{card.answer}</TableCell>
+            {card.questionImg ? (
+              <TableCell className={c.imgWrapper}>
+                <img className={c.img} src={card.questionImg} alt="picture" />
+              </TableCell>
+            ) : (
+              <TableCell>{card.question}</TableCell>
+            )}
+            {card.answerImg ? (
+              <TableCell className={c.imgWrapper}>
+                <img className={c.img} src={card.answerImg} alt="picture" />
+              </TableCell>
+            ) : (
+              <TableCell>{card.answer}</TableCell>
+            )}
             <TableCell>{formatDate(card.updated)}</TableCell>
             <TableCell>
               <Grade value={card.grade} />
