@@ -137,7 +137,7 @@ export const DecksPage = () => {
     if (!editDeckId) {
       return
     }
-    editDeck({ id: editDeckId ?? '', FormData: data })
+    editDeck({ id: editDeckId, FormData: data })
     setEditDeckId(null)
   }
 
@@ -146,12 +146,14 @@ export const DecksPage = () => {
       <div className={c.container}>
         <div className={c.inner}>
           <DeckModal
+            title="Add New Deck"
             onCancel={() => setOpenCreateModal(false)}
             onConfirm={addNewDeck}
             open={openCreateModal}
             onOpenChange={setOpenCreateModal}
           />
           <DeckModal
+            title="Edit Deck"
             onCancel={() => setEditDeckId(null)}
             onConfirm={onEditConfirm}
             open={showConfirmEditDeckId}

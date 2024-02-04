@@ -1,11 +1,11 @@
-import { NavLink } from 'react-router-dom'
-
-import PlayIcon from '../../assets/icons/PlayIcon.tsx'
+import Edit from '../../assets/icons/Edit.tsx'
+import Trash from '../../assets/icons/Trash.tsx'
 import { Sort } from '../../pages/decksPage/DecksPage.tsx'
 import { Card } from '../../services/decks/decks.types.ts'
 import { formatDate } from '../../utils/FormatDateUtils.ts'
 import { Grade } from '../grade/Grade.tsx'
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '../table'
+import { Button } from '../ui/button'
 
 import c from './cardsTable.module.scss'
 
@@ -36,9 +36,14 @@ type DeckType = {
   cards: Card[] | undefined
   onSort: (key: Sort) => void
   sort: Sort
+  onEditCard: (id: string) => void
+  onDeleteCard: (id: string) => void
 }
 
-export const CardsTable = ({ cards, onSort, sort }: DeckType) => {
+export const CardsTable = ({ cards, onSort, sort, onEditCard, onDeleteCard }: DeckType) => {
+  const onEditCardHandler = (id: string) => onEditCard(id)
+  const onDeleteCardHandler = (id: string) => onDeleteCard(id)
+
   return (
     <Table>
       <TableHeader onSort={onSort} sort={sort} columns={columns} />
@@ -64,9 +69,14 @@ export const CardsTable = ({ cards, onSort, sort }: DeckType) => {
               <Grade value={card.grade} />
             </TableCell>
             <TableCell>
-              <NavLink to="/#">
-                <PlayIcon />
-              </NavLink>
+              <div className={c.buttonGroup}>
+                <Button onClick={() => onEditCardHandler(card.id)} variant="icon">
+                  <Edit />
+                </Button>
+                <Button onClick={() => onDeleteCardHandler(card.id)} variant="icon">
+                  <Trash />
+                </Button>
+              </div>
             </TableCell>
           </TableRow>
         ))}

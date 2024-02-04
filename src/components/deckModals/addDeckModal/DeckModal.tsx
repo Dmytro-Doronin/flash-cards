@@ -20,12 +20,14 @@ import c from './deckModal.module.scss'
 type AddDeckModalType = Pick<ModalDialogType, 'onCancel' | 'onOpenChange' | 'open'> & {
   defaultValues?: AddDeckModalFormValues
   onConfirm: (data: FormData) => void
+  title?: string
 }
 
 export const DeckModal = ({
   defaultValues = { isPrivate: false, name: '' },
   onCancel,
   onConfirm,
+  title,
   ...restProps
 }: AddDeckModalType) => {
   const {
@@ -68,7 +70,7 @@ export const DeckModal = ({
       {...restProps}
       onCancel={handleCancel}
       onConfirm={onSubmit}
-      title={'Create new decks'}
+      title={title}
       cancelText="Cancel"
       confirmText="Add New Pack"
     >

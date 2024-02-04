@@ -11,25 +11,27 @@ import { Button } from '../../ui/button'
 import { TextField } from '../../ui/textField'
 import { Typography } from '../../ui/typography'
 
-import c from './addCardModal.module.scss'
 import { addCardModalSchema } from './addCardModal.validation.ts'
 import { AddCardModalFormValues } from './addCardModalType.ts'
+import c from './cardModal.module.scss'
 
 // export type ConfirmType = AddDeckModalFormValues & { image?: File }
 
-type AddCardModalType = Pick<ModalDialogType, 'onCancel' | 'onOpenChange' | 'open'> & {
+type CardModalType = Pick<ModalDialogType, 'onCancel' | 'onOpenChange' | 'open'> & {
   defaultValues?: AddCardModalFormValues
-  onConfirm: (data: { id: string; data: FormData }) => void
+  onConfirm: (data: { id: string; FormData: FormData }) => void
   paramsId: string
+  title?: string
 }
 
-export const AddCardModal = ({
+export const CardModal = ({
   defaultValues = { question: '', answer: '' },
   onCancel,
   onConfirm,
   paramsId,
+  title,
   ...restProps
-}: AddCardModalType) => {
+}: CardModalType) => {
   const {
     control,
     handleSubmit,
@@ -44,7 +46,7 @@ export const AddCardModal = ({
   const [modalPreviewQuestionImage, setModalPreviewQuestionImage] = useState('')
   const [modalPreviewAnswerImage, setModalPreviewAnswerImage] = useState('')
 
-  const onSubmit2 = handleSubmit(data => {
+  const onSubmit = handleSubmit(data => {
     const formData = new FormData()
 
     formData.append('question', data.question)
@@ -56,7 +58,7 @@ export const AddCardModal = ({
       formData.append('answerImg', modalImageAnswer)
     }
 
-    onConfirm({ id: paramsId, data: formData })
+    onConfirm({ id: paramsId, FormData: formData })
     restProps.onOpenChange?.(false)
     setModalPreviewQuestionImage('')
     setModalPreviewAnswerImage('')
@@ -80,12 +82,12 @@ export const AddCardModal = ({
     <ModalDialog
       {...restProps}
       onCancel={handleCancel}
-      onConfirm={onSubmit2}
-      title={'Add New Card'}
+      onConfirm={onSubmit}
+      title={title}
       cancelText="Cancel"
       confirmText="Add New Pack"
     >
-      <form className={c.form} onSubmit={onSubmit2}>
+      <form className={c.form} onSubmit={onSubmit}>
         <Typography variant="subtitle1">Question</Typography>
         <Controller
           render={({ field }) => (
@@ -101,7 +103,7 @@ export const AddCardModal = ({
           // defaultValue=""
         />
         <div className={c.inputFileWrapper}>
-          {modalImageQuestions && (
+          {modalPreviewQuestionImage && (
             <div className={c.imgPreview}>
               <img className={c.img} src={modalPreviewQuestionImage} alt="img" />
             </div>
@@ -128,7 +130,7 @@ export const AddCardModal = ({
           // defaultValue=""
         />
         <div className={c.inputFileWrapper}>
-          {modalImageAnswer && (
+          {modalPreviewAnswerImage && (
             <div className={c.imgPreview}>
               <img className={c.img} src={modalPreviewAnswerImage} alt="img" />
             </div>

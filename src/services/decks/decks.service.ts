@@ -75,12 +75,30 @@ export const decksService = baseApi.injectEndpoints({
       },
       providesTags: ['Cards'],
     }),
-    addNewCard: builder.mutation<CreateCardsType, { id: string; data: FormData }>({
+    addNewCard: builder.mutation<CreateCardsType, { id: string; FormData: FormData }>({
       query: body => ({
-        body: body.data,
+        body: body.FormData,
         method: 'POST',
         url: `/v1/decks/${body.id}/cards`,
         formData: true,
+      }),
+      transformErrorResponse: response => ErrorUtils(response),
+      invalidatesTags: ['Cards'],
+    }),
+    editCard: builder.mutation<CreateCardsType, { id: string; data: FormData }>({
+      query: body => ({
+        body: body.data,
+        method: 'PATCH',
+        url: `/v1/cards/${body.id}`,
+        formData: true,
+      }),
+      transformErrorResponse: response => ErrorUtils(response),
+      invalidatesTags: ['Cards'],
+    }),
+    deleteCard: builder.mutation<CreateCardsType, { id: string }>({
+      query: body => ({
+        method: 'DELETE',
+        url: `/v1/cards/${body.id}`,
       }),
       transformErrorResponse: response => ErrorUtils(response),
       invalidatesTags: ['Cards'],
@@ -97,4 +115,6 @@ export const {
   useGetAllCardsQuery,
   useGetDeckByIdQuery,
   useAddNewCardMutation,
+  useEditCardMutation,
+  useDeleteCardMutation,
 } = decksService
