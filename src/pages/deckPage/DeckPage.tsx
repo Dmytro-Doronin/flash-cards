@@ -2,11 +2,13 @@ import { useMemo, useState } from 'react'
 
 import { useParams } from 'react-router-dom'
 
+import SearchIcon from '../../assets/icons/SearchIcon.tsx'
 import { CardModal } from '../../components/cardsModals/cardModal/CardModal.tsx'
 import { DeleteCardModal } from '../../components/cardsModals/deleteCardModal/DeleteCardModal.tsx'
 import { CardsTable } from '../../components/cardsTable/CardsTable.tsx'
 import { Button } from '../../components/ui/button'
 import { Pagination } from '../../components/ui/pagination/Pagination.tsx'
+import { TextField } from '../../components/ui/textField'
 import { Typography } from '../../components/ui/typography'
 import { useMeQuery } from '../../services/auth/auth.service.ts'
 import {
@@ -36,12 +38,13 @@ export const DeckPage = () => {
     return `${sort.key}-${sort.direction}`
   }, [sort])
   const { data: currentUserData } = useMeQuery()
-  const { currentPage } = useAppSelector(state => state.card)
+  const { currentPage, search } = useAppSelector(state => state.card)
   const { data: cardData } = useGetAllCardsQuery({
     id: paramsId ?? '',
     params: {
       currentPage,
       orderBy: sortedString,
+      question: search,
     },
   })
   const { data: currentDeck } = useGetDeckByIdQuery({ id: paramsId ?? '' })
@@ -74,6 +77,10 @@ export const DeckPage = () => {
 
   const onGradeChangeHandler = (gradeValue: number, cardId: string) => {
     updateGrade({ id: paramsId ?? '', data: { grade: gradeValue, cardId: cardId } })
+  }
+
+  const setSearchHandler = (value: string) => {
+    dispatch(cardActions.setSearch(value))
   }
 
   return (
@@ -115,6 +122,14 @@ export const DeckPage = () => {
               <Button variant="primary">Learn to deck</Button>
             )}
           </div>
+
+          <TextField
+            onValueChange={setSearchHandler}
+            value={search}
+            Icon={SearchIcon}
+            containerProps={c.search}
+            placeholder="Input search"
+          />
           {cardData?.items.length === 0 ? (
             <div className={c.cardWrapper}>
               <Typography className={c.alert} variant="h1">
