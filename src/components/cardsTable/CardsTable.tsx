@@ -36,11 +36,23 @@ type DeckType = {
   cards: Card[] | undefined
   onSort: (key: Sort) => void
   sort: Sort
+  currentUserId: string
   onEditCard: (id: string) => void
   onDeleteCard: (id: string) => void
+  paramsId: string
+  onGradeChangeHandler: (gradeValue: number, cardId: string) => void
 }
 
-export const CardsTable = ({ cards, onSort, sort, onEditCard, onDeleteCard }: DeckType) => {
+export const CardsTable = ({
+  cards,
+  onSort,
+  sort,
+  onEditCard,
+  onDeleteCard,
+  paramsId,
+  currentUserId,
+  onGradeChangeHandler,
+}: DeckType) => {
   const onEditCardHandler = (id: string) => onEditCard(id)
   const onDeleteCardHandler = (id: string) => onDeleteCard(id)
 
@@ -66,18 +78,25 @@ export const CardsTable = ({ cards, onSort, sort, onEditCard, onDeleteCard }: De
             )}
             <TableCell>{formatDate(card.updated)}</TableCell>
             <TableCell>
-              <Grade value={card.grade} />
+              <Grade
+                cardId={card.id}
+                onGradeChange={onGradeChangeHandler}
+                paramsId={paramsId}
+                value={card.grade}
+              />
             </TableCell>
-            <TableCell>
-              <div className={c.buttonGroup}>
-                <Button onClick={() => onEditCardHandler(card.id)} variant="icon">
-                  <Edit />
-                </Button>
-                <Button onClick={() => onDeleteCardHandler(card.id)} variant="icon">
-                  <Trash />
-                </Button>
-              </div>
-            </TableCell>
+            {currentUserId === card.userId && (
+              <TableCell>
+                <div className={c.buttonGroup}>
+                  <Button onClick={() => onEditCardHandler(card.id)} variant="icon">
+                    <Edit />
+                  </Button>
+                  <Button onClick={() => onDeleteCardHandler(card.id)} variant="icon">
+                    <Trash />
+                  </Button>
+                </div>
+              </TableCell>
+            )}
           </TableRow>
         ))}
       </TableBody>

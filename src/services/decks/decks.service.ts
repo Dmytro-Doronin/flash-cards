@@ -4,13 +4,14 @@ import { ErrorUtils } from '../../utils/ErrorUtils.ts'
 import { baseApi } from '../base.service.ts'
 
 import {
+  Card,
   CardResponseType,
   CreateCardsType,
   DecksResponseType,
   DeckType,
   GetCardsArgs,
-  GetDecksArgs,
-} from './decks.types.ts'
+  GetDecksArgs
+} from "./decks.types.ts";
 
 export const decksService = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -103,6 +104,19 @@ export const decksService = baseApi.injectEndpoints({
       transformErrorResponse: response => ErrorUtils(response),
       invalidatesTags: ['Cards'],
     }),
+    changeGradeCard: builder.mutation<
+      Card,
+      { id: string; data: { cardId: string; grade: number } }
+    >({
+      query: body => ({
+        body: body.data,
+        method: 'POST',
+        url: `/v1/decks/${body.id}/learn`,
+        formData: true,
+      }),
+      transformErrorResponse: response => ErrorUtils(response),
+      invalidatesTags: ['Cards'],
+    }),
   }),
 })
 
@@ -117,4 +131,5 @@ export const {
   useAddNewCardMutation,
   useEditCardMutation,
   useDeleteCardMutation,
+  useChangeGradeCardMutation,
 } = decksService

@@ -11,6 +11,7 @@ import { Typography } from '../../components/ui/typography'
 import { useMeQuery } from '../../services/auth/auth.service.ts'
 import {
   useAddNewCardMutation,
+  useChangeGradeCardMutation,
   useDeleteCardMutation,
   useEditCardMutation,
   useGetAllCardsQuery,
@@ -47,6 +48,7 @@ export const DeckPage = () => {
   const [addNewCard] = useAddNewCardMutation()
   const [editCard] = useEditCardMutation()
   const [deleteCard] = useDeleteCardMutation()
+  const [updateGrade] = useChangeGradeCardMutation()
   const currentUserId = currentUserData?.id
   const currentDeckId = currentDeck?.userId
   const showConfirmEditCard = !!editCardId
@@ -68,6 +70,10 @@ export const DeckPage = () => {
   const onDeleteCard = () => {
     deleteCard({ id: deleteCardId ?? '' })
     setDeleteCardId(null)
+  }
+
+  const onGradeChangeHandler = (gradeValue: number, cardId: string) => {
+    updateGrade({ id: paramsId ?? '', data: { grade: gradeValue, cardId: cardId } })
   }
 
   return (
@@ -120,9 +126,12 @@ export const DeckPage = () => {
               <CardsTable
                 onEditCard={setEditCardId}
                 onDeleteCard={setDeleteCardId}
+                onGradeChangeHandler={onGradeChangeHandler}
                 onSort={setSort}
+                currentUserId={currentUserData?.id ?? ''}
                 sort={sort}
                 cards={cardData?.items}
+                paramsId={paramsId ?? ''}
               />
               <Pagination
                 count={cardData?.pagination?.totalPages || 1}
