@@ -6,17 +6,13 @@ import c from './starItem.module.scss'
 type StarItemType = {
   parentValue: number
   value: number
-  cardId: string
-  onGradeChange?: (gradeValue: number, cardId: string) => void
 }
 
-export const StarItem = ({ parentValue, value, onGradeChange, cardId }: StarItemType) => {
-  const onGradeHandler = () => {
-    onGradeChange?.(value, cardId)
-  }
+export const StarItem = ({ parentValue, value }: StarItemType) => {
+
 
   return (
-    <div className={c.starItem} onClick={onGradeHandler}>
+    <div className={c.starItem}>
       {value <= parentValue ? <FullStar /> : <EmptyStar />}
     </div>
   )

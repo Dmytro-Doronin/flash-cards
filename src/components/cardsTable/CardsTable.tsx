@@ -40,7 +40,6 @@ type DeckType = {
   onEditCard: (id: string) => void
   onDeleteCard: (id: string) => void
   paramsId: string
-  onGradeChangeHandler: (gradeValue: number, cardId: string) => void
 }
 
 export const CardsTable = ({
@@ -51,7 +50,6 @@ export const CardsTable = ({
   onDeleteCard,
   paramsId,
   currentUserId,
-  onGradeChangeHandler,
 }: DeckType) => {
   const onEditCardHandler = (id: string) => onEditCard(id)
   const onDeleteCardHandler = (id: string) => onDeleteCard(id)
@@ -78,12 +76,7 @@ export const CardsTable = ({
             )}
             <TableCell>{formatDate(card.updated)}</TableCell>
             <TableCell>
-              <Grade
-                cardId={card.id}
-                onGradeChange={onGradeChangeHandler}
-                paramsId={paramsId}
-                value={card.grade}
-              />
+              <Grade value={card.grade} />
             </TableCell>
             {currentUserId === card.userId && (
               <TableCell>

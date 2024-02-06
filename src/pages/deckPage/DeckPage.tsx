@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 
-import { useParams } from 'react-router-dom'
+import { NavLink, useParams } from "react-router-dom";
 
 import SearchIcon from '../../assets/icons/SearchIcon.tsx'
 import { CardModal } from '../../components/cardsModals/cardModal/CardModal.tsx'
@@ -119,7 +119,9 @@ export const DeckPage = () => {
                 Add New Card
               </Button>
             ) : (
-              <Button variant="primary">Learn to deck</Button>
+              <NavLink to={`/learn/${paramsId}`}>
+                <Button variant="primary">Learn to deck</Button>
+              </NavLink>
             )}
           </div>
 

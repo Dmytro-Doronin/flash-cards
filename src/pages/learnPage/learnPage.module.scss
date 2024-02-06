@@ -20,11 +20,45 @@
 }
 
 .card {
-  height: 430px;
+  //height: 430px;
+  padding-bottom: 48px;
 }
 
-.mainText {
+
+.buttonGroup {
+  width: 100%;
+
+  & button:not(:last-child) {
+    margin-bottom: 10px;
+  }
+}
+
+.attempts {
+  display: block;
+  width: 100%;
+  color: var(--color-dark-100);
+  text-align: start;
+  margin-bottom: 17px;
+}
+
+.visibleContent {
+  width: 100%;
+}
+
+.hiddenContent {
+  width: 100%;
+}
+
+.rateGroup {
+
+}
+
+.rateTittle {
+  margin-bottom: 13px;
+}
+
+.checkboxBoxGroup {
   width: 100%;
   text-align: start;
-  margin-bottom: 18px;
+  margin-bottom: 29px;
 }

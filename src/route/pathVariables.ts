@@ -6,5 +6,5 @@ export const pathVariables = {
   SIGNUP: '/signup',
   RECOVER: '/recover-password',
   NEWPASSWORD: '/new-password/:hash',
-  LEARN: '/learn',
+  LEARN: '/learn/:id',
 }
