@@ -2,6 +2,7 @@ import { RouteObject } from 'react-router-dom'
 
 import { DeckPage } from '../pages/deckPage/DeckPage.tsx'
 import { DecksPage } from '../pages/decksPage/DecksPage.tsx'
+import { LearnPage } from '../pages/learnPage/LearnPage.tsx'
 import { ProfilePage } from '../pages/profilePage/ProfilePage.tsx'
 
 import { pathVariables } from './pathVariables.ts'
@@ -18,5 +19,9 @@ export const privetRoutesArray: RouteObject[] = [
   {
     path: pathVariables.DECK,
     element: <DeckPage />,
+  },
+  {
+    path: pathVariables.LEARN,
+    element: <LearnPage />,
   },
 ]
