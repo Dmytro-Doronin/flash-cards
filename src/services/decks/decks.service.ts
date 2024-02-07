@@ -10,7 +10,7 @@ import {
   DecksResponseType,
   DeckType,
   GetCardsArgs,
-  GetDecksArgs
+  GetDecksArgs, GetLearnDeckType
 } from "./decks.types.ts";
 
 export const decksService = baseApi.injectEndpoints({
@@ -115,7 +115,16 @@ export const decksService = baseApi.injectEndpoints({
         formData: true,
       }),
       transformErrorResponse: response => ErrorUtils(response),
-      invalidatesTags: ['Cards'],
+      invalidatesTags: ['Cards', 'Learn'],
+    }),
+    getLearnCards: builder.query<Card, { id: string; params?: GetLearnDeckType | void }>({
+      query: args => {
+        return {
+          url: `/v1/decks/${args.id}/learn`,
+          params: args.params ?? {},
+        }
+      },
+      providesTags: ['Learn'],
     }),
   }),
 })
@@ -132,4 +141,5 @@ export const {
   useEditCardMutation,
   useDeleteCardMutation,
   useChangeGradeCardMutation,
+  useGetLearnCardsQuery,
 } = decksService

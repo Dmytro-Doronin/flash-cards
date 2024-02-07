@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams } from 'react-router-dom'
 
 import SearchIcon from '../../assets/icons/SearchIcon.tsx'
 import { CardModal } from '../../components/cardsModals/cardModal/CardModal.tsx'
@@ -13,7 +13,6 @@ import { Typography } from '../../components/ui/typography'
 import { useMeQuery } from '../../services/auth/auth.service.ts'
 import {
   useAddNewCardMutation,
-  useChangeGradeCardMutation,
   useDeleteCardMutation,
   useEditCardMutation,
   useGetAllCardsQuery,
@@ -51,7 +50,7 @@ export const DeckPage = () => {
   const [addNewCard] = useAddNewCardMutation()
   const [editCard] = useEditCardMutation()
   const [deleteCard] = useDeleteCardMutation()
-  const [updateGrade] = useChangeGradeCardMutation()
+  // const [updateGrade] = useChangeGradeCardMutation()
   const currentUserId = currentUserData?.id
   const currentDeckId = currentDeck?.userId
   const showConfirmEditCard = !!editCardId
@@ -75,9 +74,9 @@ export const DeckPage = () => {
     setDeleteCardId(null)
   }
 
-  const onGradeChangeHandler = (gradeValue: number, cardId: string) => {
-    updateGrade({ id: paramsId ?? '', data: { grade: gradeValue, cardId: cardId } })
-  }
+  // const onGradeChangeHandler = (gradeValue: number, cardId: string) => {
+  //   updateGrade({ id: paramsId ?? '', data: { grade: gradeValue, cardId: cardId } })
+  // }
 
   const setSearchHandler = (value: string) => {
     dispatch(cardActions.setSearch(value))
@@ -143,7 +142,6 @@ export const DeckPage = () => {
               <CardsTable
                 onEditCard={setEditCardId}
                 onDeleteCard={setDeleteCardId}
-                onGradeChangeHandler={onGradeChangeHandler}
                 onSort={setSort}
                 currentUserId={currentUserData?.id ?? ''}
                 sort={sort}

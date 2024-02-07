@@ -48,7 +48,6 @@ export const CardsTable = ({
   sort,
   onEditCard,
   onDeleteCard,
-  paramsId,
   currentUserId,
 }: DeckType) => {
   const onEditCardHandler = (id: string) => onEditCard(id)

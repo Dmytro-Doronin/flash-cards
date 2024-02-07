@@ -78,7 +78,7 @@ export const Decks = ({
             <TableCell>{deck.author.name}</TableCell>
             <TableCell>
               <div className={c.iconWrapper}>
-                <NavLink to="/#">
+                <NavLink to={`learn/${deck.id}`}>
                   <PlayIcon />
                 </NavLink>
 

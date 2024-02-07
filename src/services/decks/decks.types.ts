@@ -85,3 +85,7 @@ export type CreateCardsType = {
   created: string
   updated: string
 }
+
+export type GetLearnDeckType = {
+  previousCardId: string
+}
