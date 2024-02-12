@@ -1,9 +1,11 @@
 import { useMemo, useState } from 'react'
 
 import SearchIcon from '../../assets/icons/SearchIcon.tsx'
+import { AlertSnackbar } from '../../components/alertSnackbar/AlertSnackbar.tsx'
 import { DeckModal } from '../../components/deckModals/addDeckModal/DeckModal.tsx'
 import { DeleteDeckModal } from '../../components/deckModals/deleteDeckModal/DeleteDeckModal.tsx'
 import { Decks } from '../../components/decks/Decks.tsx'
+import { Loader } from '../../components/loader/Loader.tsx'
 import { Button } from '../../components/ui/button'
 import { Pagination } from '../../components/ui/pagination/Pagination.tsx'
 import { SelectComponent } from '../../components/ui/select/SelectComponent.tsx'
@@ -76,7 +78,11 @@ export const DecksPage = () => {
 
   const currentUserId = CurrentUser?.id
   const authorId = currentTab === 'my' ? currentUserId : undefined
-  const { data: GetDecksData } = useGetDeckQuery({
+  const {
+    data: GetDecksData,
+    isLoading,
+    error: getDeckError,
+  } = useGetDeckQuery({
     authorId,
     minCardsCount: minCard,
     maxCardsCount: maxCard,
@@ -85,11 +91,12 @@ export const DecksPage = () => {
     name: search,
     orderBy: sort ? sortedString : undefined,
   })
+  console.log(getDeckError);
   const deckName = GetDecksData?.items?.find(item => item.id === deleteDeckId)
-  const { data: minMaxData } = useGetMaxAndMinDeckQuery()
-  const [addNewDeck] = useAddNewDeckMutation()
-  const [deleteDeck] = useDeleteDeckMutation()
-  const [editDeck] = useEditDeckMutation()
+  const { data: minMaxData, error: minMaxError } = useGetMaxAndMinDeckQuery()
+  const [addNewDeck, { error: addDeckError }] = useAddNewDeckMutation()
+  const [deleteDeck, { error: deleteDeckError }] = useDeleteDeckMutation()
+  const [editDeck, { error: editDeckError }] = useEditDeckMutation()
   const [rangeValue, setRangeValue] = useState([0, GetDecksData?.maxCardsCount])
   const openCreateModalHandler = () => setOpenCreateModal(true)
 
@@ -139,6 +146,10 @@ export const DecksPage = () => {
     }
     editDeck({ id: editDeckId, FormData: data })
     setEditDeckId(null)
+  }
+
+  if (isLoading) {
+    return <Loader variant="main" />
   }
 
   return (
@@ -244,6 +255,11 @@ export const DecksPage = () => {
           </div>
         )}
       </div>
+      {addDeckError && <AlertSnackbar variant="error" message={addDeckError} />}
+      {deleteDeckError && <AlertSnackbar variant="error" message={deleteDeckError} />}
+      {editDeckError && <AlertSnackbar variant="error" message={editDeckError} />}
+      {minMaxError && <AlertSnackbar variant="error" message={minMaxError} />}
+      {getDeckError && <AlertSnackbar variant="error" message={getDeckError} />}
     </div>
   )
 }

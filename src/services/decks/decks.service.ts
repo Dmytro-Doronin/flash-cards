@@ -22,6 +22,7 @@ export const decksService = baseApi.injectEndpoints({
           params: args ?? {},
         }
       },
+      transformErrorResponse: response => ErrorUtils(response),
       providesTags: ['Decks'],
     }),
     getDeckById: builder.query<DeckType, { id: string }>({
