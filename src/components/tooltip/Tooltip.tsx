@@ -44,12 +44,8 @@ export const Tooltip: FC<ProfileMenuType> = ({
   useOutsideClick(tooltipRef, callback, isVisible)
 
   const handleLogOut = async () => {
-    try {
-      await logout()
-      navigate(pathVariables.LOGIN)
-    } catch (e) {
-      console.log(e)
-    }
+    logout()
+    navigate(pathVariables.LOGIN)
   }
 
   return (

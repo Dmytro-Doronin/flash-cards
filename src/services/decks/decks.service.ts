@@ -10,7 +10,8 @@ import {
   DecksResponseType,
   DeckType,
   GetCardsArgs,
-  GetDecksArgs, GetLearnDeckType
+  GetDecksArgs,
+  GetLearnDeckType,
 } from "./decks.types.ts";
 
 export const decksService = baseApi.injectEndpoints({
@@ -31,6 +32,7 @@ export const decksService = baseApi.injectEndpoints({
           url: `v1/decks/${args.id}`,
         }
       },
+      transformErrorResponse: response => ErrorUtils(response),
     }),
     getMaxAndMinDeck: builder.query<{ min: number; max: number }, void>({
       query: () => {
@@ -38,6 +40,7 @@ export const decksService = baseApi.injectEndpoints({
           url: 'v2/decks/min-max-cards',
         }
       },
+      transformErrorResponse: response => ErrorUtils(response),
     }),
     addNewDeck: builder.mutation<void, FormData>({
       query: body => ({
@@ -75,6 +78,7 @@ export const decksService = baseApi.injectEndpoints({
           params: args.params ?? {},
         }
       },
+      transformErrorResponse: response => ErrorUtils(response),
       providesTags: ['Cards'],
     }),
     addNewCard: builder.mutation<CreateCardsType, { id: string; FormData: FormData }>({
@@ -125,6 +129,7 @@ export const decksService = baseApi.injectEndpoints({
           params: args.params ?? {},
         }
       },
+      transformErrorResponse: response => ErrorUtils(response),
       providesTags: ['Learn'],
     }),
   }),

@@ -13,10 +13,11 @@ export type ProfileAvatarType = {
   image?: string | null
   callback?: React.Dispatch<React.SetStateAction<boolean>>
   variant: InfoType
+  className?: string
   // updateAvatarHandler: (data: FormData) => void
 }
 
-export const ProfileAvatar: FC<ProfileAvatarType> = ({ image, callback, variant }) => {
+export const ProfileAvatar: FC<ProfileAvatarType> = ({ image, callback, variant, className }) => {
   const classes = {
     avatarWrapper: clsx(
       variant === 'profile' ? `${c.profileAvatarWrapper} ${c[variant]}` : c.profileAvatarWrapper
@@ -34,11 +35,6 @@ export const ProfileAvatar: FC<ProfileAvatarType> = ({ image, callback, variant 
       }}
     >
       <img className={c.profileAvatar} src={image ? image : AvatarNotFound} alt="avatar" />
-      {/*{variant === 'profile' && !nameChange && (*/}
-      {/*  <div className={classes.editWrapper}>*/}
-      {/*    <InputFile callback={updateAvatarHandler} />*/}
-      {/*  </div>*/}
-      {/*)}*/}
     </div>
   )
 }

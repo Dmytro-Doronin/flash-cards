@@ -3,13 +3,16 @@ import { useMemo, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 
 import SearchIcon from '../../assets/icons/SearchIcon.tsx'
+import { AlertSnackbar } from '../../components/alertSnackbar/AlertSnackbar.tsx'
 import { CardModal } from '../../components/cardsModals/cardModal/CardModal.tsx'
 import { DeleteCardModal } from '../../components/cardsModals/deleteCardModal/DeleteCardModal.tsx'
 import { CardsTable } from '../../components/cardsTable/CardsTable.tsx'
+import { Loader } from '../../components/loader/Loader.tsx'
 import { Button } from '../../components/ui/button'
 import { Pagination } from '../../components/ui/pagination/Pagination.tsx'
 import { TextField } from '../../components/ui/textField'
 import { Typography } from '../../components/ui/typography'
+import { pathVariables } from '../../route/pathVariables.ts'
 import { useMeQuery } from '../../services/auth/auth.service.ts'
 import {
   useAddNewCardMutation,
@@ -38,7 +41,11 @@ export const DeckPage = () => {
   }, [sort])
   const { data: currentUserData } = useMeQuery()
   const { currentPage, search } = useAppSelector(state => state.card)
-  const { data: cardData } = useGetAllCardsQuery({
+  const {
+    data: cardData,
+    isLoading,
+    error: getAllCardError,
+  } = useGetAllCardsQuery({
     id: paramsId ?? '',
     params: {
       currentPage,
@@ -46,7 +53,7 @@ export const DeckPage = () => {
       question: search,
     },
   })
-  const { data: currentDeck } = useGetDeckByIdQuery({ id: paramsId ?? '' })
+  const { data: currentDeck, error: getDeckById } = useGetDeckByIdQuery({ id: paramsId ?? '' })
   const [addNewCard] = useAddNewCardMutation()
   const [editCard] = useEditCardMutation()
   const [deleteCard] = useDeleteCardMutation()
@@ -82,6 +89,10 @@ export const DeckPage = () => {
     dispatch(cardActions.setSearch(value))
   }
 
+  if (isLoading) {
+    return <Loader variant="main" />
+  }
+
   return (
     <div className={c.page}>
       <div className={c.container}>
@@ -109,36 +120,46 @@ export const DeckPage = () => {
             onConfirm={onDeleteCard}
             cardName={cardName?.id ?? 'Selected card'}
           />
-          <div className={c.controlPanel}>
-            <Typography variant="h1">
-              {currentUserId === currentDeckId ? 'My Pack' : 'Friends Pack'}
-            </Typography>
-            {currentUserId === currentDeckId ? (
-              <Button onClick={openCreateModalHandler} variant="primary">
-                Add New Card
-              </Button>
-            ) : (
-              <NavLink to={`/learn/${paramsId}`}>
-                <Button variant="primary">Learn to deck</Button>
-              </NavLink>
-            )}
-          </div>
 
-          <TextField
-            onValueChange={setSearchHandler}
-            value={search}
-            Icon={SearchIcon}
-            containerProps={c.search}
-            placeholder="Input search"
-          />
           {cardData?.items.length === 0 ? (
             <div className={c.cardWrapper}>
               <Typography className={c.alert} variant="h1">
-                Con`t find any card
+                Can`t find any card
               </Typography>
+              {currentUserId === currentDeckId ? (
+                <Button onClick={openCreateModalHandler} variant="primary">
+                  Add New Card
+                </Button>
+              ) : (
+                <NavLink to={pathVariables.MAIN}>
+                  <Button variant="secondary">Back to main page</Button>
+                </NavLink>
+              )}
             </div>
           ) : (
             <>
+              <div className={c.controlPanel}>
+                <Typography variant="h1">
+                  {currentUserId === currentDeckId ? 'My Pack' : 'Friends Pack'}
+                </Typography>
+                {currentUserId === currentDeckId ? (
+                  <Button onClick={openCreateModalHandler} variant="primary">
+                    Add New Card
+                  </Button>
+                ) : (
+                  <NavLink to={`/learn/${paramsId}`}>
+                    <Button variant="primary">Learn to deck</Button>
+                  </NavLink>
+                )}
+              </div>
+              <TextField
+                onValueChange={setSearchHandler}
+                value={search}
+                Icon={SearchIcon}
+                containerProps={c.search}
+                placeholder="Input search"
+              />
+
               <CardsTable
                 onEditCard={setEditCardId}
                 onDeleteCard={setDeleteCardId}
@@ -157,6 +178,8 @@ export const DeckPage = () => {
           )}
         </div>
       </div>
+      {getAllCardError && <AlertSnackbar variant="error" message={getAllCardError} />}
+      {getDeckById && <AlertSnackbar variant="error" message={getDeckById} />}
     </div>
   )
 }

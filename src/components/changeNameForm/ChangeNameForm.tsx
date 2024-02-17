@@ -1,7 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, useForm } from 'react-hook-form'
 
-
 import { ProfileAvatar } from '../profileAvatar/ProfileAvatar.tsx'
 import { Button } from '../ui/button'
 import { TextField } from '../ui/textField'

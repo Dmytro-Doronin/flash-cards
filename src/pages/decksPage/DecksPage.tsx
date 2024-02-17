@@ -91,7 +91,7 @@ export const DecksPage = () => {
     name: search,
     orderBy: sort ? sortedString : undefined,
   })
-  console.log(getDeckError);
+
   const deckName = GetDecksData?.items?.find(item => item.id === deleteDeckId)
   const { data: minMaxData, error: minMaxError } = useGetMaxAndMinDeckQuery()
   const [addNewDeck, { error: addDeckError }] = useAddNewDeckMutation()

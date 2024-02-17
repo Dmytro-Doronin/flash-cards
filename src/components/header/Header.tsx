@@ -3,10 +3,10 @@
 import { NavLink } from 'react-router-dom'
 
 import c from '../../App.module.scss'
+import Logo from '../../assets/icons/Logo.tsx'
 import { pathVariables } from '../../route/pathVariables.ts'
 import { TooltipWrapper } from '../tooltipWrapper/TooltipWrapper.tsx'
 import { Button } from '../ui/button'
-import { Typography } from '../ui/typography'
 
 import s from './header.module.scss'
 
@@ -21,8 +21,8 @@ export const Header = ({ loggedIn, variant }: HeaderType) => {
     <header className={s.header}>
       <div className={c.container}>
         <div className={s.headerInner}>
-          <NavLink to="/">
-            <Typography variant="body1">Quizlet</Typography>
+          <NavLink className={s.logoLink} to="/">
+            <Logo />
           </NavLink>
           {loggedIn && variant === 'authenticated' ? (
             <TooltipWrapper />

@@ -23,12 +23,13 @@
 
 .alert {
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .cardWrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
-
+  align-items: center;
   min-height: 315px;
 }
