@@ -40,6 +40,7 @@ type DeckType = {
   onEditCard: (id: string) => void
   onDeleteCard: (id: string) => void
   paramsId: string
+  last?: boolean
 }
 
 export const CardsTable = ({
@@ -49,13 +50,14 @@ export const CardsTable = ({
   onEditCard,
   onDeleteCard,
   currentUserId,
+  last,
 }: DeckType) => {
   const onEditCardHandler = (id: string) => onEditCard(id)
   const onDeleteCardHandler = (id: string) => onDeleteCard(id)
 
   return (
     <Table>
-      <TableHeader onSort={onSort} sort={sort} columns={columns} />
+      <TableHeader last={last} onSort={onSort} sort={sort} columns={columns} />
       <TableBody>
         {cards?.map(card => (
           <TableRow key={card.id}>

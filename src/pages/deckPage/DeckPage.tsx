@@ -7,10 +7,10 @@ import { AlertSnackbar } from '../../components/alertSnackbar/AlertSnackbar.tsx'
 import { CardModal } from '../../components/cardsModals/cardModal/CardModal.tsx'
 import { DeleteCardModal } from '../../components/cardsModals/deleteCardModal/DeleteCardModal.tsx'
 import { CardsTable } from '../../components/cardsTable/CardsTable.tsx'
+import { DebounceTextField } from '../../components/debounceTextfield/DebounceTextField.tsx'
 import { Loader } from '../../components/loader/Loader.tsx'
 import { Button } from '../../components/ui/button'
 import { Pagination } from '../../components/ui/pagination/Pagination.tsx'
-import { TextField } from '../../components/ui/textField'
 import { Typography } from '../../components/ui/typography'
 import { pathVariables } from '../../route/pathVariables.ts'
 import { useMeQuery } from '../../services/auth/auth.service.ts'
@@ -121,6 +121,26 @@ export const DeckPage = () => {
             cardName={cardName?.id ?? 'Selected card'}
           />
 
+          <div className={c.controlPanel}>
+            <Typography variant="h1">
+              {currentUserId === currentDeckId ? 'My Pack' : 'Friends Pack'}
+            </Typography>
+            {currentUserId === currentDeckId ? (
+              <Button onClick={openCreateModalHandler} variant="primary">
+                Add New Card
+              </Button>
+            ) : (
+              <NavLink to={`/learn/${paramsId}`}>
+                <Button variant="primary">Learn to deck</Button>
+              </NavLink>
+            )}
+          </div>
+          <DebounceTextField
+            onValueChange={setSearchHandler}
+            Icon={SearchIcon}
+            containerProps={c.search}
+            placeholder="Input search"
+          />
           {cardData?.items.length === 0 ? (
             <div className={c.cardWrapper}>
               <Typography className={c.alert} variant="h1">
@@ -138,34 +158,13 @@ export const DeckPage = () => {
             </div>
           ) : (
             <>
-              <div className={c.controlPanel}>
-                <Typography variant="h1">
-                  {currentUserId === currentDeckId ? 'My Pack' : 'Friends Pack'}
-                </Typography>
-                {currentUserId === currentDeckId ? (
-                  <Button onClick={openCreateModalHandler} variant="primary">
-                    Add New Card
-                  </Button>
-                ) : (
-                  <NavLink to={`/learn/${paramsId}`}>
-                    <Button variant="primary">Learn to deck</Button>
-                  </NavLink>
-                )}
-              </div>
-              <TextField
-                onValueChange={setSearchHandler}
-                value={search}
-                Icon={SearchIcon}
-                containerProps={c.search}
-                placeholder="Input search"
-              />
-
               <CardsTable
                 onEditCard={setEditCardId}
                 onDeleteCard={setDeleteCardId}
                 onSort={setSort}
                 currentUserId={currentUserData?.id ?? ''}
                 sort={sort}
+                last
                 cards={cardData?.items}
                 paramsId={paramsId ?? ''}
               />

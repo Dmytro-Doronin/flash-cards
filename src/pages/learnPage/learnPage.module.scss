@@ -62,3 +62,14 @@
   text-align: start;
   margin-bottom: 29px;
 }
+
+.noText {
+  margin-bottom: 20px;
+}
+
+.alertWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

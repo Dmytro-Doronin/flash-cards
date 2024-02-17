@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 
 import { AnsQue } from '../../components/ansQue/ansQue.tsx'
+import { Loader } from '../../components/loader/Loader.tsx'
 import { Button } from '../../components/ui/button'
 import { Card } from '../../components/ui/card'
 import { RadioGroup } from '../../components/ui/radioGroup/RadioGroupComponent.tsx'
@@ -15,13 +16,14 @@ import {
 } from '../../services/decks/decks.service.ts'
 
 import c from './learnPage.module.scss'
+import { AlertSnackbar } from "../../components/alertSnackbar/AlertSnackbar.tsx";
 
 export const LearnPage = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [rate, setRate] = useState<string>('1')
   const { id: paramsId } = useParams()
-  const { data: learnCardData } = useGetLearnCardsQuery({ id: paramsId ?? '' })
-  const [updateGrade] = useChangeGradeCardMutation()
+  const { data: learnCardData, isLoading, error: getLearnCardsError } = useGetLearnCardsQuery({ id: paramsId ?? '' })
+  const [updateGrade, {error: changeGradeCardError}] = useChangeGradeCardMutation()
 
   const onValueChange = (value: string) => {
     setRate(value)
@@ -30,6 +32,10 @@ export const LearnPage = () => {
   const onGradeChangeHandler = () => {
     updateGrade({ id: paramsId ?? '', data: { grade: +rate, cardId: learnCardData?.id ?? '' } })
     setIsOpen(false)
+  }
+
+  if (isLoading) {
+    return <Loader variant="main" />
   }
 
   return (
@@ -86,15 +92,19 @@ export const LearnPage = () => {
               </div>
             </Card>
           ) : (
-            <>
-              <Typography variant="h2">There are no cards in the deck.</Typography>
+            <div className={c.alertWrapper}>
+              <Typography className={c.noText} variant="h2">
+                There are no cards in the deck.
+              </Typography>
               <NavLink to={pathVariables.MAIN}>
                 <Button variant="secondary">Back to main page</Button>
               </NavLink>
-            </>
+            </div>
           )}
         </div>
       </div>
+      {getLearnCardsError && <AlertSnackbar variant="error" message={getLearnCardsError} />}
+      {changeGradeCardError && <AlertSnackbar variant="error" message={changeGradeCardError} />}
     </div>
   )
 }

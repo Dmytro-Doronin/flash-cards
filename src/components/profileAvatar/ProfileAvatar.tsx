@@ -23,6 +23,7 @@ export const ProfileAvatar: FC<ProfileAvatarType> = ({ image, callback, variant,
       variant === 'profile' ? `${c.profileAvatarWrapper} ${c[variant]}` : c.profileAvatarWrapper
     ),
     editWrapper: c.editWrapper,
+    profileAvatar: clsx(c.profileAvatar, className),
   }
 
   return (
@@ -34,7 +35,7 @@ export const ProfileAvatar: FC<ProfileAvatarType> = ({ image, callback, variant,
         }
       }}
     >
-      <img className={c.profileAvatar} src={image ? image : AvatarNotFound} alt="avatar" />
+      <img className={classes.profileAvatar} src={image ? image : AvatarNotFound} alt="avatar" />
     </div>
   )
 }

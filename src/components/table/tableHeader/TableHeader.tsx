@@ -24,10 +24,11 @@ export const TableHeader: FC<
       columns: Column[]
       sort?: Sort
       onSort?: (sort: Sort) => void
+      last?: boolean
     },
     'children'
   >
-> = ({ columns, sort, onSort, ...restProps }) => {
+> = ({ columns, sort, onSort,last, ...restProps }) => {
   const handleSort = (key: string) => {
     if (!onSort) return
 
@@ -52,7 +53,7 @@ export const TableHeader: FC<
             )}
           </TableHeadCell>
         ))}
-        <TableHeadCell></TableHeadCell>
+        {!last && <TableHeadCell></TableHeadCell>}
       </TableRow>
     </TableHead>
   )

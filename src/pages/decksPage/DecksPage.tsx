@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 
 import SearchIcon from '../../assets/icons/SearchIcon.tsx'
 import { AlertSnackbar } from '../../components/alertSnackbar/AlertSnackbar.tsx'
+import { DebounceTextField } from '../../components/debounceTextfield/DebounceTextField.tsx'
 import { DeckModal } from '../../components/deckModals/addDeckModal/DeckModal.tsx'
 import { DeleteDeckModal } from '../../components/deckModals/deleteDeckModal/DeleteDeckModal.tsx'
 import { Decks } from '../../components/decks/Decks.tsx'
@@ -11,7 +12,6 @@ import { Pagination } from '../../components/ui/pagination/Pagination.tsx'
 import { SelectComponent } from '../../components/ui/select/SelectComponent.tsx'
 import SliderRange from '../../components/ui/slider/SliderRange.tsx'
 import { TabSwitcher } from '../../components/ui/tabs/TabSwitcher.tsx'
-import { TextField } from '../../components/ui/textField'
 import { Typography } from '../../components/ui/typography'
 import { useMeQuery } from '../../services/auth/auth.service.ts'
 import {
@@ -116,7 +116,7 @@ export const DecksPage = () => {
   }
 
   const setSearchHandler = (search: string) => {
-    dispatch(deckActions.resetCurrentPage())
+    // dispatch(deckActions.resetCurrentPage())
     dispatch(deckActions.setSearch(search))
   }
 
@@ -185,9 +185,9 @@ export const DecksPage = () => {
               </Button>
             </div>
             <div className={c.control}>
-              <TextField
+              <DebounceTextField
                 onValueChange={setSearchHandler}
-                value={search}
+                // value={search}
                 Icon={SearchIcon}
                 containerProps={c.search}
                 placeholder="Input search"
