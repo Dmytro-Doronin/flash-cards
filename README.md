@@ -1,8 +1,7 @@
 # Description
 
 This is a tutorial project - Learning by Cards. You can learn, for example, foreign languages or questions and answers on the topic of your programming language using the cards of other users. You can also create your own cards and decks.
-
-![Alt Text](./src/assets/images/quiz.png)
+**[Live demo]([URL](https://flash-cards-ruby-two.vercel.app/))**
 
 # About the project.
 What is implemented here?
