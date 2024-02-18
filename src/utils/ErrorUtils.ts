@@ -1,22 +1,4 @@
-// import { SerializedError } from '@reduxjs/toolkit'
-// import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
-
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
-
-// type ResponseError = {
-//   status: number
-//   data: {
-//     statusCode: number
-//     message: string
-//     timestamp: string
-//     path: string
-//   }
-// }
-//
-// type ResponseFetchError = {
-//   status: string
-//   error: string
-// }
 
 export type ReturnedErrorType = {
   status: 'FETCH_ERROR' | number

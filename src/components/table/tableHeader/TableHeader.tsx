@@ -28,7 +28,7 @@ export const TableHeader: FC<
     },
     'children'
   >
-> = ({ columns, sort, onSort,last, ...restProps }) => {
+> = ({ columns, sort, onSort, last, ...restProps }) => {
   const handleSort = (key: string) => {
     if (!onSort) return
 

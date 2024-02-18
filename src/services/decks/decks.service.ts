@@ -12,7 +12,7 @@ import {
   GetCardsArgs,
   GetDecksArgs,
   GetLearnDeckType,
-} from "./decks.types.ts";
+} from './decks.types.ts'
 
 export const decksService = baseApi.injectEndpoints({
   endpoints: builder => ({

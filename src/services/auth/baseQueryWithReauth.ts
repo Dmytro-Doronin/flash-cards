@@ -2,7 +2,6 @@ import { fetchBaseQuery } from '@reduxjs/toolkit/query'
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { Mutex } from 'async-mutex'
 
-
 // create a new mutex
 const mutex = new Mutex()
 const baseQuery = fetchBaseQuery({

@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import { NavLink, useParams } from 'react-router-dom'
 
+import { AlertSnackbar } from '../../components/alertSnackbar/AlertSnackbar.tsx'
 import { AnsQue } from '../../components/ansQue/ansQue.tsx'
 import { Loader } from '../../components/loader/Loader.tsx'
 import { Button } from '../../components/ui/button'
@@ -16,14 +17,17 @@ import {
 } from '../../services/decks/decks.service.ts'
 
 import c from './learnPage.module.scss'
-import { AlertSnackbar } from "../../components/alertSnackbar/AlertSnackbar.tsx";
 
 export const LearnPage = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [rate, setRate] = useState<string>('1')
   const { id: paramsId } = useParams()
-  const { data: learnCardData, isLoading, error: getLearnCardsError } = useGetLearnCardsQuery({ id: paramsId ?? '' })
-  const [updateGrade, {error: changeGradeCardError}] = useChangeGradeCardMutation()
+  const {
+    data: learnCardData,
+    isLoading,
+    error: getLearnCardsError,
+  } = useGetLearnCardsQuery({ id: paramsId ?? '' })
+  const [updateGrade, { error: changeGradeCardError }] = useChangeGradeCardMutation()
 
   const onValueChange = (value: string) => {
     setRate(value)

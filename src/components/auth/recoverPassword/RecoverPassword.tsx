@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-
 import { NavLink } from 'react-router-dom'
+
 import { pathVariables } from '../../../route/pathVariables.ts'
 import { RecoverPasswordType } from '../../../services/auth/auth.types.ts'
 import { Loader } from '../../loader/Loader.tsx'

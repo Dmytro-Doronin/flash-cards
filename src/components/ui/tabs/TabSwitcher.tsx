@@ -42,4 +42,3 @@ export const TabSwitcher: FC<TabSwitcherPropsType> = ({ tabs, label, value, onVa
     </div>
   )
 }
-

@@ -6,9 +6,8 @@ import TrashIcon from '../../assets/icons/Trash.tsx'
 import { Sort } from '../../pages/decksPage/DecksPage.tsx'
 import { DeckType } from '../../services/decks/decks.types.ts'
 import { formatDate } from '../../utils/FormatDateUtils.ts'
+// eslint-disable-next-line import/order
 import { Table, TableBody, TableCell, TableRow, TableHeader } from '../table'
-
-// import { Button } from '../ui/button'
 
 import { Button } from '../ui/button'
 

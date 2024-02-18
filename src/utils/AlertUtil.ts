@@ -1,7 +1,6 @@
 type AlertUtilType = 'avatar' | 'registration'
 
-
-export const alertUtil = ( variant : AlertUtilType) => {
+export const alertUtil = (variant: AlertUtilType) => {
   switch (variant) {
     case 'avatar':
       return { status: 200, message: 'Avatar was added' }

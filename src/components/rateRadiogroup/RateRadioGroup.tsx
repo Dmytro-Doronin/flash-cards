@@ -36,12 +36,7 @@ type RateRadioGroupType = {
 }
 
 export const RateRadioGroup = ({ onConfirm }: RateRadioGroupType) => {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<FormValues>({
+  const { control, handleSubmit } = useForm<FormValues>({
     resolver: zodResolver(rateSchema),
   })
 

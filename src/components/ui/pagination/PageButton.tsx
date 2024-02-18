@@ -2,7 +2,6 @@ import { FC } from 'react'
 
 import { NavigationButtonProps, classNames } from './Pagination.tsx'
 
-
 export type PageButtonProps = NavigationButtonProps & {
   page: number
   selected: boolean

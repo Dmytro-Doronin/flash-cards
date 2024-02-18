@@ -39,7 +39,6 @@ export const ProfileInfo: FC<ProfileInfoType> = ({
     textField: clsx(c.textField),
   }
 
-
   return (
     <div className={classes.infoBlock}>
       <div className={classes.textBlock}>

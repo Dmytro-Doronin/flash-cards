@@ -11,10 +11,10 @@ import c from './pageNotFound404.module.scss'
 
 export const PageNotFound404 = () => {
   const { isError } = useMeQuery()
-  
+
   return (
     <div className={c.page404}>
-      <Header loggedIn={!isError} />
+      <Header variant="authenticated" loggedIn={!isError} />
       <div className={c.contentWrapper}>
         <img className={c.img404} src={Error404img} alt="404" />
         <Typography className={c.typographyAlert} variant={'body1'}>

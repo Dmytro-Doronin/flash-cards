@@ -9,11 +9,5 @@ type StarItemType = {
 }
 
 export const StarItem = ({ parentValue, value }: StarItemType) => {
-
-
-  return (
-    <div className={c.starItem}>
-      {value <= parentValue ? <FullStar /> : <EmptyStar />}
-    </div>
-  )
+  return <div className={c.starItem}>{value <= parentValue ? <FullStar /> : <EmptyStar />}</div>
 }

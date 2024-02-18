@@ -42,7 +42,7 @@ export const ChangeNameForm = ({
       formDada.append('name', data.name)
       await updateNameHandler(formDada)
     } catch (e) {
-      console.log(e)
+      throw new Error('Something went wrong')
     } finally {
       closeNameChangeHandler()
     }
@@ -58,7 +58,7 @@ export const ChangeNameForm = ({
         render={({ field }) => (
           <TextField
             errorMessage={errors.name?.message}
-            label={'Nickmame'}
+            label={'Nickname'}
             type={'text'}
             {...field}
           />
