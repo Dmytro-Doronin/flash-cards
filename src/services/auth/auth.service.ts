@@ -18,6 +18,7 @@ export const authService = baseApi.injectEndpoints({
         method: 'POST',
         url: '/v1/auth/sign-up',
       }),
+      transformErrorResponse: response => ErrorUtils(response),
     }),
     login: builder.mutation<DataFromLoginType, LoginType>({
       invalidatesTags: ['me'],
@@ -46,6 +47,7 @@ export const authService = baseApi.injectEndpoints({
         method: 'POST',
         url: '/v1/auth/recover-password',
       }),
+      transformErrorResponse: response => ErrorUtils(response),
     }),
     newPassword: builder.mutation<void, NewPasswordType>({
       query: body => ({
@@ -53,6 +55,7 @@ export const authService = baseApi.injectEndpoints({
         method: 'POST',
         url: `/v1/auth/reset-password/${body.hash}`,
       }),
+      transformErrorResponse: response => ErrorUtils(response),
     }),
   }),
 })

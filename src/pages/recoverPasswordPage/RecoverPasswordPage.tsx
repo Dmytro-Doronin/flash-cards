@@ -11,13 +11,9 @@ export const RecoverPasswordPage = () => {
   const [recoverPassword, { isLoading }] = useRecoverPasswordMutation()
   const [checkEmail, setCheckEmail] = useState(false)
 
-  const recoverPasswordHandler = async (data: RecoverPasswordType) => {
-    try {
-      await recoverPassword(data)
-      setCheckEmail(true)
-    } catch (e) {
-      console.log(e)
-    }
+  const recoverPasswordHandler = (data: RecoverPasswordType) => {
+    recoverPassword(data)
+    setCheckEmail(true)
   }
 
   return (

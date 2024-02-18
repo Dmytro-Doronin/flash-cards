@@ -23,6 +23,7 @@ export const AlertSnackbar = ({ variant, message }: ErrorSnackbarType) => {
 
   useEffect(() => {
     setIsOpen(message && true)
+    dispatch(appActions.setMessage({ message: message })) //new
     const timeout = setTimeout(() => {
       setIsOpen(false)
       dispatch(appActions.setMessage({ message: '' }))
