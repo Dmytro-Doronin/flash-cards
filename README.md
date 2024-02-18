@@ -16,5 +16,5 @@ You can also register and test this project.
 # Technologies.
 React, Redux, RTK-Query, SCSS, TS.
 # Project setup.
-  pnpm install
-  pnpm run dev
+- pnpm install
+- pnpm run dev
