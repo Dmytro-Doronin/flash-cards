@@ -12,7 +12,6 @@ import { Loader } from '../../components/loader/Loader.tsx'
 import { Button } from '../../components/ui/button'
 import { Pagination } from '../../components/ui/pagination/Pagination.tsx'
 import { Typography } from '../../components/ui/typography'
-import { pathVariables } from '../../route/pathVariables.ts'
 import { useMeQuery } from '../../services/auth/auth.service.ts'
 import {
   useAddNewCardMutation,
@@ -130,34 +129,32 @@ export const DeckPage = () => {
                 Add New Card
               </Button>
             ) : (
-              <NavLink to={`/learn/${paramsId}`}>
-                <Button variant="primary">Learn to deck</Button>
-              </NavLink>
+              cardData?.items.length !== 0 && (
+                <NavLink to={`/learn/${paramsId}`}>
+                  <Button variant="primary">Learn to deck</Button>
+                </NavLink>
+              )
             )}
           </div>
-          <DebounceTextField
-            onValueChange={setSearchHandler}
-            Icon={SearchIcon}
-            containerProps={c.search}
-            placeholder="Input search"
-          />
           {cardData?.items.length === 0 ? (
             <div className={c.cardWrapper}>
               <Typography className={c.alert} variant="h1">
                 Can`t find any card
               </Typography>
-              {currentUserId === currentDeckId ? (
-                <Button onClick={openCreateModalHandler} variant="primary">
-                  Add New Card
-                </Button>
-              ) : (
-                <NavLink to={pathVariables.MAIN}>
-                  <Button variant="secondary">Back to main page</Button>
+              {currentUserId === currentDeckId && cardData?.items.length !== 0 && (
+                <NavLink to={`/learn/${paramsId}`}>
+                  <Button variant="primary">Learn to deck</Button>
                 </NavLink>
               )}
             </div>
           ) : (
             <>
+              <DebounceTextField
+                onValueChange={setSearchHandler}
+                Icon={SearchIcon}
+                containerProps={c.search}
+                placeholder="Input search"
+              />
               <CardsTable
                 onEditCard={setEditCardId}
                 onDeleteCard={setDeleteCardId}
