@@ -1,3 +1,5 @@
+@use '../../styles/helpers' as *;
+
 .page {
   margin-top: 80px;
 }
@@ -19,6 +21,10 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 7px;
+
+  @include tablet {
+    margin-bottom: 20px;
+  }
 }
 
 .headerBlock {
@@ -31,6 +37,12 @@
   justify-content: space-between;
   align-items: end;
   margin-bottom: 24px;
+
+  @include tablet {
+    flex-direction: column;
+    align-items: start;
+    row-gap: rem(20);
+  }
 }
 .search {
   display: flex;
@@ -40,10 +52,14 @@
   margin-bottom: 0;
 }
 
-
-
 .paginationWrapper {
   display: flex;
+
+  @include tablet {
+    flex-direction: column;
+    align-items: start;
+    row-gap: rem(20);
+  }
 }
 
 .selectWrapper {

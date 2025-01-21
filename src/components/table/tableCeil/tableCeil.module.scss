@@ -1,6 +1,15 @@
+@use '../../../styles/helpers' as *;
+
 .tableCell {
   padding: 6px 0 6px 24px;
   border-top: 1px solid var(--color-dark-500);
   word-wrap: break-word;
 
+  @include mobile-s {
+    //padding: 0;
+    padding: 6px 0 6px 15px;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    white-space: normal;
+  }
 }
