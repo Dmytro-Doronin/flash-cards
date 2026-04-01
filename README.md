@@ -1,21 +1,21 @@
-# 🧠 Flash Cards App (React + RTK Query)
+# Flash Cards App (React + RTK Query)
 
 **Flash Cards** is a learning platform where users can study using flash cards.  
 You can create decks of cards to learn topics such as foreign languages, programming questions, or anything else — either using your own cards or cards from other users.
 
 ---
 
-### 🔗 Live Demo
+### Live Demo
 
 Check out the deployed version:  
-👉 [**Flash Cards — Live Site**](https://flash-cards-ruby-two.vercel.app)
+[**Flash Cards — Live Site**](https://flash-cards-ruby-two.vercel.app)
 
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
-### 📋 Login
+### Login
 ![Admin Panel](./screenshots/login.png)
 
 ### 🖥️ Homepage
@@ -23,7 +23,7 @@ Check out the deployed version:
 
 ---
 
-## 📦 Features
+## Features
 
 - ✅ Registration, login, and password recovery
 - ✅ View, search, and sort decks
@@ -37,7 +37,7 @@ Check out the deployed version:
 
 ---
 
-## 🚀 Technologies Used
+## Technologies Used
 
 - **React**
 - **Redux Toolkit & RTK Query**
@@ -49,7 +49,7 @@ Check out the deployed version:
 
 ---
 
-## 🧑‍💻 Getting Started
+## Getting Started
 
 ### 1. Clone the repository
 
